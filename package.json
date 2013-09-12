@@ -1,0 +1,21 @@
+{
+  "name": "panda",
+  "version": "0.0.1",
+  "description": "Code Review tool",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/danysantiago/panda.git"
+  },
+  "author": "Team Aguacate",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/danysantiago/panda/issues"
+  },
+  "dependencies": {
+    "express": "~3.4.0"
+  }
+}
