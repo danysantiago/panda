@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
   <body>
 
-  <center>
-    <h2>Java Submit Form</h2>
+    <div class="container">
+      <h2>Java Submit Form</h2>
 
-    <form name="input" action="jsubmit" enctype="multipart/form-data" method="post">
-      <p>Upload a '.java' file</p>
-      <input type="file" name="jfile"><br><br>
-      <input type="submit" value="Upload">
-    </form>
+      <form role="form" name="input" action="jsubmit" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <p>Upload a java source file.</p>
+          <input type="file" name="jfile">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
 
-  </center>
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
   </body>
 </html>
