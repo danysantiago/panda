@@ -2,6 +2,9 @@ var config = require("./lib/config.js"),
     express = require("express"),
     app = express(),
     dbClient = require("mongodb");
+    bunyan = require('bunyan');
+
+var log = bunyan.createLogger({'name': 'panda'});
 
 var exec = require('child_process').exec;
 
@@ -9,23 +12,36 @@ app.configure(function() {
   app.set("name", config.appName);
 });
 
-/* Request Logger */
-app.use(function (req, res, next) {
-  console.log("%s %s", req.method, req.url);
+// Request Logger
+app.use( function (req, res, next) {
+  log.info("%s %s", req.method, req.url);
+  req.log = log;
   next();
 });
 
-app.use(express.static(__dirname + "/public"));
+// Compress
+app.use(express.compress({
+  filter: function (req, res) {
+      return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
+  },
+  level: 9
+}));
 
-app.use(express.bodyParser({'uploadDir': __dirname + '/tmp'}));
+// Static files
+app.use(express.favicon());
+app.use(express.static(config.root + '/public'));
 
+// Body Parser (JSON & Multi-part)
+app.use(express.bodyParser({'uploadDir': config.root + '/tmp'}));
+
+// Routes
 app.post("/jsubmit", function (req, res) {
-  console.log(req.files.jfile);
+  req.log.info({'uploadedFile': req.files.jfile});
   var fileName = req.files.jfile.originalFilename;
   var className = fileName.substring(0, fileName.length-5);
   var filePath = req.files.jfile.path;
   var cmd = 'javac ' + '-d "' + __dirname + '/tmp" ' + filePath;
-  console.log(cmd);
+  req.log.info(cmd);
   var javac = exec(cmd, function (err, stdout, stderr) {
     if(err) {
       res.send(stderr);
@@ -42,9 +58,15 @@ app.post("/jsubmit", function (req, res) {
   });
 });
 
+// Error Handler
 app.use(function (err, req, res, next){
   console.error(err.stack);
-  res.send(500, 'Something broke!');
+  res.send(500, '500 - Something broke!');
+});
+
+// Not Found
+app.use(function (req, res, next){
+  res.send(404, '404 - What your looking for is in "El Gara"');
 });
 
 dbClient.connect(config.dbAddress, function (err, db) {
@@ -52,8 +74,8 @@ dbClient.connect(config.dbAddress, function (err, db) {
     return console.error("Could not connect to mongodb", err);
   }
 
-  console.log("Database connection successful");
+  log.info("Database connection successful");
 
   app.listen(config.appPort);
-  console.log("App started, listening at port %s", config.appPort);
+  log.info("App started, listening at port %s", config.appPort);
 });
