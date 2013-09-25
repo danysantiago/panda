@@ -11,9 +11,20 @@
     <div id="navbar-container"></div>
 
     <div class="container">
-      <div class="jumbotron">
-          <h1>Pandas are constructing this site...</h1>
-          <img src="http://fc08.deviantart.net/fs71/i/2010/173/9/0/Tare_Panda_Construction_Worker_by_Zlu5hy.jpg" height="500" width="500">
+      <div class="row">
+        <div class="col-md-3">
+          <div style="" class="bs-sidebar hidden-print affix-top" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li class=""><a href="#course1">Course 1</a></li>
+              <li class=""><a href="#course2">Course 2</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div>
+            <h3>Course 1</h3>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -22,7 +33,9 @@
 
     <script type="text/javascript">
       $(document).ready(function() {
-        $('#navbar-container').load('/navbar.html');
+        $('#navbar-container').load('/navbar.html', function() {
+          $('#bar-home').addClass('active');
+        });
       });
     </script>
 
