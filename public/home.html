@@ -13,19 +13,160 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <div style="" class="bs-sidebar hidden-print affix-top" role="complementary">
-            <ul class="nav bs-sidenav">
-              <li class=""><a href="#course1">Course 1</a></li>
-              <li class=""><a href="#course2">Course 2</a></li>
-            </ul>
-          </div>
+          <ul id="myAffix" class="list-group sidebar">
+            <li class="list-group-item">
+              <a href="#course1">Course 1</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#course2">Course 2</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#course3">Course 3</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#course4">Course 4</a>
+            </li>
+          </ul>
         </div>
         <div class="col-md-9">
-          <div>
-            <h3>Course 1</h3>
+          <div id="course1" class="container well">
+            <h3>
+              <a href="course.html">Course Title 1</a>
+            </h3>
+            <h5>
+              Course #1 - Semester - Year
+            </h5>
+            <br>
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    Pending Assignments
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment 1
+                  </td>
+                  <td>
+                    Due: October 26, 2013
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment 2
+                  </td>
+                  <td>
+                    Due: October 28, 2013
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3>Course 2</h3>
+          <hr>
+          <div id="course2" class="container well">
+            <h3>
+              <a href="course.html">Course Title 2</a>
+            </h3>
+            <h5>
+              Course #2 - Semester - Year
+            </h5>
+            <br>
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    Pending Assignments
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment Course 2 #1
+                  </td>
+                  <td>
+                    Due: October 29, 2013
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment Course 2 #2
+                  </td>
+                  <td>
+                    Due: October 30, 2013
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <div id="course3" class="container well">
+            <h3>
+              <a href="course.html">Course Title 3</a>
+            </h3>
+            <h5>
+              Course #3 - Semester - Year
+            </h5>
+            <br>
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    Pending Assignments
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment Course 3 #1
+                  </td>
+                  <td>
+                    Due: November 4, 2013
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment Course 3 #2
+                  </td>
+                  <td>
+                    Due: November 15, 2013
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <div id="course4" class="container well">
+            <h3>
+              <a href="course.html">Course Title 4</a>
+            </h3>
+            <h5>
+              Course #4 - Semester - Year
+            </h5>
+            <br>
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    Pending Assignments
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment Course 4 #1
+                  </td>
+                  <td>
+                    Due: November 4, 2013
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Assignment Course 4 #2
+                  </td>
+                  <td>
+                    Due: November 15, 2013
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -39,6 +180,15 @@
         $('#navbar-container').load('/navbar.html', function() {
           $('#bar-home').addClass('active');
         });
+
+        $('#myAffix').affix({
+          offset: {
+            top: 20
+          , bottom: function () {
+              return (this.bottom = $('.bs-footer').outerHeight(true))
+            }
+          }
+        })
       });
     </script>
 
