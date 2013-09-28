@@ -1,0 +1,13 @@
+.carousel-inner {
+  height: 500px;  
+}
+
+.carousel-inner>.item>img {
+  max-height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centered {
+  text-align: center;
+}
