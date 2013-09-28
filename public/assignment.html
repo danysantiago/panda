@@ -63,7 +63,7 @@
                   These are some lengthy instructions that the professor added so that the
                   students know what they have to do.&nbsp;
                 </p>
-                <p>
+                <p align="justify">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam nisl,
                   scelerisque eget bibendum at, consectetur vitae justo. Quisque quis nulla
                   nisl. Donec at leo vitae justo fermentum suscipit eu sit amet quam. Aenean
@@ -72,7 +72,7 @@
                   metus eu nibh ultricies viverra. Phasellus tristique pharetra tortor, vel
                   rhoncus metus lobortis sit amet. Donec rhoncus feugiat tellus sed tincidunt.
                 </p>
-                <p>
+                <p align="justify">
                   Phasellus dapibus libero tempus, ornare sem et, elementum leo. Ut eget
                   nibh accumsan, malesuada arcu sit amet, aliquet sem. Fusce malesuada lectus
                   sed volutpat interdum. Mauris commodo nulla et metus dictum rhoncus. Donec
@@ -467,7 +467,7 @@
           <div id="repo" style="display: none;">
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 centered-div">
           <h4>
             Due Date
           </h4>
@@ -488,6 +488,30 @@
           <h5>
             October 24, 2013 | Success
           </h5>
+          <hr>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" href="#submit-modal">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="submit-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Submit Assignment</h4>
+          </div>
+          <div class="modal-body">
+            <p>Submitting commit:</p>
+            <p>6deadbeef666 | 09/25/13 14:30
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
+            <button type="button" class="btn btn-default">View Source Code</button>
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
         </div>
       </div>
     </div>
