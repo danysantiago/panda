@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <title>Panda Code Review</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/account.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li id="profile-tab" class="active">
+          <a id="profile-link" href="#">Profile</a>
+        </li>
+        <li id="security-tab">
+          <a id="security-link" href="#">Security</a>
+        </li>
+      </ul>
+      <div id="profile" style="display:block">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Samuel Rodriguez | samuel.rodriguez@upr.edu</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="http://parentpreviews.com/legacy-pics/fantastic_mr_fox.jpg"
+            class="profileImage">
+          </div>
+          <div class="col-md-8">
+            <p align="justify">
+              This is an extremely lengthy bio. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Integer posuere vehicula nulla, feugiat rhoncus velit
+              ullamcorper eu. Quisque euismod, dolor quis vehicula sollicitudin, odio
+              mauris venenatis orci, in convallis mi tellus eu nibh. Cras semper metus
+              arcu. Aliquam sodales scelerisque mi, at rhoncus justo vestibulum a. In
+              varius adipiscing ante ut tempor. Vestibulum vel faucibus libero, nec consectetur
+              dui. Pellentesque dapibus eleifend sodales.
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="http://blog.nicoversity.com/wp-content/images/network_badge_github@2x.png"
+            class="badgeImage">
+          </div>
+          <div class="col-md-4">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
+            class="badgeImage">
+          </div>
+          <div class="col-md-4">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg"
+            class="badgeImage">
+          </div>
+        </div>
+        <!-- end profile -->
+      </div>
+      <div id="security" style="display:none">
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div>
+        <!-- end security -->
+      </div>
+      <!-- end container -->
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js">
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#navbar-container').load('/navbar.html');
+      });
+    </script>
+    
+  </body>
+
+</html>

@@ -1,0 +1,12 @@
+.profileImage {
+  max-width: 100%;
+}
+
+.badgeImage {
+  width: 150px;
+  margin-left: 100px;
+}
+
+body {
+  padding-top: 50px;
+}
