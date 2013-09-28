@@ -11,6 +11,9 @@
   <body>
     <div id="navbar-container"></div>
     <div class="container">
+
+      <h2>Samuel Rodriguez | samuel.rodriguez@upr.edu</h2>
+
       <ul class="nav nav-tabs">
         <li id="profile-tab" class="active">
           <a id="profile-link" href="#">Profile</a>
@@ -19,12 +22,10 @@
           <a id="security-link" href="#">Security</a>
         </li>
       </ul>
+
+      <br>
+
       <div id="profile" style="display:block">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Samuel Rodriguez | samuel.rodriguez@upr.edu</h2>
-          </div>
-        </div>
         <div class="row">
           <div class="col-md-4">
             <img src="http://parentpreviews.com/legacy-pics/fantastic_mr_fox.jpg"
@@ -45,23 +46,62 @@
         <hr>
         <div class="row">
           <div class="col-md-4">
-            <img src="http://blog.nicoversity.com/wp-content/images/network_badge_github@2x.png"
-            class="badgeImage">
+            <a href="http://www.github.com">
+              <img src="http://blog.nicoversity.com/wp-content/images/network_badge_github@2x.png"
+              class="badgeImage">
+            </a>
           </div>
           <div class="col-md-4">
-            <img src="http://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
-            class="badgeImage">
+            <a href="http://www.linkedin.com">
+              <img src="http://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
+              class="badgeImage">
+            </a>
           </div>
           <div class="col-md-4">
-            <img src="http://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg"
-            class="badgeImage">
+            <a href="http://www.facebook.com">
+              <img src="http://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg"
+              class="badgeImage">
+            </a>
           </div>
         </div>
         <!-- end profile -->
       </div>
       <div id="security" style="display:none">
         <div class="row">
+          <div class="col-md-4">
+            <form>
+              <h3>Change Password</h3>
+              <div class="form-group">
+                <label for="newPassword1">
+                  New Password
+                </label>
+                <input type="password" class="form-control" id="passwordInput1" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label for="newPassword2">
+                  Retype Password
+                </label>
+                <input type="password" class="form-control" id="passwordInput2" placeholder="Retype Password">
+              </div>
+              <button type="submit" class="btn btn-primary">Change</Button>
+            </form>
+          </div>
+          <div class="col-md-4"></div>
+          <div class="col-md-4"></div>
+        </div>
+        <hr>
+        <div class="row">
           <div class="col-md-12">
+            <h3>SSH Keys</h3>
+            <ul>
+              <li>
+                <h4>MyPc-Key</h4>
+                <div class="well">
+                  <p class="p-ssh">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEArkwv9X8eTVK4F7pMlSt45pWoiakFkZMwG9BjydOJPGH0RFNAy1QqIWBGWv7vS5K2tr+EEO+F8WL2Y/jK4ZkUoQgoi+n7DWQVOHsRijcS3LvtO+50Np4yjXYWJKh29JL6GHcp8o7+YKEyVUMB2CSDOP99eF9g5Q0d+1U2WVdBWQM= samus@sodium
+                  </p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
         <!-- end security -->
@@ -74,8 +114,29 @@
     </script>
 
     <script type="text/javascript">
+
+      function tabClick(tabName) {
+        var tabs = ['profile', 'security'];
+        for (var i = 0; i < tabs.length; i++) {
+          var name = tabs[i];
+          if(name === tabName) {
+            $('#' + name).show(500);
+            $('#' + name + '-tab').addClass('active');
+          } else {
+            $('#' + name).hide();
+            $('#' + name + '-tab').removeClass('active');
+          }
+        }
+      }
+
+
       $(document).ready(function() {
-        $('#navbar-container').load('/navbar.html');
+        $('#navbar-container').load('/navbar.html', function() {
+          $('#bar-account').addClass('active');
+        });
+
+        $('#profile-link').click(function() { tabClick('profile'); return false;});
+        $('#security-link').click(function() { tabClick('security'); return false;});
       });
     </script>
     

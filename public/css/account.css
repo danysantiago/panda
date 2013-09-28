@@ -10,3 +10,7 @@
 body {
   padding-top: 50px;
 }
+
+.p-ssh {
+  word-wrap: break-word;
+}
