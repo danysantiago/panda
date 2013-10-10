@@ -19,7 +19,7 @@ app.use( function (req, res, next) {
   next();
 });
 
-// Compress
+// Compress static files
 app.use(express.compress({
   filter: function (req, res) {
       return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
@@ -31,11 +31,14 @@ app.use(express.compress({
 app.use(express.favicon());
 app.use(express.static(config.root + '/public'));
 
-// Body Parser (JSON & Multi-part)
-app.use(express.bodyParser({'uploadDir': config.root + '/tmp'}));
-
 // Routes
-app.post("/jsubmit", function (req, res) {
+app.use("/api", require("./lib/routes/users.js"));
+app.use("/api", require("./lib/routes/courses.js"));
+app.use("/api", require("./lib/routes/assignments.js"));
+app.use("/api", require("./lib/routes/submissions.js"));
+
+
+app.post("/jsubmit", express.bodyParser({'uploadDir': config.root + '/tmp'}), function (req, res) {
   req.log.info({'uploadedFile': req.files.jfile});
   var fileName = req.files.jfile.originalFilename;
   var className = fileName.substring(0, fileName.length-5);
@@ -60,7 +63,7 @@ app.post("/jsubmit", function (req, res) {
 
 // Error Handler
 app.use(function (err, req, res, next){
-  console.error(err.stack);
+  log.error(err.stack);
   res.send(500, '500 - Something broke!');
 });
 
@@ -71,7 +74,7 @@ app.use(function (req, res, next){
 
 dbClient.connect(config.dbAddress, function (err, db) {
   if(err) {
-    return console.error("Could not connect to mongodb", err);
+    return log.error("Could not connect to mongodb", err);
   }
 
   log.info("Database connection successful");
