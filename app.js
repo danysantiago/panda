@@ -6,8 +6,6 @@ var config = require("./lib/config.js"),
 
 var log = bunyan.createLogger({'name': 'panda'});
 
-var exec = require('child_process').exec;
-
 app.configure(function() {
   app.set("name", config.appName);
 });
@@ -37,29 +35,8 @@ app.use("/api", require("./lib/routes/courses.js"));
 app.use("/api", require("./lib/routes/assignments.js"));
 app.use("/api", require("./lib/routes/submissions.js"));
 
-
-app.post("/jsubmit", express.bodyParser({'uploadDir': config.root + '/tmp'}), function (req, res) {
-  req.log.info({'uploadedFile': req.files.jfile});
-  var fileName = req.files.jfile.originalFilename;
-  var className = fileName.substring(0, fileName.length-5);
-  var filePath = req.files.jfile.path;
-  var cmd = 'javac ' + '-d "' + __dirname + '/tmp" ' + filePath;
-  req.log.info(cmd);
-  var javac = exec(cmd, function (err, stdout, stderr) {
-    if(err) {
-      res.send(stderr);
-    } else {
-      var runJava = exec('cd ' + __dirname + '/tmp; java ' + className,
-        function (err, stdout, stderr) {
-          if(err) {
-            res.send(stderr);
-          } else {
-            res.send(stdout);
-          }
-        });
-    }
-  });
-});
+//Test routes
+app.use("/test", require("./test.js"));
 
 // Error Handler
 app.use(function (err, req, res, next){
