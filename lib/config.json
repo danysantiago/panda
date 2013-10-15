@@ -4,7 +4,8 @@
             "dbAddress": "mongodb://127.0.0.1",
             "localAddress": "localhost",
             "appPort": 80,
-            "appProtocol": "http"
+            "appProtocol": "http",
+            "debugLvl": "debug"
     },
 
     "production": {
@@ -12,6 +13,7 @@
             "dbAddress": "mongodb://127.0.0.1",
             "localAddress": "localhost",
             "appPort": 80,
-            "appProtocol": "http"
+            "appProtocol": "http",
+            "debugLvl": "info"
     }
 }

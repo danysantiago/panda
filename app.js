@@ -4,10 +4,13 @@ var config = require("./lib/config.js"),
     dbClient = require("mongodb");
     bunyan = require('bunyan');
 
-var log = bunyan.createLogger({'name': 'panda'});
+var log = bunyan.createLogger({'name': 'panda', 'level': config.debugLvl});
 
 app.configure(function() {
   app.set("name", config.appName);
+
+  //Use temp folder cleaner
+  require("./lib/tmpClean.js")(__dirname + "/tmp", log);
 });
 
 // Request Logger

@@ -32,9 +32,16 @@ test.post('/jsubmit', express.bodyParser({'uploadDir': config.root + '/tmp'}), f
 
   async.waterfall([
     function (callback) {
+      var compileStart = Date.now();
+
       var cmd = 'javac ' + '-d "' + __dirname + '/jail" ' + filePath;
       var javaC = exec(cmd, function (err, stdout, stderr) {
         log.info(stdout);
+
+        var compileTime = Date.now() - compileStart;
+
+        log.info("Compile time: %sms", compileTime);
+
         callback(stderr);
       });
     },
@@ -76,10 +83,7 @@ test.post('/jsubmit', express.bodyParser({'uploadDir': config.root + '/tmp'}), f
       return;
     }
 
-    log.info('DONE');
-    log.info('safeexec:');
     log.info(safeExecBuff);
-    log.info('javaOut:');
     log.info(javaOutBuff);
 
     res.send(safeExecBuff);
