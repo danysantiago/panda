@@ -1,21 +1,21 @@
-var config = require("./lib/config.js"),
-    express = require("express"),
+var config = require('./lib/config.js'),
+    express = require('express'),
     app = express(),
-    dbClient = require("mongodb");
+    dbClient = require('mongodb');
     bunyan = require('bunyan');
 
 var log = bunyan.createLogger({'name': 'panda', 'level': config.debugLvl});
 
 app.configure(function() {
-  app.set("name", config.appName);
+  app.set('name', config.appName);
 
   //Use temp folder cleaner
-  require("./lib/tmpClean.js")(__dirname + "/tmp", log);
+  require('./lib/tmpClean.js')(config.root + '/tmp', log);
 });
 
 // Request Logger
 app.use( function (req, res, next) {
-  log.info("%s %s", req.method, req.url);
+  log.info('%s %s', req.method, req.url);
   req.log = log;
   next();
 });
@@ -33,13 +33,13 @@ app.use(express.favicon());
 app.use(express.static(config.root + '/public'));
 
 // Routes
-app.use("/api", require("./lib/routes/users.js"));
-app.use("/api", require("./lib/routes/courses.js"));
-app.use("/api", require("./lib/routes/assignments.js"));
-app.use("/api", require("./lib/routes/submissions.js"));
+app.use('/api', require('./lib/routes/users.js'));
+app.use('/api', require('./lib/routes/courses.js'));
+app.use('/api', require('./lib/routes/assignments.js'));
+app.use('/api', require('./lib/routes/submissions.js'));
 
 //Test routes
-app.use("/test", require("./test.js"));
+app.use('/test', require('./test.js'));
 
 // Error Handler
 app.use(function (err, req, res, next){
@@ -54,11 +54,11 @@ app.use(function (req, res, next){
 
 dbClient.connect(config.dbAddress, function (err, db) {
   if(err) {
-    return log.error("Could not connect to mongodb", err);
+    return log.error('Could not connect to mongodb', err);
   }
 
-  log.info("Database connection successful");
+  log.info('Database connection successful');
 
   app.listen(config.appPort);
-  log.info("App started, listening at port %s", config.appPort);
+  log.info('App started, listening at port %s', config.appPort);
 });

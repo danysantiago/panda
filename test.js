@@ -1,6 +1,6 @@
-var config = require("./lib/config.js"),
-    express = require("express"),
-    async = require("async");
+var config = require('./lib/config.js'),
+    express = require('express'),
+    async = require('async');
 
 var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
@@ -40,7 +40,7 @@ test.post('/jsubmit', express.bodyParser({'uploadDir': config.root + '/tmp'}), f
 
         var compileTime = Date.now() - compileStart;
 
-        log.info("Compile time: %sms", compileTime);
+        log.info('Compile time: %sms', compileTime);
 
         callback(stderr);
       });
@@ -61,7 +61,7 @@ test.post('/jsubmit', express.bodyParser({'uploadDir': config.root + '/tmp'}), f
       ];
 
       var javaExec = spawn('chroot', args, {'stdio': 'pipe'});
-      javaExec.stdin.end("My name is Daniel");
+      javaExec.stdin.end('My name is Daniel');
       
       javaExec.stdout.on('data', function (data) {
         javaOutBuff += data;
@@ -72,7 +72,7 @@ test.post('/jsubmit', express.bodyParser({'uploadDir': config.root + '/tmp'}), f
       });
 
       javaExec.on('close', function (code) {
-        log.info("javaExec exit code: " + code);
+        log.info('javaExec exit code: ' + code);
         callback(null, safeExecBuff, javaOutBuff);
       });
     }
