@@ -4,6 +4,7 @@
   "description": "Code Review tool",
   "main": "app.js",
   "scripts": {
+    "preinstall": "cd ./safeexec; make;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

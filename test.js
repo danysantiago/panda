@@ -3,6 +3,7 @@ var config = require("./lib/config.js"),
     async = require("async");
 
 var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 var db;
 var log;
@@ -22,47 +23,66 @@ test.post('/jsubmit', express.bodyParser({'uploadDir': config.root + '/tmp'}), f
   var className = fileName.substring(0, fileName.length-5);
   var filePath = req.files.jfile.path;
 
-  var memLimit = '5120K'
-  var timeLimit = 1000*5;
+  var procLimit = 20;
+  var memLimit = 524288; //Kilobytes
+  var fileLimit = 32768; //Kilobytes
+  var jvmMemLimit = 5120; //Kilobytes
+  var timeLimit = 10; //Seconds
+  var cpuTimeLimit = timeLimit;
 
   async.waterfall([
     function (callback) {
       var cmd = 'javac ' + '-d "' + __dirname + '/jail" ' + filePath;
-      log.info('exec command: ' + cmd);
-      var javac = exec(cmd, function (err, stdout, stderr) {
+      var javaC = exec(cmd, function (err, stdout, stderr) {
         log.info(stdout);
         callback(stderr);
       });
     },
-    //TODO (Daniel): Run chroot as different user, specifically run /bin/java as another user
     function (callback) {
-      var cmd = 'chroot jail /java/bin/java -Xmx' + memLimit + ' ' + className;
-      //var cmd = 'chroot jail ls';
-      log.info('exec command: ' + cmd);
-      var java = exec(cmd, {'timeout': timeLimit, 'killSignal': 'SIGKILL'}, function (err, stdout, stderr) {
-        if(err) {
-          //Failed cmd but no stderr, probably time limit
-          if(!stderr) {
-            //TODO (Daniel): Process is not being killed after timeout, KILL IT!
-            log.info({ 'pid': java.pid })
-            var tlString = 'Time Limit Exceeded';
-            stderr = tlString;
-          }
-        }
+      var javaOutBuff = '';
+      var safeExecBuff = '';
 
-        callback(stderr, stdout);
+      var args = ['jail', '/safeexec',
+        '--nproc', procLimit,
+        '--mem', memLimit,
+        '--fsize', fileLimit,
+        '--cpu', cpuTimeLimit,
+        '--clock', timeLimit,
+        '--exec', '/java/bin/java',
+        '-Xmx' + jvmMemLimit + 'K',
+        className
+      ];
+
+      var javaExec = spawn('chroot', args, {'stdio': 'pipe'});
+      javaExec.stdin.end("My name is Daniel");
+      
+      javaExec.stdout.on('data', function (data) {
+        javaOutBuff += data;
+      });
+
+      javaExec.stderr.on('data', function (data) {
+        safeExecBuff += data;
+      });
+
+      javaExec.on('close', function (code) {
+        log.info("javaExec exit code: " + code);
+        callback(null, safeExecBuff, javaOutBuff);
       });
     }
-  ], function (err, result) {
+  ], function (err, safeExecBuff, javaOutBuff) {
     if(err) {
       log.error(err);
       res.send(err);
       return;
     }
 
-    log.info('DONE, Response:')
-    log.info(result);
-    res.send(result);
+    log.info('DONE');
+    log.info('safeexec:');
+    log.info(safeExecBuff);
+    log.info('javaOut:');
+    log.info(javaOutBuff);
+
+    res.send(safeExecBuff);
   });
 });
 
