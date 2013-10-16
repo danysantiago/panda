@@ -1,4 +1,4 @@
-var config = require('./lib/config.js'),
+var config = require('../lib/config.js'),
     express = require('express'),
     os = require('os'),
     rimraf = require('rimraf'),
@@ -7,7 +7,7 @@ var config = require('./lib/config.js'),
     async = require('async'),
     _ = require('underscore');
 
-var utils = require('./lib/utils.js');
+var utils = require('../lib/utils.js');
 
 var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
@@ -50,7 +50,6 @@ function veredictOutput (javaOutBuff, testOutput, cb) {
   });
 }
 
-var bodyParserOptions = {};
 
 var test = express();
 
@@ -60,14 +59,16 @@ test.use(function (req, res, next) {
   next();
 });
 
+var bodyParserOptions = {};
+
 //Middleware to create temporary folder inside jail
 test.use(function (req, res, next) {
-  var tmpPath = utils.generateTmpPath(path.join(__dirname,'jail'));
+  var tmpPath = utils.generateTmpPath(path.join(config.root,'jail'));
   fs.mkdir(tmpPath, 0776, function (err) {
     bodyParserOptions.uploadDir = tmpPath;
     next(err);
-  })
-})
+  });
+});
 
 test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res) {
   log.info({'body': req.body});
@@ -89,7 +90,7 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
   var testOutput = req.body.output;
 
   //Runtime limits
-  var procLimit = 12; // (>= 12)
+  var procLimit = 15; // (>= 12)
   var memLimit = 32768; //Kilobytes
   var fileLimit = 32768; //Kilobytes
 
@@ -140,7 +141,8 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
       var javaOutBuff = '';
       var safeExecBuff = '';
 
-      var args = ['jail', //jail folder name
+      log.debug(path.join(config.root, 'jail'));
+      var args = [path.join(config.root, 'jail'), //jail folder name
         '/safeexec', ///chroot cmd
         '--nproc', procLimit, //forks limit
         '--mem', memLimit, //memory limit

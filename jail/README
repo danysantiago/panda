@@ -1,0 +1,4 @@
+Notes about this jail:
+
+Non temporary files and folder permissions: 555
+Temporary folder permission 766

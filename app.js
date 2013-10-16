@@ -10,7 +10,7 @@ app.configure(function() {
   app.set('name', config.appName);
 
   //Use temp folder cleaner
-  require('./lib/tmpClean.js')(config.root + '/tmp', log);
+  require('./lib/tmpClean.js')(config.root + 'tmp', log);
 });
 
 // Request Logger
@@ -39,7 +39,7 @@ app.use('/api', require('./lib/routes/assignments.js'));
 app.use('/api', require('./lib/routes/submissions.js'));
 
 //Test routes
-app.use('/test', require('./test.js'));
+app.use('/test', require('./test/jsubmit.js'));
 
 // Error Handler
 app.use(function (err, req, res, next){
