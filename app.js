@@ -40,6 +40,7 @@ app.use('/api', require('./lib/routes/submissions.js'));
 
 //Test routes
 app.use('/test', require('./test/jsubmit.js'));
+app.use('/test', require('./test/zipsubmit.js'));
 
 // Error Handler
 app.use(function (err, req, res, next){
