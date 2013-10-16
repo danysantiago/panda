@@ -2,11 +2,10 @@ var config = require('./lib/config.js'),
     express = require('express'),
     os = require('os'),
     temp = require('temp'),
+    rimraf = require('rimraf'),
     fs = require('fs'),
     async = require('async'),
     _ = require('underscore');
-
-temp.track();
 
 var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
@@ -76,10 +75,11 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
   var testInput = req.body.input;
   var testOutput = req.body.output;
 
-  var procLimit = 20;
-  var memLimit = 524288; //Kilobytes
+  var procLimit = 12; // (>= 12)
+  var memLimit = 32768; //Kilobytes
   var fileLimit = 32768; //Kilobytes
-  var jvmMemLimit = 5120; //Kilobytes
+
+  var jvmMemLimit = 32; //Megabytes (=> 2)
   var timeLimit = 10; //Seconds
   var cpuTimeLimit = timeLimit;
 
@@ -90,6 +90,10 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
   }
 
   async.waterfall([
+    function (callback) {
+      fs.chmod(bodyParserOptions.uploadDir, 0776, callback);
+    },
+
     function (callback) {
       fs.rename(oldFilePath, newFilePath, callback);
     },
@@ -129,7 +133,7 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
         '--clock', timeLimit,
         '--exec', '/java/bin/java',
         '-cp', '/' + tmpDir,
-        '-Xmx' + jvmMemLimit + 'K',
+        '-Xmx' + jvmMemLimit + 'm',
         className
       ];
       log.debug(args);
@@ -158,6 +162,7 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
     }
 
     log.info(safeExecBuff);
+    log.info(javaOutBuff);
 
     var safeExecOut = safeExecBuff.split(os.EOL);
     var safeExecN = safeExecOut.length - 1; //-1 for the last empty string
@@ -187,7 +192,11 @@ test.post('/jsubmit', express.bodyParser(bodyParserOptions), function (req, res)
       executeStats.status = veredict;
       res.send(executeStats);
 
-      log.debug(temp.cleanup());
+      setInterval(rimraf, 1000*5, bodyParserOptions.uploadDir, function (err){
+        if(err) {
+          log.warn(err);
+        }
+      });
     });
 
   });
