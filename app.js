@@ -39,8 +39,14 @@ app.use('/api', require('./lib/routes/assignments.js'));
 app.use('/api', require('./lib/routes/submissions.js'));
 
 //Test routes
-app.use('/test', require('./test/jsubmit.js'));
-app.use('/test', require('./test/zipsubmit.js'));
+// app.use('/test', require('./test/jsubmit.js'));
+// app.use('/test', require('./test/zipsubmit.js'));
+
+app.get('/test/queue', function (req, res, next) {
+  require('./lib/queue.js').push({'name': 'testSubmission'}, function (result) {
+    res.send(result);
+  });
+});
 
 // Error Handler
 app.use(function (err, req, res, next){
