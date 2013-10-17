@@ -44,7 +44,7 @@
                 <a href="course.html">{{course.name}}</a>
               </h3>
               <h5>
-                Course #1 - Semester - Year
+                {{course.code}} - {{course.semester}} - {{course.year}}
               </h5>
               <br>
               <table class="table table-bordered table-hover">
@@ -54,7 +54,7 @@
                       Pending Assignments
                     </th>
                   </tr>
-                  <tr ng-repeat="assignment in course.assignments">
+                  <tr ng-repeat="assignment in assignments">
                     <td>
                       <a href="assignment.html">{{assignment.name}}</a>
                     </td>
