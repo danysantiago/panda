@@ -63,3 +63,5 @@ dbClient.connect(config.dbAddress, function (err, db) {
   app.listen(config.appPort);
   log.info('App started, listening at port %s', config.appPort);
 });
+
+module.exports.log = log;
