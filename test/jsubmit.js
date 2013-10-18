@@ -1,4 +1,4 @@
-var config = require('../lib/config.js'),
+var config = require('../lib/config/config.js'),
     express = require('express'),
     os = require('os'),
     rimraf = require('rimraf'),

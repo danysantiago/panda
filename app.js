@@ -1,4 +1,4 @@
-var config = require('./lib/config.js'),
+var config = require('./lib/config/config.js'),
     express = require('express'),
     app = express(),
     dbClient = require('mongodb');
@@ -13,14 +13,14 @@ app.configure(function() {
   require('./lib/tmpClean.js')(config.root + 'tmp', log);
 });
 
-// Request Logger
+// Request logger middleware
 app.use( function (req, res, next) {
   log.info('%s %s', req.method, req.url);
   req.log = log;
   next();
 });
 
-// Compress static files
+// Static files compress middleware
 app.use(express.compress({
   filter: function (req, res) {
       return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
@@ -28,20 +28,29 @@ app.use(express.compress({
   level: 9
 }));
 
-// Static files
+// Static files middleware
 app.use(express.favicon());
 app.use(express.static(config.root + '/public'));
 
+// Auth and Sessions middleware
+var passport = require('./lib/config/passport.js');
+app.use(express.cookieParser());
+app.use(express.methodOverride());
+app.use(express.session({ secret: 'aguacateao' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Routes
+app.use('/auth', require('./lib/routes/auth.js'));
+
 app.use('/api', require('./lib/routes/users.js'));
 app.use('/api', require('./lib/routes/courses.js'));
 app.use('/api', require('./lib/routes/assignments.js'));
 app.use('/api', require('./lib/routes/submissions.js'));
 
 //Test routes
-// app.use('/test', require('./test/jsubmit.js'));
-// app.use('/test', require('./test/zipsubmit.js'));
-
+app.use('/test', require('./test/jsubmit.js'));
+app.use('/test', require('./test/zipsubmit.js'));
 app.get('/test/queue', function (req, res, next) {
   require('./lib/queue.js').push({'name': 'testSubmission'}, function (result) {
     res.send(result);
