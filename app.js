@@ -1,8 +1,10 @@
 var config = require('./lib/config/config.js'),
     express = require('express'),
     app = express(),
-    dbClient = require('mongodb');
+    mongodb = require('mongodb');
     bunyan = require('bunyan');
+
+var Database = require('./lib/models/database.js');
 
 var log = bunyan.createLogger({'name': 'panda', 'level': config.debugLvl});
 
@@ -68,12 +70,13 @@ app.use(function (req, res, next){
   res.send(404, '404 - What your looking for is in "El Gara"');
 });
 
-dbClient.connect(config.dbAddress, function (err, db) {
+mongodb.connect(config.dbAddress, function (err, db) {
   if(err) {
     return log.error('Could not connect to mongodb', err);
   }
 
-  log.info('Database connection successful');
+  Database.setDB(db);
+  log.info('Database connection successful - ' + config.dbAddress);
 
   app.listen(config.appPort);
   log.info('App started, listening at port %s', config.appPort);

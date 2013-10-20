@@ -1,7 +1,7 @@
 {
     "development": {
             "appName": "panda",
-            "dbAddress": "mongodb://127.0.0.1",
+            "dbAddress": "mongodb://127.0.0.1/test",
             "localAddress": "localhost",
             "appPort": 80,
             "appProtocol": "http",
@@ -10,7 +10,7 @@
 
     "production": {
             "appName": "panda",
-            "dbAddress": "mongodb://127.0.0.1",
+            "dbAddress": "mongodb://127.0.0.1/test",
             "localAddress": "localhost",
             "appPort": 80,
             "appProtocol": "http",
