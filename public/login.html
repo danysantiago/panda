@@ -53,18 +53,18 @@
           <h3 class="centered">
             Login
           </h3>
-          <form action="/login" method="post">
+          <form action="/auth/login" method="post">
             <div class="form-group">
               <label for="emailInput">
                 Email address
               </label>
-              <input type="email" class="form-control" id="emailInput" placeholder="Email">
+              <input type="email" name="email" class="form-control" id="emailInput" placeholder="Email">
             </div>
             <div class="form-group">
               <label for="passwordInput">
                 Password
               </label>
-              <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+              <input type="password" name="password" class="form-control" id="passwordInput" placeholder="Password">
             </div>
             <div class="form-group centered">
               <div class="row">

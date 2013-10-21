@@ -38,9 +38,17 @@ app.use(express.static(config.root + '/public'));
 var passport = require('./lib/config/passport.js');
 app.use(express.cookieParser());
 app.use(express.methodOverride());
-app.use(express.session({ secret: 'aguacateao' }));
+app.use(express.session({
+  'secret': 'aguacateao'
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+//Database object middleware
+app.use(function (req, res, next) {
+  req.db = Database.getDB();
+  next();
+})
 
 // Routes
 app.use('/auth', require('./lib/routes/auth.js'));
