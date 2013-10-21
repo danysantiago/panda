@@ -24,6 +24,8 @@
     "underscore": "~1.5.2",
     "rimraf": "~2.2.2",
     "passport": "~0.1.17",
-    "passport-local": "~0.1.6"
+    "passport-local": "~0.1.6",
+    "validator": "~1.5.1",
+    "revalidator": "~0.1.5"
   }
 }
