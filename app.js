@@ -31,10 +31,10 @@ app.use(express.compress({
 }));
 
 // Static files middleware
-app.use(express.favicon());
+app.use(express.favicon(config.root + '/public/favicon.ico'));
 app.use(express.static(config.root + '/public'));
 
-// Auth and Sessions middleware
+// Auth and Sessions middlewares
 var passport = require('./lib/config/passport.js');
 app.use(express.cookieParser());
 app.use(express.methodOverride());
