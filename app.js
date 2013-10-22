@@ -53,15 +53,6 @@ app.use(function (req, res, next) {
 // Auth Routes
 app.use('/auth', require('./lib/routes/auth.js'));
 
-// Auth Session for /api routes Middleware
-var authSession = function (req, res, next) {
-  if(!req.user) {
-    return res.send(401);
-  }
-
-  next();
-};
-
 // Api Routes
 app.use('/api', require('./lib/routes/users.js'));
 app.use('/api', require('./lib/routes/courses.js'));
