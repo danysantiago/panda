@@ -57,7 +57,7 @@ app.use('/auth', require('./lib/routes/auth.js'));
 apiRoutes = express();
 apiRoutes.use(function (req, res, next) {
   // Api routes required a logged user
-  if(!req.user) {
+  if(!req.isAuthenticated()) {
     return res.send(401);
   }
   next();
