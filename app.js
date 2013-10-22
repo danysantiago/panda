@@ -44,21 +44,31 @@ app.use(express.session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Database object middleware
+// Database object middleware
 app.use(function (req, res, next) {
   req.db = Database.getDB();
   next();
 })
 
-// Routes
+// Auth Routes
 app.use('/auth', require('./lib/routes/auth.js'));
 
+// Auth Session for /api routes Middleware
+var authSession = function (req, res, next) {
+  if(!req.user) {
+    return res.send(401);
+  }
+
+  next();
+};
+
+// Api Routes
 app.use('/api', require('./lib/routes/users.js'));
 app.use('/api', require('./lib/routes/courses.js'));
 app.use('/api', require('./lib/routes/assignments.js'));
 app.use('/api', require('./lib/routes/submissions.js'));
 
-//Test routes
+// Test routes
 app.use('/test', require('./test/jsubmit.js'));
 app.use('/test', require('./test/zipsubmit.js'));
 app.get('/test/queue', function (req, res, next) {
