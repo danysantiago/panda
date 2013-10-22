@@ -54,10 +54,19 @@ app.use(function (req, res, next) {
 app.use('/auth', require('./lib/routes/auth.js'));
 
 // Api Routes
-app.use('/api', require('./lib/routes/users.js'));
-app.use('/api', require('./lib/routes/courses.js'));
-app.use('/api', require('./lib/routes/assignments.js'));
-app.use('/api', require('./lib/routes/submissions.js'));
+apiRoutes = express();
+apiRoutes.use(function (req, res, next) {
+  // Api routes required a logged user
+  if(!req.user) {
+    return res.send(401);
+  }
+  next();
+});
+apiRoutes.use(require('./lib/routes/users.js'));
+apiRoutes.use(require('./lib/routes/courses.js'));
+apiRoutes.use(require('./lib/routes/assignments.js'));
+apiRoutes.use(require('./lib/routes/submissions.js'));
+app.use('/api', apiRoutes)
 
 // Test routes
 app.use('/test', require('./test/jsubmit.js'));
