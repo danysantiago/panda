@@ -20,6 +20,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'LoginController',
     templateUrl: '/views/login.html',
   }).
+  when('/logout', {
+    controller: 'LogoutController',
+    templateUrl: '/views/logout.html',
+  }).
   when('/home', {
     controller: 'HomeController',
     templateUrl: '/views/home.html',
