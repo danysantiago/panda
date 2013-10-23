@@ -3,9 +3,18 @@
  * 
  */
 
+pandaApp.controller('HomeController', ['$scope', 'currentUser',
+    function($scope, currentUser) {
+  var courses = [
+    {'name': currentUser.firstName}
+  ];
+  $scope.courses = courses;
+}]);
+
 /**
  * This is the AngularController for the Affix of the home page.
  */
+ /*
 var AffixController = function($scope, $http) {
   var courses = [];
   $http.get('/api/users/samuel.rodriguez8@upr.edu/courses').success(function(data, status, headers) {
@@ -47,3 +56,4 @@ var CourseInfoController = function($scope, $http) {
   $scope.courses = courses;
   $scope.assignments = assignments;
 };
+*/
