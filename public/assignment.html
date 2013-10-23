@@ -27,7 +27,7 @@
           <a id="cases-link" href="#">Test Cases</a>
         </li>
         <li id="repo-tab" class="">
-          <a id="repo-link" href="#">Repositories</a>
+          <a id="repo-link" href="#">Repository</a>
         </li>
       </ul>
 
@@ -152,12 +152,12 @@
                       <th>Score </th>
                     </tr>
                     <tr>
-                      <td>Public</td>
+                      <td><a href="#public">Public</a></td>
                       <td>2</td>
                       <td>10</td>
                     </tr>
                     <tr>
-                      <td>Private</td>
+                      <td> <a href="#private">Private</a></td>
                       <td>4</td>
                       <td>40</td>
                     </tr>
@@ -171,7 +171,7 @@
               </div>
               <div class="col-md-8">
                 <!-- desglose de los test cases -->
-                <h3> Public </h3>
+                <h3 id="public"> Public </h3>
                 <h5> Public Test Case #1 </h5>
                 <hr>
                 <div class="row">
@@ -279,8 +279,8 @@
                   </div>
                 </div>
                 <hr>
-                <h3>
-                  Private
+                <h3 id="private">
+                 Private
                 </h3>
                 <h5>
                   Private Test Case #1
@@ -295,27 +295,6 @@
                   </div>
                   <div class="col-md-4">
                     Score:
-                  </div>
-                </div>
-                <br>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      Input
-                    </h3>
-                  </div>
-                  <div class="panel-body">
-                    Collapsable content (collapse via js)
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      Output
-                    </h3>
-                  </div>
-                  <div class="panel-body">
-                    Collapsable content (collapse via js)
                   </div>
                 </div>
                 <hr>
@@ -333,27 +312,6 @@
                     Score:
                   </div>
                 </div>
-                <br>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      Input
-                    </h3>
-                  </div>
-                  <div class="panel-body">
-                    Collapsable content (collapse via js)
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      Output
-                    </h3>
-                  </div>
-                  <div class="panel-body">
-                    Collapsable content (collapse via js)
-                  </div>
-                </div>
                 <hr>
                 <h5>
                   Private Test Case #3
@@ -369,33 +327,36 @@
                     Score:
                   </div>
                 </div>
-                <br>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      Input
-                    </h3>
-                  </div>
-                  <div class="panel-body">
-                    Collapsable content (collapse via js)
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      Output
-                    </h3>
-                  </div>
-                  <div class="panel-body">
-                    Collapsable content (collapse via js)
-                  </div>
-                </div>
               </div>
               <hr>
             </div>
           </div>
+          <!--repository-->
           <div id="repo" style="display: none;">
+            <div class="row">
+              <div class="col-md-9">
+                <h3>
+                  Project Repository
+                </h3>
+                <p>
+                  http://pandagitlab.sytes.net/user/projectname.git
+                </p>
+              </div>
+              <hr>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-9">
+                <h3>
+                  Instructions
+                </h3>
+                <p>
+                  Check <a href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository" target="_blank">this website</a> to learn how to work with your repository.
+                </p>
+              </div>
+            </div>
           </div>
+          <!--end of repository-->
         </div>
         <div class="col-md-3 centered-div">
           <h4> Due Date </h4>
@@ -427,7 +388,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
-            <button type="button" class="btn btn-default">View Source Code</button>
+            <button type="button" class="btn btn-default">Download Source Code</button>
             <button type="button" class="btn btn-primary">Submit</button>
           </div>
         </div>
