@@ -71,7 +71,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   $rootScope.$on('event:auth-loginRequired', function() {
     $rootScope.loggedIn = false;
     lastTriedUrl = $location.url();
-    if (lastTriedUrl != '/' && lastTriedUrl != '/home') {
+    if (lastTriedUrl != '/') {
       $location.url('/login');
     }
   });
