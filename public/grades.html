@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Panda Code Reviews</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/courses.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div id="navbar-container"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="assignment1" class="container well">
+          <h3>
+              My Grades
+            </h3>
+            <br>
+            <table class="table table-bordered table-hover text-center">
+              <tbody>
+              <tr>
+              <th class="text-center">
+              Course
+              </th>
+              <th class="text-center">
+              Cummulative Points
+              </th>
+              <th class="text-center">
+              Number of Assignments
+              </th>
+              <th class="text-center">
+              Cummulative Grade
+              </th>
+              </tr>
+                <tr>
+                  <td>
+                    <a href="course.html">Course 1</a>
+                  </td>
+                  <td>
+                    50/100
+                  </td>
+                  <td>
+                  10
+                  </td>
+                  <td>
+                  F
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="course.html">Course 2</a>
+                  </td>
+                  <td>
+                    80/100
+                  </td>
+                  <td>
+                  1
+                  </td>
+                  <td>
+                  B
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="course.html">Course 3</a>
+                  </td>
+                  <td>
+                    90/100
+                  </td>
+                  <td>
+                  5
+                  </td>
+                  <td>
+                  A
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="course.html">Course 4</a>
+                  </td>
+                  <td>
+                    500/500
+                  </td>
+                  <td>
+                  5
+                  </td>
+                  <td>
+                  A
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="add-course-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add Course</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control" placeholder="Course Name">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#navbar-container').load('/navbar.html', function() {
+          $('#bar-home').addClass('active');
+        });
+      });
+    </script>
+
+  </body>
+</html>
