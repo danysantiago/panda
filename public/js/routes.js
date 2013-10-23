@@ -58,15 +58,22 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     redirectTo: '/'
   });
 }])
-.run(['authService', '$rootScope', '$location',
-    function(authService, $rootScope, $location) {
+.run(['authService', '$rootScope', '$location', 'LoginService',
+    function(authService, $rootScope, $location, LoginService) {
   var lastTriedUrl = null;
+  // Just one problem with this, loggedIn value is false for a short moment
+  // until the LoginService receives a response.
   $rootScope.loggedIn = false;
+  LoginService(function(message, data) {
+    $rootScope.loggedIn = (message === null);
+  })
 
   $rootScope.$on('event:auth-loginRequired', function() {
     $rootScope.loggedIn = false;
     lastTriedUrl = $location.url();
-    $location.url('/login');
+    if (lastTriedUrl != '/' && lastTriedUrl != '/home') {
+      $location.url('/login');
+    }
   });
 
   $rootScope.$on('event:auth-loginConfirmed', function(data) {

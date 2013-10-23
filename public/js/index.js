@@ -1,4 +1,3 @@
-pandaApp.controller('IndexController', ['$scope', 'loginCheck',
-    function($scope, loginCheck) {
-      $scope.user = {'loggedIn': loginCheck};
+pandaApp.controller('IndexController', ['$scope',
+    function($scope) {
 }]);

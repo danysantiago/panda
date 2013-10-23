@@ -21,8 +21,17 @@ services.factory('Submission', ['$resource', function($resource) {
   return $resource('/api/submissions/:id', {id: '@_id'});
 }]);
 
-services.factory('loginCheck', ['$rootScope', function($rootScope) {
-  return $rootScope.loggedIn;
+services.factory('LoginService', ['$http', function($http) {
+  var verifyAuth = function(callback) {
+    $http.get('/auth/current').success(function(response) {
+      callback(null, response);
+    })
+    .error(function() {
+      callback('There was an error verifying the user.', null);
+    });
+  };
+
+  return verifyAuth;
 }]);
 
 services.factory('MultiUserLoader', ['User', '$q',
