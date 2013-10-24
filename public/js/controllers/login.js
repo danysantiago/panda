@@ -1,3 +1,6 @@
+/**
+ * Controller for logging in.
+ */
 pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
     function($scope, $http, authService) {
   var user = {'email': null, 'password': null};
@@ -9,7 +12,7 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
       if (status == 200) {
         authService.loginConfirmed(user);
       } else {
-        // Try again I suppose.
+        // TODO(samuel): Try again I suppose.
       }
     });
   }

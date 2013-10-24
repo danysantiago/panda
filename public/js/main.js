@@ -1,3 +1,6 @@
+/**
+ * The Panda AngularJS app. :)
+ */
 var pandaApp = angular.module('pandaApp', ['panda.services',
   'http-auth-interceptor', 'ngRoute']);
 
@@ -64,22 +67,39 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
 }])
 .run(['authService', '$rootScope', '$location', 'LoginService',
     function(authService, $rootScope, $location, LoginService) {
-  var lastTriedUrl = null;
-  // Just one problem with this, loggedIn value is false for a short moment
-  // until the LoginService receives a response.
+  // This code runs once at the start of the app.
+
+  /**
+   * Whether the user is logged in or not.
+   * Just one problem with this, loggedIn value is false for a short moment
+   * until the LoginService receives a response.
+   */
   $rootScope.loggedIn = false;
   LoginService(function(message, data) {
     $rootScope.loggedIn = (message === null);
   })
 
+  /**
+   * The url that was tried to be accessed before a 401 was intercepted. After
+   * logging in, the user will be redirected to this url.
+   */
+  var lastTriedUrl = null;
+
+  // Register a listener for the auth-loginRequired event, which is fired by
+  // the http-auth-interceptor when a 401 is received from the server.
   $rootScope.$on('event:auth-loginRequired', function() {
     $rootScope.loggedIn = false;
     lastTriedUrl = $location.url();
+    // Only redirect to the login page for the pages that require login.
+    // This check is needed because / runs this run function which requires a
+    // call to /auth/current by the LoginService.
     if (lastTriedUrl != '/') {
       $location.url('/login');
     }
   });
 
+  // Register a listener for the auth-loginConfirmed event. This event is fired
+  // by the LoginController when the login has been confirmed by the server.
   $rootScope.$on('event:auth-loginConfirmed', function(data) {
     $rootScope.loggedIn = true;
     if ($location.url() == '/login' && !lastTriedUrl) {
