@@ -31,7 +31,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'HomeController',
     templateUrl: '/views/home.html',
     resolve: {
-      currentUser: currentUserMapper
+      currentUser: currentUserMapper,
+      homeData: ['HomeDataLoader', function(HomeDataLoader) {
+          return HomeDataLoader();
+      }]
     }
   }).
   when('/account', {
@@ -89,7 +92,9 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   // the http-auth-interceptor when a 401 is received from the server.
   $rootScope.$on('event:auth-loginRequired', function() {
     $rootScope.loggedIn = false;
-    lastTriedUrl = $location.url();
+    if ($location.url() != '/login') {
+      lastTriedUrl = $location.url();
+    }
     // Only redirect to the login page for the pages that require login.
     // This check is needed because / runs this run function which requires a
     // call to /auth/current by the LoginService.
