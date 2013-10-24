@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Panda Code Review</title>
+    <title>Panda Code Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="css/course.css" rel="stylesheet">
@@ -102,7 +102,7 @@
             </div>
           </h3>
           <div class="button-group">
-              <button class="btn btn-primary">Add</button>
+              <a data-toggle="modal" href="#add-modal"><button class="btn btn-primary">Add</button></a>
           </div>
           <br>
           <table class="table table-hover table-striped">
@@ -158,9 +158,6 @@
               Submissions
             </div>
           </h3>
-          <div class="button-group">
-              <button class="btn btn-primary">Add</button>
-          </div>
           <br>
           <table class="table table-hover table-striped">
             <tbody>
@@ -224,6 +221,23 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title">Grade Submission</h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="add-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add Assignment</h4>
           </div>
           <div class="modal-body">
             

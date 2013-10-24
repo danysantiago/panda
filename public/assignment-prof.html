@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Panda Code Review</title>
+    <title>Panda Code Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="css/assignment-prof.css" rel="stylesheet">
@@ -25,9 +25,6 @@
         </li>
         <li id="cases-tab" class="">
           <a id="cases-link" href="#">Test Cases</a>
-        </li>
-        <li id="repo-tab" class="">
-          <a id="repo-link" href="#">Repositories</a>
         </li>
       </ul>
 
@@ -437,8 +434,7 @@
               <hr>
             </div>
           </div>
-          <div id="repo" style="display: none;">
-          </div>
+          
         </div>
         <div class="col-md-3 centered-div">
           <br>
@@ -511,7 +507,7 @@
     <script type="text/javascript">
 
       function tabClick(tabName) {
-        var tabs = ['info', 'submissions', 'cases', 'repo'];
+        var tabs = ['info', 'submissions', 'cases'];
         for (var i = 0; i < tabs.length; i++) {
           var name = tabs[i];
           if(name === tabName) {
@@ -530,7 +526,6 @@
         $('#info-link').click(function() { tabClick('info'); return false;});
         $('#submissions-link').click(function() { tabClick('submissions'); return false;});
         $('#cases-link').click(function() { tabClick('cases'); return false;});
-        $('#repo-link').click(function() { tabClick('repo'); return false;});
       });
 
     </script>

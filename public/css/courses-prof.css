@@ -1,8 +1,7 @@
-/* Custom CSS for home.html */
+/* Custom CSS for courses-prof.html */
 
 body {
   padding-top: 100px;
-  background-color: #EEE;
 }
 
 .table {
@@ -29,8 +28,4 @@ body {
 
 .add-button {
   width: 253px;
-}
-
-.panel-default > .panel-heading {
-  background-color: #E0E0E0;
 }
