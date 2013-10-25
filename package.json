@@ -4,7 +4,7 @@
   "description": "Code Review tool",
   "main": "app.js",
   "scripts": {
-    "preinstall": "cd ./safeexec; make;",
+    "preinstall": "mkdir tmp; mkdir jail; cd ./safeexec; make;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,7 +25,6 @@
     "rimraf": "~2.2.2",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "validator": "~1.5.1",
     "revalidator": "~0.1.5"
   }
 }
