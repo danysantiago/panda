@@ -12,7 +12,7 @@ app.configure(function() {
   app.set('name', config.appName);
 
   //Use temp folder cleaner
-  require('./lib/tmpClean.js')(config.root + 'tmp', log);
+  //require('./lib/tmpClean.js')(config.root + 'tmp', log);
 });
 
 // Request logger middleware
@@ -48,7 +48,7 @@ app.use(passport.session());
 app.use(function (req, res, next) {
   req.db = Database.getDB();
   next();
-})
+});
 
 // Auth Routes
 app.use('/auth', require('./lib/routes/auth.js'));
@@ -66,7 +66,7 @@ api.use(require('./lib/routes/users.js'));
 api.use(require('./lib/routes/courses.js'));
 api.use(require('./lib/routes/assignments.js'));
 api.use(require('./lib/routes/submissions.js'));
-app.use('/api', api)
+app.use('/api', api);
 
 // Test routes
 app.use('/test', require('./test/jsubmit.js'));

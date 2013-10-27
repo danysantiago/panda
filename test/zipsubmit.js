@@ -106,7 +106,7 @@ test.post('/zipsubmit', express.bodyParser(bodyParserOptions), function (req, re
   var testOutput = req.body.output;
 
   //Runtime limits
-  var procLimit = 15; // (>= 12)
+  var procLimit = 20; // (>= 12)
   var memLimit = 32768; //Kilobytes
   var fileLimit = 32768; //Kilobytes
 
