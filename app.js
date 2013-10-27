@@ -56,10 +56,16 @@ app.use('/auth', require('./lib/routes/auth.js'));
 // Api Routes
 api = express();
 api.use(function (req, res, next) {
+  // Exception - creating users without logging in
+  if(req.url === "/users" && req.method === "POST") {
+    return next();
+  }
+
   // Api routes requires a logged user
   if(!req.isAuthenticated()) {
     return res.send(401);
   }
+  
   next();
 });
 api.use(require('./lib/routes/users.js'));
