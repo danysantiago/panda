@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "preinstall": "mkdir tmp; mkdir jail; cd ./safeexec; make;",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./test/test.sh",
+    "postinstall": "./patches/patch.sh"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,13 @@
     "rimraf": "~2.2.2",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "revalidator": "~0.1.5"
+    "revalidator": "~0.1.5",
+    "request": "~2.27.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "cover": "0.2.9",
+    "jshint": "*"
   }
 }

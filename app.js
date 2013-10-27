@@ -11,6 +11,21 @@ var log = bunyan.createLogger({'name': 'panda', 'level': config.debugLvl});
 app.configure(function() {
   app.set('name', config.appName);
 
+  var env = app.get("env"); //Get node enviroment
+  if (env === "development") {
+    log.warn("Server Configured for Development Mode");
+
+    // App kill route to finish running after tests complete.
+    app.use("/kill/after/tests", function (req, res, next) {
+      res.send(200, "Bye, Bye");
+      log.warn("Server Kill Requested.");
+      process.exit(1);
+    });
+
+  } else if (env === "production") {
+    log.warn("Server configured for production mode.");
+  }
+
   //Use temp folder cleaner
   //require('./lib/tmpClean.js')(config.root + 'tmp', log);
 });
@@ -75,8 +90,8 @@ api.use(require('./lib/routes/submissions.js'));
 app.use('/api', api);
 
 // Test routes
-app.use('/test', require('./test/jsubmit.js'));
-app.use('/test', require('./test/zipsubmit.js'));
+app.use('/test', require('./lib/routes/jsubmit.js'));
+app.use('/test', require('./lib/routes/zipsubmit.js'));
 app.get('/test/queue', function (req, res, next) {
   require('./lib/queue.js').push({'name': 'testSubmission'}, function (result) {
     res.send(result);
@@ -93,6 +108,9 @@ app.use(function (err, req, res, next){
 app.use(function (req, res, next){
   res.send(404, '404 - What your looking for is in "El Gara"');
 });
+
+//TODO (Daniel): CXheck Jail has been properly setup (/proc), before
+//continuing...
 
 mongodb.connect(config.dbAddress, function (err, db) {
   if(err) {

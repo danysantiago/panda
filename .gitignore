@@ -1,2 +1,9 @@
 node_modules
 tmp
+
+test/result.json
+test/log.json
+test/style_result.txt
+
+.coverage_data
+public/coverage/
