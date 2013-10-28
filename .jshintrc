@@ -22,7 +22,7 @@
     "maxdepth" : false,
     "maxstatements" : false,
     "maxcomplexity" : false,
-    "maxlen" : 80,
+    "maxlen" : 90,
    
     "node" : true,
     "globals" : {
