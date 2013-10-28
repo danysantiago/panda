@@ -1,4 +1,13 @@
 #!/bin/bash
+
+#Test script, runs jshint, starts the server, runs mocha and coverage,
+#shutdowns the server and then creates coverage reports. Also results
+#are outputted to terminal
+
+#Server binds to port 80, run with sudo (sudo npm test)
+
+
+#Colors
 red="\e[0;31m"
 lgreen="\e[92m"
 dgray="\e[90m"
