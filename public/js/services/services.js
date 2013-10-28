@@ -2,7 +2,7 @@ var services = angular.module('panda.services', ['http-auth-interceptor',
   'ngResource']);
 
 services.factory('User', ['$resource', function($resource) {
-  return $resource('/api/users/:id', {id: '@email'});
+  return $resource('/api/users/:id', {id: '@_id'});
 }]);
 
 services.factory('CurrentUser', ['$resource', function($resource) {

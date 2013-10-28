@@ -3,8 +3,14 @@
  * 
  */
 
-pandaApp.controller('HomeController', ['$scope', 'currentUser', 'homeData',
-    function($scope, currentUser, homeData) {
-  $scope.currentUser = currentUser;
-  $scope.homeData = homeData;
+pandaApp.controller('HomeController', ['$scope', 'currentUser', 'User',
+    function($scope, currentUser, User) {
+  $scope.user = {courses: [], submissions: [], assignments: []};
+
+  var user = User.get({id: currentUser._id, submissions: true,
+      assignments: true, courses: true}, function() {
+    // TODO(samuel): Extract pending assignments first.
+    console.log(user);
+    $scope.user = user;
+  });
 }]);
