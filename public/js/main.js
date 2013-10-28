@@ -37,6 +37,13 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       }]
     }
   }).
+  when('/courses', {
+    controller: 'CoursesController',
+    templateUrl: 'views/courses.html',
+    resolve: {
+      currentUser: currentUserMapper
+    }
+  }).
   when('/account', {
     controller: 'AccountController',
     templateUrl: 'views/account.html',

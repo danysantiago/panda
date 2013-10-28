@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="affix-container">
+        <button type="button" data-toggle="modal" href="#add-course-modal" class="btn btn-primary add-button">
+          Enroll Course
+        </button>
+        <hr>
+        <ul class="list-group sidebar">
+          <li class="list-group-item" ng-repeat="course in user.courses">
+            <a href="#/courses">Course #{{$index + 1}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="container well" ng-repeat="course in user.courses">
+        <h3>
+          <a href="course.html">{{course.name}}</a>
+        </h3>
+        <h5>
+          Course #{{$index + 1}} - {{course.semester}} - {{course.year}}
+        </h5>
+        <br>
+        <table class="table table-bordered table-hover">
+          <tbody>
+            <tr>
+              <th colspan="2">
+                Pending Assignments
+              </th>
+            </tr>
+            <tr ng-repeat="assignment in course.assignments">
+              <td>
+                <a href="assignment.html">Assignment #{{$index + 1}}</a>
+              </td>
+              <td>
+                Due: {{assignment.deadline}}
+              </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="add-course-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add Course</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" placeholder="Course Name">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
