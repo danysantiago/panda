@@ -86,7 +86,7 @@ services.factory('CourseLoader', ['Course', '$route', '$q',
   };
 }]);
 
-services.factory('AssignmentLoader', ['Assignmnet', '$route', '$q',
+services.factory('AssignmentLoader', ['Assignment', '$route', '$q',
     function(Assignment, $route, $q) {
   return function() {
     var delay = $q.defer();

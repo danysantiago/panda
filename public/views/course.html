@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <h2>
+        {{course.name}}
+      </h2>
+      <h4>
+        {{course.code}} - {{course.semester}} {{course.year}}
+      </h4>
+    </div>
+    <div class="col-md-3">
+      <div class="centered-div">
+        <br>
+        Grade: 0 / 100 (your/total)
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+      Professor #1 -
+      <a href="mailto://professor1@upr.edu">professor1@upr.edu</a>
+      | TA #1 -
+      <a href="mailto://ta1@upr.edu">ta1@upr.edu</a>
+      <hr>
+      <h3>
+        <br>
+        <div>
+          Assignments
+        </div>
+      </h3>
+      <table class="table table-hover table-striped">
+        <tbody>
+          <tr>
+            <th>
+              #
+            </th>
+            <th>
+              Name
+            </th>
+            <th>
+              Description
+            </th>
+            <th>
+              Due Date
+            </th>
+            <th>
+              Submission Date
+            </th>
+            <th>
+              Score
+            </th>
+          </tr>
+          <tr ng-repeat="assignment in course.assignments">
+            <td>
+              {{$index + 1}}
+            </td>
+            <td>
+              <a href="assignment.html">{{assignmnet.name}}</a>
+            </td>
+            <td>
+              {{assignment.description}}
+            </td>
+            <td>
+              {{assignment.deadline}}
+            </td>
+            <td>
+              Not Submitted
+            </td>
+            <td>
+              0 / 10
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
