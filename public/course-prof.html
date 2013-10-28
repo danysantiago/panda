@@ -4,14 +4,15 @@
     <title>Panda Code Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="css/course.css" rel="stylesheet">
+    <link href="css/course-prof.css" rel="stylesheet">
   </head>
   <body>
 
     <div id="navbar-container"></div>
 
     <div class="container">
-      <div class="row">
+
+        <div class="row">
         <div class="col-md-9">
           <h2>
             Course Title
@@ -36,76 +37,29 @@
           | TA #1 -
           <a href="mailto://ta1@upr.edu">ta1@upr.edu</a>
           <hr>
-          <h3>
-            <div>
-              Students
-            </div>
-          </h3>
-          <br>
-          <table class="table table-hover table-striped">
-            <tbody>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>A1</th>
-                <th>A2</th>
-                <th>A3</th>
-                <th>Grade</th>
-                <th></th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td><a href="account.html">Samuel Rodriguez</a></td>
-                <td>samuel.rodriguez@upr.edu</td>
-                <td>10 / 10</td>
-                <td>5 / 15</td>
-                <td>8 / 10</td>
-                <td>23 / 35</td>
-                <td><a href="#del"><span class="glyphicon glyphicon-trash"></a></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><a href="#nelian">Nelian Colon</a></td>
-                <td>nelian.colon@upr.edu</td>
-                <td>10 / 10</td>
-                <td>5 / 15</td>
-                <td>8 / 10</td>
-                <td>23 / 35</td>
-                <td><a href="#del"><span class="glyphicon glyphicon-trash"></a></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><a href="#daniel">Daniel Santiago</a></td>
-                <td>daniel.santiago@upr.edu</td>
-                <td>10 / 10</td>
-                <td>5 / 15</td>
-                <td>8 / 10</td>
-                <td>23 / 35</td>
-                <td><a href="#del"><span class="glyphicon glyphicon-trash"></a></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><a href="#juan">Juan Del Pueblo</a></td>
-                <td>juan.pueblo@upr.edu</td>
-                <td>10 / 10</td>
-                <td>15 / 15</td>
-                <td>10 / 10</td>
-                <td>35 / 35</td>
-                <td><a href="#del"><span class="glyphicon glyphicon-trash"></a></td>
-              </tr>
-            </tbody>
-          </table>
-          <h3>
-            <div>
-              Assignments
-            </div>
-          </h3>
-          <div class="button-group">
-              <a data-toggle="modal" href="#add-modal"><button class="btn btn-primary">Add</button></a>
-          </div>
-          <br>
-          <table class="table table-hover table-striped">
+
+      <ul class="nav nav-tabs">
+        <li id="assignments-tab" class="active">
+          <a id="assignments-link" href="#">Assignments</a>
+        </li>
+        <li id="students-tab" class="">
+          <a id="students-link" href="#">Students</a>
+        </li>
+        <li id="submissions-tab" class="">
+          <a id="submissions-link" href="#">Submissions</a>
+        </li>
+      </ul>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div id="assignments" style="display: block;">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>
+                  Assignments
+                </h3>
+                <hr>
+                <table class="table table-hover table-striped">
             <tbody>
                 <tr>
                   <th>#</th>
@@ -153,13 +107,84 @@
                 </tr>
             </tbody>
           </table>
-          <h3>
-            <div>
-              Submissions
+            <div class="button-group" align="right">
+              <a data-toggle="modal" href="#add-modal"><button class="btn btn-primary">Add</button></a>
+          </div>
+              </div>
             </div>
-          </h3>
-          <br>
-          <table class="table table-hover table-striped">
+          </div>
+          <div id="students" style="display: none;">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>
+                  Students
+                </h3>
+                <hr>
+                <table class="table table-hover table-striped">
+            <tbody>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>A1</th>
+                <th>A2</th>
+                <th>A3</th>
+                <th>Grade</th>
+                <th></th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td><a href="account.html">Samuel Rodriguez</a></td>
+                <td>samuel.rodriguez@upr.edu</td>
+                <td>10 / 10</td>
+                <td>5 / 15</td>
+                <td>8 / 10</td>
+                <td>23 / 35</td>
+                <td><a href="#del"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><a href="#nelian">Nelian Colon</a></td>
+                <td>nelian.colon@upr.edu</td>
+                <td>10 / 10</td>
+                <td>5 / 15</td>
+                <td>8 / 10</td>
+                <td>23 / 35</td>
+                <td><a href="#del"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><a href="#daniel">Daniel Santiago</a></td>
+                <td>daniel.santiago@upr.edu</td>
+                <td>10 / 10</td>
+                <td>5 / 15</td>
+                <td>8 / 10</td>
+                <td>23 / 35</td>
+                <td><a href="#del"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><a href="#juan">Juan Del Pueblo</a></td>
+                <td>juan.pueblo@upr.edu</td>
+                <td>10 / 10</td>
+                <td>15 / 15</td>
+                <td>10 / 10</td>
+                <td>35 / 35</td>
+                <td><a href="#del"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+            </tbody>
+          </table>
+              </div>
+            </div>
+          </div>
+          <div id="submissions" style="display: none;">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>
+                  Submissions
+                </h3>
+                <hr>
+                <table class="table table-hover table-striped">
             <tbody>
                 <tr>
                   <th>#</th>
@@ -211,8 +236,13 @@
                 </tr>
             </tbody>
           </table>
+              </div>
+              <hr>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
     </div>
 
     <div id="grade-modal" class="modal fade">
@@ -253,10 +283,29 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
+
+      function tabClick(tabName) {
+        var tabs = ['assignments', 'students', 'submissions'];
+        for (var i = 0; i < tabs.length; i++) {
+          var name = tabs[i];
+          if(name === tabName) {
+            $('#' + name).show(500);
+            $('#' + name + '-tab').addClass('active');
+          } else {
+            $('#' + name).hide();
+            $('#' + name + '-tab').removeClass('active');
+          }
+        }
+      }
+
       $(document).ready(function() {
-        $('#navbar-container').load('/navbar.html', function() {
-        });
+        $('#navbar-container').load('/navbar.html');
+
+        $('#assignments-link').click(function() { tabClick('assignments'); return false;});
+        $('#students-link').click(function() { tabClick('students'); return false;});
+        $('#submissions-link').click(function() { tabClick('submissions'); return false;});
       });
+
     </script>
 
   </body>
