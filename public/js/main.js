@@ -109,6 +109,14 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
+  when('/grades/', {
+    controller: 'GradesController',
+    templateUrl: 'views/grades.html',
+    resolve: {
+      style: cssSetter('grades'),
+      currentUser: currentUserMapper
+    }
+  }).
   when('/user/:id', {
     controller: 'UserController',
     resolve: {
