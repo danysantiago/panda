@@ -5,23 +5,23 @@
   </h2>
 
   <ul class="nav nav-tabs">
-    <li id="info-tab" class="active">
-      <a id="info-link" href="#">Info</a>
+    <li id="info-tab" ng-class="{active: isInfoVisible}">
+      <a id="info-link" ng-click="showInfo()">Info</a>
     </li>
-    <li id="submissions-tab" class="">
-      <a id="submissions-link" href="#">Submissions</a>
+    <li id="submissions-tab" ng-class="{active: isSubmissionsVisible}">
+      <a id="submissions-link" ng-click="showSubmissions()">Submissions</a>
     </li>
-    <li id="cases-tab" class="">
-      <a id="cases-link" href="#">Test Cases</a>
+    <li id="cases-tab" ng-class="{active: isTestCasesVisible}">
+      <a id="cases-link" ng-click="showTestCases()">Test Cases</a>
     </li>
-    <li id="repo-tab" class="">
-      <a id="repo-link" href="#">Repository</a>
+    <li id="repo-tab" ng-class="{active: isRepositoryVisible}">
+      <a id="repo-link" ng-click="showRepository()">Repository</a>
     </li>
   </ul>
 
   <div class="row">
     <div class="col-md-9">
-      <div id="info" style="display: block;">
+      <div id="info" ng-show="isInfoVisible">
         <div class="row">
           <div class="col-md-9">
             <h3>
@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div id="submissions" style="display: none;">
+      <div id="submissions" ng-show="isSubmissionsVisible">
         <div class="row">
           <div class="col-md-12">
             <h3>
@@ -126,7 +126,7 @@
           </div>
         </div>
       </div>
-      <div id="cases" style="display: none;">
+      <div id="cases" ng-show="isTestCasesVisible">
         <div class="row">
           <div class="col-md-4">
             <h3>
@@ -320,7 +320,7 @@
         </div>
       </div>
       <!--repository-->
-      <div id="repo" style="display: none;">
+      <div id="repo" ng-show="isRepositoryVisible">
         <div class="row">
           <div class="col-md-9">
             <h3>
