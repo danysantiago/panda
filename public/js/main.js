@@ -12,25 +12,46 @@ var currentUserMapper = ['CurrentUserLoader', function(CurrentUserLoader) {
   return CurrentUserLoader();
 }];
 
+/**
+ * This sets the css for each page...
+ */
+var cssSetter = function(name) {
+  return function() {
+    // Could also create a link element, or a service for stylesheets :|
+    angular.element('link#mainCss').replaceWith(
+      '<link id="mainCss" href="css/' + name + '.css" rel="stylesheet">');
+  }
+};
+
 // Set up our route so the pandaApp service can find it.
 pandaApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
     controller: 'IndexController',
     templateUrl: '/views/welcome.html',
+    resolve: {
+      style: cssSetter('index')
+    }
   }).
   when('/login', {
     controller: 'LoginController',
     templateUrl: '/views/login.html',
+    resolve: {
+      style: cssSetter('login')
+    }
   }).
   when('/logout', {
     controller: 'LogoutController',
     templateUrl: '/views/logout.html',
+    resolve: {
+      style: cssSetter('index')
+    }
   }).
   when('/home', {
     controller: 'HomeController',
     templateUrl: '/views/home.html',
     resolve: {
+      style: cssSetter('home'),
       currentUser: currentUserMapper,
       homeData: ['HomeDataLoader', function(HomeDataLoader) {
           return HomeDataLoader();
@@ -41,6 +62,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'CourseController',
     templateUrl: 'views/course.html',
     resolve: {
+      style: cssSetter('course'),
       course: ['CourseLoader', function(CourseLoader) {
         return CourseLoader();
       }],
@@ -51,6 +73,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'CoursesController',
     templateUrl: 'views/courses.html',
     resolve: {
+      style: cssSetter('courses'),
       currentUser: currentUserMapper
     }
   }).
@@ -58,6 +81,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'AssignmentController',
     templateUrl: 'views/assignment.html',
     resolve: {
+      style: cssSetter('assignment'),
       assignment: ['AssignmentLoader', function(AssignmentLoader) {
         return AssignmentLoader();
       }],
@@ -68,12 +92,14 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'AccountController',
     templateUrl: 'views/account.html',
     resolve: {
+      style: cssSetter('account'),
       currentUser: currentUserMapper
     }
   }).
   when('/user/:id', {
     controller: 'UserController',
     resolve: {
+      style: cssSetter('index'),
       user: ['UserLoader', function(UserLoader) {
         return UserLoader();
       }],
@@ -84,6 +110,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/users', {
     controller: 'MultiUserController',
     resolve: {
+      style: cssSetter('index'),
       users: ['MultiUserLoader', function(MultiUserLoader) {
         return MultiUserLoader();
       }],
