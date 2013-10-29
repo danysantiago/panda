@@ -40,6 +40,7 @@ mongodb.connect(config.dbAddress, function (err, db) {
       async.each(users, function (user, cb) {
         delete user._id;
 
+        //Refs correct assignments ObjectIDs
         _.each(user.Repositories, function (repo, index, list) {
           user.Repositories[index].id = assignmentsIds[repo.id];
         });
@@ -59,10 +60,17 @@ mongodb.connect(config.dbAddress, function (err, db) {
       async.each(courses, function (course, cb) {
         delete course._id;
 
+        //Refs correct users ObjectIDs
         _.each(course.Users, function (id, index, list) {
           course.Users[index] = usersIds[id];
         });
 
+        //Refs correct graders ObjectIDs
+        _.each(course.Graders, function (grader, index, list) {
+          course.Graders[index].id = usersIds[grader.id];
+        });
+
+        //Refs correct assignments ObjectIDs
         _.each(course.Assignments, function (id, index, list) {
           course.Assignments[index] = assignmentsIds[id];
         });
@@ -72,18 +80,25 @@ mongodb.connect(config.dbAddress, function (err, db) {
           cb(err);
         });
       }, done);
-    }
+    },
 
-    // function (done) {
-    //   //Insert submissions
-    //   var submissions = require('./res/submissions.json');
-    //   collection = db.collection('submissions');
-    //   async.each(submissions, function (submission, cdb) {
-    //     collection.insert(submission, function (err, submission) {
-    //       cb(err);
-    //     });
-    //   }, done);
-    // }
+    function (done) {
+      //Insert submissions
+      var submissions = require('./res/submissions.json');
+      collection = db.collection('submissions');
+
+      async.each(submissions, function (submission, cb) {
+        delete submission._id;
+
+        //Refs correct user and assignment id
+        submission.User = usersIds[submission.User];
+        submission.Assignment = assignmentsIds[submission.Assignment];
+
+        collection.insert(submission, function (err, submission) {
+          cb(err);
+        });
+      }, done);
+    }
   ], function (err) {
     if(err) {
       console.log(err);

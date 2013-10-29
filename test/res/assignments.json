@@ -78,5 +78,27 @@
         }
       }
     ]
+  },
+
+  {
+    "_id": 3,
+    "name": "Java 101",
+    "shortDescription": "Print me a string.",
+    "deadline": "6/11/2013",
+    "numOfTries": 3,
+    "deleted": false,
+    "Instructions": {
+      "text": "Print to the standard output 'Hello World!'"
+    },
+    "TestCases": [
+      {
+        "type": "Java",
+        "score": 10,
+        "resource": {
+          "input": "",
+          "output": "Hello World!"
+        }
+      }
+    ]
   }
 ]
