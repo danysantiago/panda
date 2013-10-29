@@ -10,7 +10,6 @@ pandaApp.controller('HomeController', ['$scope', 'currentUser', 'User',
   var user = User.get({id: currentUser._id, submissions: true,
       assignments: true, courses: true}, function() {
     // TODO(samuel): Extract pending assignments first.
-    console.log(user);
     $scope.user = user;
   });
 }]);

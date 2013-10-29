@@ -44,7 +44,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'LogoutController',
     templateUrl: '/views/logout.html',
     resolve: {
-      style: cssSetter('index')
+      style: cssSetter('logout')
     }
   }).
   when('/home', {
@@ -117,10 +117,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/user/:id', {
+  when('/user/:id', { // TODO(samuel): user and users route are not being used.
     controller: 'UserController',
     resolve: {
-      style: cssSetter('index'),
+      style: cssSetter('user'),
       user: ['UserLoader', function(UserLoader) {
         return UserLoader();
       }],
@@ -131,7 +131,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/users', {
     controller: 'MultiUserController',
     resolve: {
-      style: cssSetter('index'),
+      style: cssSetter('users'),
       users: ['MultiUserLoader', function(MultiUserLoader) {
         return MultiUserLoader();
       }],
