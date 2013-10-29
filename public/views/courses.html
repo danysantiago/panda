@@ -31,7 +31,7 @@
             </tr>
             <tr ng-repeat="assignment in course.assignments">
               <td>
-                <a href="assignment.html">{{$index + 1}}. {{assignment.name}}</a>
+                <a href="/#/assignment/{{assignment._id}}">{{$index + 1}}. {{assignment.name}}</a>
               </td>
               <td>
                 Due: {{assignment.deadline}}
