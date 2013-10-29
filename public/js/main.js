@@ -89,7 +89,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     controller: 'AssignmentsController',
     templateUrl: 'views/assignments.html',
     resolve: {
-      style: cssSetter('index'),
+      style: cssSetter('assignments'),
       currentUser: currentUserMapper
     }
   }).
@@ -98,6 +98,14 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'views/account.html',
     resolve: {
       style: cssSetter('account'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/submissions/', {
+    controller: 'SubmissionsController',
+    templateUrl: 'views/submissions.html',
+    resolve: {
+      style: cssSetter('submissions'),
       currentUser: currentUserMapper
     }
   }).
