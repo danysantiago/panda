@@ -3,7 +3,7 @@
     "_id": 0,
     "Users": [0, 1, 2],
     "Assignments": [0, 1],
-    "Grader": [
+    "Graders": [
       {
         "id": 5,
         "permissions": 3
@@ -18,8 +18,8 @@
   {
     "_id": 1,
     "Users": [0, 2, 4],
-    "Assignments": [2],
-    "Grader": [
+    "Assignments": [2, 3],
+    "Graders": [
       {
         "id": 5,
         "permissions": 3

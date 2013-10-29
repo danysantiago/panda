@@ -1,0 +1,27 @@
+[
+  {
+    "_id": 1,
+    "User": 3,
+    "Assignment": 3,
+    "grade": 10,
+    "file": "SimpleProgram.java",
+    "date": 1383009444,
+    "compile": {
+      "status": "OK",
+      "time": "1732 milliseconds"
+    },
+    "tests": [
+      {
+        "testerFile": "",
+        "testOutput": "Hello World!",
+        "testInput": "",
+        "result": {
+          "verdict": "Correct",
+          "elapsed time": "0 seconds",
+          "memory usage": "14332 kilobytes",
+          "cpu usage": "0.084 seconds"
+        }
+      }
+    ]
+  }
+]
