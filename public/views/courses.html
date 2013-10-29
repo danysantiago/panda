@@ -8,7 +8,7 @@
         <hr>
         <ul class="list-group sidebar">
           <li class="list-group-item" ng-repeat="course in user.courses">
-            <a href="#/courses">Course #{{$index + 1}}</a>
+            <a href="#/courses">{{$index + 1}}. {{course.code}}</a>
           </li>
         </ul>
       </div>
@@ -16,10 +16,10 @@
     <div class="col-md-9">
       <div class="container well" ng-repeat="course in user.courses">
         <h3>
-          <a href="course.html">{{course.name}}</a>
+          <a href="/#/course/{{course._id}}">{{course.name}}</a>
         </h3>
         <h5>
-          Course #{{$index + 1}} - {{course.semester}} - {{course.year}}
+          {{course.code}} - {{course.semester}} - {{course.year}}
         </h5>
         <br>
         <table class="table table-bordered table-hover">
@@ -31,7 +31,7 @@
             </tr>
             <tr ng-repeat="assignment in course.assignments">
               <td>
-                <a href="assignment.html">Assignment #{{$index + 1}}</a>
+                <a href="assignment.html">{{$index + 1}}. {{assignment.name}}</a>
               </td>
               <td>
                 Due: {{assignment.deadline}}
