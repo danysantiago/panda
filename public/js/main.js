@@ -52,10 +52,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/views/home.html',
     resolve: {
       style: cssSetter('home'),
-      currentUser: currentUserMapper,
-      homeData: ['HomeDataLoader', function(HomeDataLoader) {
-          return HomeDataLoader();
-      }]
+      currentUser: currentUserMapper
     }
   }).
   when('/course/:id', {
