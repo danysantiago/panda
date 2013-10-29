@@ -1,18 +1,18 @@
 <div class="container">
   <h2>Samuel Rodriguez | samuel.rodriguez@upr.edu</h2>
 
-  <ul class="nav nav-tabs">
-    <li id="profile-tab" class="active">
-      <a id="profile-link" href="#">Profile</a>
+  <ul class="nav nav-tabs" style="cursor: pointer">
+    <li id="profile-tab" ng-class="{active: isProfileVisible}">
+      <a id="profile-link" ng-click="showProfile()">Profile</a>
     </li>
-    <li id="security-tab">
-      <a id="security-link" href="#">Security</a>
+    <li id="security-tab" ng-class="{active: isSecurityVisible}">
+      <a id="security-link" ng-click="showSecurity()">Security</a>
     </li>
   </ul>
 
   <br>
 
-  <div id="profile" style="display:block">
+  <div id="profile" ng-show="isProfileVisible">
     <div class="row">
       <div class="col-md-4">
         <img src="http://parentpreviews.com/legacy-pics/fantastic_mr_fox.jpg"
@@ -53,7 +53,7 @@
     </div>
     <!-- end profile -->
   </div>
-  <div id="security" style="display:none">
+  <div id="security" ng-show="isSecurityVisible">
     <div class="row">
       <div class="col-md-4">
         <form>
@@ -95,25 +95,3 @@
   </div>
   <!-- end container -->
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js">
-</script>
-
-<script type="text/javascript">
-
-  function tabClick(tabName) {
-    var tabs = ['profile', 'security'];
-    for (var i = 0; i < tabs.length; i++) {
-      var name = tabs[i];
-      if(name === tabName) {
-        $('#' + name).show(500);
-        $('#' + name + '-tab').addClass('active');
-      } else {
-        $('#' + name).hide();
-        $('#' + name + '-tab').removeClass('active');
-      }
-    }
-  }
-
-</script>
