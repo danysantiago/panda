@@ -2,7 +2,6 @@
   {
     "_id": 0,
     "Users": [0, 1, 2],
-    "Assignments": [0, 1],
     "Graders": [
       {
         "id": 5,
@@ -19,7 +18,6 @@
   {
     "_id": 1,
     "Users": [0, 2, 4],
-    "Assignments": [2, 3],
     "Graders": [
       {
         "id": 5,

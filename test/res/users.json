@@ -14,11 +14,15 @@
       },
       {
         "id": 1,
-        "path": "pandagitlab.sytes.net/assig0"
+        "path": "pandagitlab.sytes.net/assig1"
       },
       {
         "id": 2,
-        "path": "pandagitlab.sytes.net/assig0"
+        "path": "pandagitlab.sytes.net/assig2"
+      },
+      {
+        "id": 3,
+        "path": "pandagitlab.sytes.net/assig3"
       }
     ]
 
@@ -39,7 +43,7 @@
       },
       {
         "id": 1,
-        "path": "pandagitlab.sytes.net/assig0"
+        "path": "pandagitlab.sytes.net/assig1"
       }
     ]
   },
@@ -59,11 +63,15 @@
       },
       {
         "id": 1,
-        "path": "pandagitlab.sytes.net/assig0"
+        "path": "pandagitlab.sytes.net/assig1"
       },
       {
         "id": 2,
-        "path": "pandagitlab.sytes.net/assig0"
+        "path": "pandagitlab.sytes.net/assig2"
+      },
+      {
+        "id": 3,
+        "path": "pandagitlab.sytes.net/assig3"
       }
     ]
   },
@@ -90,6 +98,10 @@
     "Repositories": [
       {
         "id": 2,
+        "path": "pandagitlab.sytes.net/assig0"
+      },
+      {
+        "id": 3,
         "path": "pandagitlab.sytes.net/assig0"
       }
     ]

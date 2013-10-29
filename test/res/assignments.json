@@ -1,6 +1,7 @@
 [
   {
     "_id": 0,
+    "Course": 0,
     "name": "Single Source Shortest Path",
     "shortDescription": "Implement Dijkstra's algorithm",
     "deadline": "4/11/2013",
@@ -25,6 +26,7 @@
 
   {
     "_id": 1,
+    "Course": 0,
     "name": "Substring Matching",
     "shortDescription": "Identify substrings",
     "deadline": "8/11/2013",
@@ -59,6 +61,7 @@
 
   {
     "_id": 2,
+    "Course": 1,
     "name": "Linked list Implementation",
     "shortDescription": "Implement single and doubly linked list ADT",
     "deadline": "6/11/2013",
@@ -82,6 +85,7 @@
 
   {
     "_id": 3,
+    "Course": 1,
     "name": "Java 101",
     "shortDescription": "Print me a string.",
     "deadline": "6/11/2013",
