@@ -85,6 +85,14 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
+  when('/assignments/', {
+    controller: 'AssignmentsController',
+    templateUrl: 'views/assignments.html',
+    resolve: {
+      style: cssSetter('index'),
+      currentUser: currentUserMapper
+    }
+  }).
   when('/account', {
     controller: 'AccountController',
     templateUrl: 'views/account.html',
