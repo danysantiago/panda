@@ -4,14 +4,17 @@
 #shutdowns the server and then creates coverage reports. Also results
 #are outputted to terminal
 
-#Server binds to port 80, run with sudo (sudo npm test)
-
-
 #Colors
 red="\e[0;31m"
 lgreen="\e[92m"
 dgray="\e[90m"
 NC="\e[0m"
+
+#Server binds to port 80, run with sudo (sudo npm test)
+if [ "$(whoami)" != "root" ]; then
+  echo -e ${red} "Error: Try running command as root/admin\n" ${NC}
+  exit 1
+fi
 
 rm -rf ./.coverage_data # Remove previous coverage data
 rm -rf ./public/coverage # Remove previous coverage report
