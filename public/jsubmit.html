@@ -9,10 +9,18 @@
     <div class="container">
       <h2>Java Submit Form</h2>
 
-      <form role="form" name="input" action="jsubmit" enctype="multipart/form-data" method="post">
+      <form role="form" name="input" action="test/jsubmit" enctype="multipart/form-data" method="post">
         <div class="form-group">
           <p>Upload a java source file.</p>
           <input type="file" name="jfile">
+        </div>
+        <div class="form-group">
+          Input:
+          <textarea type="text" class="form-control" name="input"></textarea>
+        </div>
+        <div class="form-group">
+          Expected Output:
+          <textarea type="text" class="form-control" name="output"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

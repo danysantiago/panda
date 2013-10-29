@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Panda Code Review</title>
+    <title>Panda Code Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="css/login.css" rel="stylesheet">
@@ -12,14 +12,14 @@
     <div class="container">
       <div id="carousel" class="carousel slide">
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        <!-- <ol class="carousel-indicators">
           <li data-target="#carousel" data-slide-to="0">
           </li>
           <li data-target="#carousel" data-slide-to="1" class="active">
           </li>
           <li data-target="#carousel" data-slide-to="2">
           </li>
-        </ol>
+        </ol> -->
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
           <div class="item centered">
@@ -39,12 +39,12 @@
           </div>
         </div>
         <!-- Controls -->
-        <a class="left carousel-control" href="#carousel" data-slide="prev">
+        <!-- <a class="left carousel-control" href="#carousel" data-slide="prev">
           <span class="icon-prev"></span>
         </a>
         <a class="right carousel-control" href="#carousel" data-slide="next">
           <span class="icon-next"></span>
-        </a>
+        </a> -->
       </div>
       <div class="row">
         <div class="col-md-4">
@@ -53,18 +53,18 @@
           <h3 class="centered">
             Login
           </h3>
-          <form>
+          <form action="/auth/login" method="post">
             <div class="form-group">
               <label for="emailInput">
                 Email address
               </label>
-              <input type="email" class="form-control" id="emailInput" placeholder="Email">
+              <input type="email" name="email" class="form-control" id="emailInput" placeholder="Email">
             </div>
             <div class="form-group">
               <label for="passwordInput">
                 Password
               </label>
-              <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+              <input type="password" name="password" class="form-control" id="passwordInput" placeholder="Password">
             </div>
             <div class="form-group centered">
               <div class="row">
@@ -81,7 +81,7 @@
               </div>
               <hr>
               <p>
-                <a href="#">Forgot Password?</a>
+                <a href="#">Forgot Password?</a> | <a href="#">Subscribe a School</a>
               </p>
             </div>
           </form>
@@ -99,15 +99,23 @@
             <h4 class="modal-title">Sign Up</h4>
           </div>
           <div class="modal-body">
-            <form>
+            <form action="/users" method="post">
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email"></div>
+                <input type="email" name="email" class="form-control" placeholder="Email"></div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Name"></div>
+                <input type="text" name="name" class="form-control" placeholder="Name"></div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password"></div>
+                <input type="password" name="password" class="form-control" placeholder="Password"></div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Retype Password"></div>
+                <input type="password" name="password_confirm" class="form-control" placeholder="Retype Password"></div>
+                <div class="form-group">
+                  <label>School: </label>
+                  <select class="selectpicker">
+                    <option>University of Puerto Rico, Mayaguez</option>
+                    <option>University of Puerto Rico, Rio Piedras</option>
+                    <option>University of Sr. Santiago</option>
+                  </select>
+                </div>
             </form>
           </div>
           <div class="modal-footer">

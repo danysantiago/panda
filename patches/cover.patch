@@ -1,0 +1,22 @@
+--- cover 2013-08-22 20:57:57.000000000 -0400
++++ cover 2013-10-27 19:51:20.331506958 -0400
+@@ -352,7 +352,6 @@
+         var coverageData = JSON.parse(data);
+ 
+         var overall = {
+-          filename: 'Overall',
+           missing  : 0,
+           seen     : 0,
+           total    : 0,
+@@ -376,7 +375,10 @@
+ 
+         overall.percentage = overall.seen / overall.total;
+         overall.blocks.percentage = overall.blocks.seen / overall.blocks.total;
+-        coverageData.overall = {stats: function() { return overall; }};
++        coverageData.overall = {
++            filename: 'Overall',
++            stats: function() { return overall; }
++        };
+ 
+         return coverageData;
+     };

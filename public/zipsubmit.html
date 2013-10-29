@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+    <div class="container">
+      <h2>Java Submit Form</h2>
+
+      <form role="form" name="input" action="test/zipsubmit" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <p>Source Archive (.zip)</p>
+          <input type="file" name="zipfile">
+        </div>
+        <div class="form-group">
+          <p>Main Class Tester</p>
+          <input type="file" name="jfile">
+        </div>
+        <div class="form-group">
+          Input:
+          <textarea type="text" class="form-control" name="input"></textarea>
+        </div>
+        <div class="form-group">
+          Expected Output:
+          <textarea type="text" class="form-control" name="output"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

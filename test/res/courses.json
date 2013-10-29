@@ -1,0 +1,33 @@
+[
+  {
+    "_id": 0,
+    "Users": [0, 1, 2],
+    "Graders": [
+      {
+        "id": 5,
+        "permissions": 3
+      }
+    ],
+    "name": "Design and Analysis of Algorithms",
+    "code": "ICOM5995",
+    "year": 2013,
+    "semester": "Fall",
+    "deleted": false
+  },
+
+  {
+    "_id": 1,
+    "Users": [0, 2, 4],
+    "Graders": [
+      {
+        "id": 5,
+        "permissions": 3
+      }
+    ],
+    "name": "Data Structures",
+    "code": "ICOM4035",
+    "year": 2013,
+    "semester": "Fall",
+    "deleted": false
+  }
+]

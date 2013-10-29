@@ -1,25 +1,43 @@
-var config = require("./lib/config.js"),
-    express = require("express"),
+var config = require('./lib/config/config.js'),
+    express = require('express'),
     app = express(),
-    dbClient = require("mongodb");
+    mongodb = require('mongodb');
     bunyan = require('bunyan');
 
-var log = bunyan.createLogger({'name': 'panda'});
+var Database = require('./lib/models/database.js');
 
-var exec = require('child_process').exec;
+var log = bunyan.createLogger({'name': 'panda', 'level': config.debugLvl});
 
 app.configure(function() {
-  app.set("name", config.appName);
+  app.set('name', config.appName);
+
+  var env = app.get("env"); //Get node enviroment
+  if (env === "development") {
+    log.warn("Server Configured for Development Mode");
+
+    // App kill route to finish running after tests complete.
+    app.use("/kill/after/tests", function (req, res, next) {
+      res.send(200, "Bye, Bye");
+      log.warn("Server Kill Requested.");
+      process.exit(1);
+    });
+
+  } else if (env === "production") {
+    log.warn("Server configured for production mode.");
+  }
+
+  //Use temp folder cleaner
+  //require('./lib/tmpClean.js')(config.root + 'tmp', log);
 });
 
-// Request Logger
+// Request logger middleware
 app.use( function (req, res, next) {
-  log.info("%s %s", req.method, req.url);
+  log.info('%s %s', req.method, req.url);
   req.log = log;
   next();
 });
 
-// Compress static files
+// Static files compress middleware
 app.use(express.compress({
   filter: function (req, res) {
       return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
@@ -27,37 +45,56 @@ app.use(express.compress({
   level: 9
 }));
 
-// Static files
-app.use(express.favicon());
+// Static files middleware
+app.use(express.favicon(config.root + '/public/favicon.ico'));
 app.use(express.static(config.root + '/public'));
 
-// Routes
-app.use("/api", require("./lib/routes/users.js"));
-app.use("/api", require("./lib/routes/courses.js"));
-app.use("/api", require("./lib/routes/assignments.js"));
-app.use("/api", require("./lib/routes/submissions.js"));
+// Auth and Sessions middlewares
+var passport = require('./lib/config/passport.js');
+app.use(express.cookieParser());
+app.use(express.methodOverride());
+app.use(express.session({
+  'secret': 'aguacateao'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+// Database object middleware
+app.use(function (req, res, next) {
+  req.db = Database.getDB();
+  next();
+});
 
-app.post("/jsubmit", express.bodyParser({'uploadDir': config.root + '/tmp'}), function (req, res) {
-  req.log.info({'uploadedFile': req.files.jfile});
-  var fileName = req.files.jfile.originalFilename;
-  var className = fileName.substring(0, fileName.length-5);
-  var filePath = req.files.jfile.path;
-  var cmd = 'javac ' + '-d "' + __dirname + '/tmp" ' + filePath;
-  req.log.info(cmd);
-  var javac = exec(cmd, function (err, stdout, stderr) {
-    if(err) {
-      res.send(stderr);
-    } else {
-      var runJava = exec('cd ' + __dirname + '/tmp; java ' + className,
-        function (err, stdout, stderr) {
-          if(err) {
-            res.send(stderr);
-          } else {
-            res.send(stdout);
-          }
-        });
-    }
+// Auth Routes
+app.use('/auth', require('./lib/routes/auth.js'));
+
+// Api Routes
+api = express();
+api.use(function (req, res, next) {
+  // Exception - creating users without logging in
+  if(req.url === "/users" && req.method === "POST") {
+    return next();
+  }
+
+  // Api routes requires a logged user
+  if(!req.isAuthenticated()) {
+    return res.send(401);
+  }
+  
+  next();
+});
+api.use(require('./lib/routes/users.js'));
+api.use(require('./lib/routes/courses.js'));
+api.use(require('./lib/routes/assignments.js'));
+api.use(require('./lib/routes/submissions.js'));
+app.use('/api', api);
+
+// Test routes
+app.use('/test', require('./lib/routes/jsubmit.js'));
+app.use('/test', require('./lib/routes/zipsubmit.js'));
+app.get('/test/queue', function (req, res, next) {
+  require('./lib/queue.js').push({'name': 'testSubmission'}, function (result) {
+    res.send(result);
   });
 });
 
@@ -72,13 +109,19 @@ app.use(function (req, res, next){
   res.send(404, '404 - What your looking for is in "El Gara"');
 });
 
-dbClient.connect(config.dbAddress, function (err, db) {
+//TODO (Daniel): CXheck Jail has been properly setup (/proc), before
+//continuing...
+
+mongodb.connect(config.dbAddress, function (err, db) {
   if(err) {
-    return log.error("Could not connect to mongodb", err);
+    return log.error('Could not connect to mongodb', err);
   }
 
-  log.info("Database connection successful");
+  Database.setDB(db);
+  log.info('Database connection successful - ' + config.dbAddress);
 
   app.listen(config.appPort);
-  log.info("App started, listening at port %s", config.appPort);
+  log.info('App started, listening at port %s', config.appPort);
 });
+
+module.exports.log = log;
