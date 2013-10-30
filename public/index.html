@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavbarController">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,7 +43,7 @@
         <div class="navbar-collapse collaspe">
           <ul class="nav navbar-nav">
             <!-- TODO change /s/home to the correct route depending on role -->
-            <li id="bar-home"><a href="/#/s/home">Home</a></li>
+            <li id="bar-home"><a href="/#/{{getRoleRoute()}}/home">Home</a></li>
             <li id="bar-account"><a href="/#/account">Account</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
