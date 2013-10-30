@@ -23,12 +23,47 @@ var cssSetter = function(name) {
   }
 };
 
+/**
+ * User roles. It's like a binary enum kind of thing.
+ * Routes will have different access levels. If you want to know if a user role
+ * has access to some content, just do userRole & accessLevel (binary AND).
+ * See http://frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/
+ */
+var userRoles = {
+  anonymous: 1, // 0001
+  student: 2, // 0010
+  professor: 4, // 0100
+  admin: 8 // 1000
+};
+
+var accessLevels = {
+  // 1111 (everyone can access public stuff.)
+  public: userRoles.anonymous | userRoles.student | userRoles.professor
+      | userRoles.admin,
+  
+  // 1110 (students, professors and admins can access authenticated content.)
+  authenticated: userRoles.student | userRoles.professor | userRoles.admin,
+
+  // 0001 (anonymous users and admins can access anonymous content.)
+  anonymous: userRoles.anonymous | userRoles.admin,
+
+  // 1010 (student and admin have access to student content.)
+  student: userRoles.student | userRoles.admin,
+
+  // 1100 (professor and admin have access to professor content.)
+  professor: userRoles.professor | userRoles.admin,
+
+  // 1000 (only admin has access to admin content.)
+  admin: userRoles.admin
+};
+
 // Set up our route so the pandaApp service can find it.
 pandaApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
     controller: 'IndexController',
     templateUrl: '/views/welcome.html',
+    access: accessLevels.public,
     resolve: {
       style: cssSetter('index')
     }
@@ -36,6 +71,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/login', {
     controller: 'LoginController',
     templateUrl: '/views/login.html',
+    access: accessLevels.anonymous,
     resolve: {
       style: cssSetter('login')
     }
@@ -43,6 +79,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/logout', {
     controller: 'LogoutController',
     templateUrl: '/views/logout.html',
+    access: accessLevels.authenticated,
     resolve: {
       style: cssSetter('logout')
     }
@@ -50,6 +87,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/home', {
     controller: 'HomeController',
     templateUrl: '/views/home.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('home'),
       currentUser: currentUserMapper
@@ -58,6 +96,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/course/:id', {
     controller: 'CourseController',
     templateUrl: 'views/course.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('course'),
       course: ['CourseLoader', function(CourseLoader) {
@@ -69,6 +108,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/courses', {
     controller: 'CoursesController',
     templateUrl: 'views/courses.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('courses'),
       currentUser: currentUserMapper
@@ -77,6 +117,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/assignment/:id', {
     controller: 'AssignmentController',
     templateUrl: 'views/assignment.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('assignment'),
       assignment: ['AssignmentLoader', function(AssignmentLoader) {
@@ -88,6 +129,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/assignments/', {
     controller: 'AssignmentsController',
     templateUrl: 'views/assignments.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('assignments'),
       currentUser: currentUserMapper
@@ -96,6 +138,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/account', {
     controller: 'AccountController',
     templateUrl: 'views/account.html',
+    access: accessLevels.authenticated,
     resolve: {
       style: cssSetter('account'),
       currentUser: currentUserMapper
@@ -104,6 +147,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/submissions/', {
     controller: 'SubmissionsController',
     templateUrl: 'views/submissions.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('submissions'),
       currentUser: currentUserMapper
@@ -112,6 +156,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   when('/grades/', {
     controller: 'GradesController',
     templateUrl: 'views/grades.html',
+    access: accessLevels.student,
     resolve: {
       style: cssSetter('grades'),
       currentUser: currentUserMapper
@@ -119,6 +164,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/user/:id', { // TODO(samuel): user and users route are not being used.
     controller: 'UserController',
+    access: accessLevels.admin,
     resolve: {
       style: cssSetter('user'),
       user: ['UserLoader', function(UserLoader) {
@@ -130,6 +176,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/users', {
     controller: 'MultiUserController',
+    access: accessLevels.admin,
     resolve: {
       style: cssSetter('users'),
       users: ['MultiUserLoader', function(MultiUserLoader) {
@@ -153,8 +200,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
    * until the LoginService receives a response.
    */
   $rootScope.loggedIn = false;
+  $rootScope.currentUser = null;
   LoginService(function(message, data) {
     $rootScope.loggedIn = (message === null);
+    $rootScope.currentUser = data;
   })
 
   /**
@@ -167,6 +216,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   // the http-auth-interceptor when a 401 is received from the server.
   $rootScope.$on('event:auth-loginRequired', function() {
     $rootScope.loggedIn = false;
+    $rootScope.currentUser = null;
     if ($location.url() != '/login') {
       lastTriedUrl = $location.url();
     }
@@ -180,8 +230,9 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
 
   // Register a listener for the auth-loginConfirmed event. This event is fired
   // by the LoginController when the login has been confirmed by the server.
-  $rootScope.$on('event:auth-loginConfirmed', function(data) {
+  $rootScope.$on('event:auth-loginConfirmed', function(event, user) {
     $rootScope.loggedIn = true;
+    $rootScope.currentUser = user;
     if ($location.url() == '/login' && !lastTriedUrl) {
       $location.url('/home');
       
@@ -190,6 +241,29 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     }
     lastTriedUrl = null;
   });
+
+  // Redirect if the user doesn't have enough privileges for the given route.
+  $rootScope.$on("$routeChangeStart", function(event, next, current) {
+    // First translate current user's role.
+    var currentUserRole = userRoles.anonymous;
+    if ($rootScope.currentUser) {
+      currentUserRole = userRoles[$rootScope.currentUser.role.toLowerCase()];
+    }
+
+    // Determine access.
+    if(!(currentUserRole & next.access)) {
+      // The user has no access, redirect accordingly.
+      if ($rootScope.loggedIn) {
+        // TODO(samuel): Put different redirections paths according to the next
+        // route. For example, if a student tried to access course-prof,
+        // redirect to course.
+        $location.path('/');
+      } else {
+        $location.path('/login');
+      }
+    }
+  });
+
 }]);
 
 pandaApp.controller('UserController', ['$scope', 'user', 'currentUser',
