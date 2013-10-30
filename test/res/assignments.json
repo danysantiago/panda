@@ -12,7 +12,7 @@
     },
     "TestCases": [
       {
-        "type": "Java",
+        "type": "I/O",
         "score": 10,
         "timeLimit": 10,
         "memLimit": 5,
@@ -37,7 +37,7 @@
     },
     "TestCases": [
       {
-        "type": "Java",
+        "type": "I/O",
         "score": 5,
         "timeLimit": 5,
         "memLimit": 5,
@@ -47,7 +47,7 @@
         }
       },
       {
-        "type": "Java",
+        "type": "I/O",
         "score": 10,
         "timeLimit": 5,
         "memLimit": 5,
@@ -72,12 +72,16 @@
     },
     "TestCases": [
       {
-        "type": "Java",
+        "type": "Exec",
         "score": 10,
         "resource": {
           "input": "",
           "output": "Here goes the Big Output File",
-          "tester": "LinkedListTester1.java"
+          "lang": "java",
+          "tester": {
+            "name": "LinkedListTester1.java",
+            "src": "0101010110"
+          }
         }
       }
     ]
@@ -96,7 +100,7 @@
     },
     "TestCases": [
       {
-        "type": "Java",
+        "type": "I/O",
         "score": 10,
         "resource": {
           "input": "",
