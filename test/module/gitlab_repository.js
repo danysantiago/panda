@@ -2,7 +2,7 @@ var config = require('../../lib/config/config.js'),
     expect = require('chai').expect,
     Gitlab = require('../../lib/gitlab/Gitlab');
 
-    var gitlab = new Gitlab();
+    var gitlab = new Gitlab(console.log);
 
 
 var test = function() {
@@ -15,12 +15,16 @@ var test = function() {
      sha: '1ba94ed11'
   }
 
+  var fs = require('fs');
+  var out = fs.createWriteStream(__dirname + '/../res/'+params.name+'.tar.gz');
+
    describe('Gitlab Repository', function() {
 
-       it('Get Project Archive', function(done) {
-      gitlab.repository.archive(params, function (err, res, body){
+      it('Get Project Archive', function(done) {
+      gitlab.repository.archive(params, out, function (err, res, body){
       expect(res).to.exist;
       expect(res.statusCode).to.equal(200);
+      
       done();
     });
     });
