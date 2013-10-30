@@ -83,7 +83,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     resolve: {
       style: cssSetter('logout')
     }
-  }).
+  }). //** Student Routes **//
   when('/home', {
     controller: 'HomeController',
     templateUrl: '/views/home.html',
@@ -159,6 +159,66 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     access: accessLevels.student,
     resolve: {
       style: cssSetter('grades'),
+      currentUser: currentUserMapper
+    }
+  }). //** Professor routes **//
+  when('/p/home', {
+    controller: 'ProfessorHomeController',
+    templateUrl: '/views/professorHome.html',
+    access: accessLevels.professor,
+    resolve: {
+      style: cssSetter('home'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/p/course/:id', {
+    controller: 'ProfessorCourseController',
+    templateUrl: 'views/professorCourse.html',
+    access: accessLevels.professor,
+    resolve: {
+      style: cssSetter('course'),
+      course: ['CourseLoader', function(CourseLoader) {
+        return CourseLoader();
+      }],
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/p/courses', {
+    controller: 'ProfessorCoursesController',
+    templateUrl: 'views/professorCourses.html',
+    access: accessLevels.professor,
+    resolve: {
+      style: cssSetter('courses'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/p/assignment/:id', {
+    controller: 'ProfessorAssignmentController',
+    templateUrl: 'views/professorAssignment.html',
+    access: accessLevels.professor,
+    resolve: {
+      style: cssSetter('assignment'),
+      assignment: ['AssignmentLoader', function(AssignmentLoader) {
+        return AssignmentLoader();
+      }],
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/p/assignments/', {
+    controller: 'ProfessorAssignmentsController',
+    templateUrl: 'views/professorAssignments.html',
+    access: accessLevels.professor,
+    resolve: {
+      style: cssSetter('assignments'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/p/submissions/', {
+    controller: 'ProfessorSubmissionsController',
+    templateUrl: 'views/professorSubmissions.html',
+    access: accessLevels.professor,
+    resolve: {
+      style: cssSetter('submissions'),
       currentUser: currentUserMapper
     }
   }).
@@ -261,6 +321,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
         // redirect to course.
         $location.path('/');
       } else {
+        // This is already being handled by the event:auth-loginRequired.
         //$location.path('/login');
       }
     }
