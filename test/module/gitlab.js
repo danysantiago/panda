@@ -8,10 +8,10 @@ var config = require('../../lib/config/config.js'),
 var test = function() {
 
   var fakeUser = {
-    email: 'helloworld@hello.com',
-    password: 'helloo',
-    username: 'qwerty',
-    name: 'Hello'
+    email: 'super@fake.com',
+    password: 'superfake',
+    username: 'superfake',
+    name: 'Fake'
   };
 
   var params = {
@@ -20,6 +20,48 @@ var test = function() {
   }
 
   describe('Users', function() {
+    it('Create User', function(done) {
+    gitlab.user.create(fakeUser, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.equal(201);
+        fakeUser.user_id = body.id; //Get id of created user
+        done();
+      });
+    });
+
+    it('Fail to create user', function(done) {
+    gitlab.user.create(fakeUser, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+    });
+
+    it('Get Users', function(done) {
+    gitlab.user.getAll(function (err, res, body){
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+  });
+
+    it('Get User', function(done) {
+    gitlab.user.get(fakeUser,function (err, res, body){
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      expect(body.id).to.equal(fakeUser.user_id);
+      done();
+    });
+  });
+
+
+    it('Delete User', function(done) {
+    gitlab.user.delete(fakeUser,function (err, res, body){
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+  });
 
   });
 
@@ -85,7 +127,6 @@ var test = function() {
         params.name = 'xyz';
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);
-        console.log(body);
         done();
       });
     });
