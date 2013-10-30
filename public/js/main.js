@@ -200,7 +200,9 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
    * until the LoginService receives a response.
    */
   $rootScope.loggedIn = false;
+
   $rootScope.currentUser = null;
+
   LoginService(function(message, data) {
     $rootScope.loggedIn = (message === null);
     $rootScope.currentUser = data;
@@ -251,7 +253,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     }
 
     // Determine access.
-    if(!(currentUserRole & next.access)) {
+    if (!(currentUserRole & next.access)) {
       // The user has no access, redirect accordingly.
       if ($rootScope.loggedIn) {
         // TODO(samuel): Put different redirections paths according to the next
@@ -259,7 +261,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
         // redirect to course.
         $location.path('/');
       } else {
-        $location.path('/login');
+        //$location.path('/login');
       }
     }
   });
