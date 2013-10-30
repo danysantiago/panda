@@ -63,6 +63,25 @@ var test = function() {
     });
   });
 
+    it('Modify User', function(done) {
+    gitlab.user.modify({user_id: fakeUser.id, email: 'other@email.com'},function (err, res, body){
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      expect(body.email).to.not.equal(fakeUser.email);
+      done();
+    });
+    });
+
+    it('Get Current User', function(done) {
+    gitlab.user.getCurrent(function (err, res, body){
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      var credentials = require('../../lib/gitlab/credentials.js')
+      expect(body.private_token).to.equal(credentials.token);
+      done();
+    });
+    });
+
   });
 
   describe('Projects', function() {
