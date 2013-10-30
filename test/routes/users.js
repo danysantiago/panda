@@ -79,7 +79,7 @@ var test = function() {
         }
       };
 
-      request.get(reqParams, function (err, res, body) {
+      request(reqParams, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(401);
         done();
@@ -97,7 +97,7 @@ var test = function() {
         }
       };
 
-      request.get(reqParams, function (err, res, body) {
+      request(reqParams, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(401);
         done();
@@ -116,7 +116,7 @@ var test = function() {
         'jar': true
       };
 
-      request.get(reqParams, function (err, res, body) {
+      request(reqParams, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
         done();
@@ -129,6 +129,8 @@ var test = function() {
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
+        expect(body).to.exist;
+        expect(body.email).to.equal(fakeUser.email);
         done();
       });
     });
@@ -140,7 +142,7 @@ var test = function() {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
         expect(body).to.be.a('array');
-        expect(body).to.have.length.above(1);
+        expect(body).to.have.length.above(0);
         done();
       });
     });
