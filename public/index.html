@@ -14,16 +14,22 @@
     <script src="./js/services/services.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/controllers/index.js"></script>
-    <script src="./js/controllers/home.js"></script>
+    <script src="./js/controllers/student/studentHome.js"></script>
     <script src="./js/controllers/login.js"></script>
     <script src="./js/controllers/logout.js"></script>
     <script src="./js/controllers/account.js"></script>
-    <script src="./js/controllers/courses.js"></script>
-    <script src="./js/controllers/course.js"></script>
-    <script src="./js/controllers/assignment.js"></script>
-    <script src="./js/controllers/assignments.js"></script>
-    <script src="./js/controllers/submissions.js"></script>
-    <script src="./js/controllers/grades.js"></script>
+    <script src="./js/controllers/student/studentCourses.js"></script>
+    <script src="./js/controllers/student/studentCourse.js"></script>
+    <script src="./js/controllers/student/studentAssignment.js"></script>
+    <script src="./js/controllers/student/studentAssignments.js"></script>
+    <script src="./js/controllers/student/studentSubmissions.js"></script>
+    <script src="./js/controllers/student/studentGrades.js"></script>
+    <script src="./js/controllers/professor/professorHome.js"></script>
+    <script src="./js/controllers/professor/professorAssignment.js"></script>
+    <script src="./js/controllers/professor/professorAssignments.js"></script>
+    <script src="./js/controllers/professor/professorCourse.js"></script>
+    <script src="./js/controllers/professor/professorCourses.js"></script>
+    <script src="./js/controllers/professor/professorSubmissions.js"></script>
   </head>
 
   <body>
@@ -36,7 +42,8 @@
         </div>
         <div class="navbar-collapse collaspe">
           <ul class="nav navbar-nav">
-            <li id="bar-home"><a href="/#/home">Home</a></li>
+            <!-- TODO change /s/home to the correct route depending on role -->
+            <li id="bar-home"><a href="/#/s/home">Home</a></li>
             <li id="bar-account"><a href="/#/account">Account</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
