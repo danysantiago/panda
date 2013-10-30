@@ -83,10 +83,19 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     resolve: {
       style: cssSetter('logout')
     }
+  }).
+  when('/account', {
+    controller: 'AccountController',
+    templateUrl: 'views/account.html',
+    access: accessLevels.authenticated,
+    resolve: {
+      style: cssSetter('account'),
+      currentUser: currentUserMapper
+    }
   }). //** Student Routes **//
   when('/home', {
     controller: 'HomeController',
-    templateUrl: '/views/home.html',
+    templateUrl: '/views/student/home.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('home'),
@@ -95,7 +104,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/course/:id', {
     controller: 'CourseController',
-    templateUrl: 'views/course.html',
+    templateUrl: 'views/student/course.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('course'),
@@ -107,7 +116,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/courses', {
     controller: 'CoursesController',
-    templateUrl: 'views/courses.html',
+    templateUrl: 'views/student/courses.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('courses'),
@@ -116,7 +125,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/assignment/:id', {
     controller: 'AssignmentController',
-    templateUrl: 'views/assignment.html',
+    templateUrl: 'views/student/assignment.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('assignment'),
@@ -128,25 +137,16 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/assignments/', {
     controller: 'AssignmentsController',
-    templateUrl: 'views/assignments.html',
+    templateUrl: 'views/student/assignments.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('assignments'),
       currentUser: currentUserMapper
     }
   }).
-  when('/account', {
-    controller: 'AccountController',
-    templateUrl: 'views/account.html',
-    access: accessLevels.authenticated,
-    resolve: {
-      style: cssSetter('account'),
-      currentUser: currentUserMapper
-    }
-  }).
   when('/submissions/', {
     controller: 'SubmissionsController',
-    templateUrl: 'views/submissions.html',
+    templateUrl: 'views/student/submissions.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('submissions'),
@@ -155,7 +155,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/grades/', {
     controller: 'GradesController',
-    templateUrl: 'views/grades.html',
+    templateUrl: 'views/student/grades.html',
     access: accessLevels.student,
     resolve: {
       style: cssSetter('grades'),
@@ -164,7 +164,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }). //** Professor routes **//
   when('/p/home', {
     controller: 'ProfessorHomeController',
-    templateUrl: '/views/professorHome.html',
+    templateUrl: '/views/professor/professorHome.html',
     access: accessLevels.professor,
     resolve: {
       style: cssSetter('home'),
@@ -173,7 +173,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/p/course/:id', {
     controller: 'ProfessorCourseController',
-    templateUrl: 'views/professorCourse.html',
+    templateUrl: 'views/professor/professorCourse.html',
     access: accessLevels.professor,
     resolve: {
       style: cssSetter('course'),
@@ -185,7 +185,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/p/courses', {
     controller: 'ProfessorCoursesController',
-    templateUrl: 'views/professorCourses.html',
+    templateUrl: 'views/professor/professorCourses.html',
     access: accessLevels.professor,
     resolve: {
       style: cssSetter('courses'),
@@ -194,7 +194,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/p/assignment/:id', {
     controller: 'ProfessorAssignmentController',
-    templateUrl: 'views/professorAssignment.html',
+    templateUrl: 'views/professor/professorAssignment.html',
     access: accessLevels.professor,
     resolve: {
       style: cssSetter('assignment'),
@@ -206,7 +206,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/p/assignments/', {
     controller: 'ProfessorAssignmentsController',
-    templateUrl: 'views/professorAssignments.html',
+    templateUrl: 'views/professor/professorAssignments.html',
     access: accessLevels.professor,
     resolve: {
       style: cssSetter('assignments'),
@@ -215,7 +215,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/p/submissions/', {
     controller: 'ProfessorSubmissionsController',
-    templateUrl: 'views/professorSubmissions.html',
+    templateUrl: 'views/professor/professorSubmissions.html',
     access: accessLevels.professor,
     resolve: {
       style: cssSetter('submissions'),
