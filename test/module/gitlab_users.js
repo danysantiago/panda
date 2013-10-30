@@ -14,7 +14,7 @@ var test = function() {
     name: 'Fake'
   };
 
-  describe('Users', function() {
+  describe('Gitlab Users', function() {
     it('Create User', function(done) {
     gitlab.user.create(fakeUser, function (err, res, body) {
         expect(res).to.exist;

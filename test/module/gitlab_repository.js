@@ -15,7 +15,7 @@ var test = function() {
      sha: '1ba94ed11'
   }
 
-   describe('Repository', function() {
+   describe('Gitlab Repository', function() {
 
        it('Get Project Archive', function(done) {
       gitlab.repository.archive(params, function (err, res, body){

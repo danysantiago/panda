@@ -12,7 +12,7 @@ var test = function() {
      password: 'mofongo',
   }
 
-   describe('Session', function() {
+   describe('Gitlab Session', function() {
 
        it('Login', function(done) {
     gitlab.session.login(params, function (err, res, body){

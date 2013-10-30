@@ -12,7 +12,7 @@ var test = function() {
     name: 'happyhour',
   }
 
-  describe('Projects', function() {
+  describe('Gitlab Projects', function() {
 
     it('Create a Project', function(done) {
       gitlab.project.create(params, function (err, res, body) {
@@ -59,11 +59,9 @@ var test = function() {
     });
 
     it('Add Member', function(done) {
-      gitlab.project.get({ id: params.id, user_id: 3 }, function (err, res, body) {
+      gitlab.project.addMember({ id: params.id, user_id: 3 }, function (err, res, body) {
         expect(res).to.exist;
-        expect(res.statusCode).to.equal(200);
-        expect(body.id).to.equal(params.id);
-        expect(body.name).to.equal(params.name);
+        expect(res.statusCode).to.equal(201);
         done();
       });
     });
