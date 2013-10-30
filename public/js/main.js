@@ -93,7 +93,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }). //** Student Routes **//
-  when('/home', {
+  when('/s/home', {
     controller: 'HomeController',
     templateUrl: '/views/student/studentHome.html',
     access: accessLevels.student,
@@ -102,7 +102,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/course/:id', {
+  when('/s/course/:id', {
     controller: 'CourseController',
     templateUrl: 'views/student/studentCourse.html',
     access: accessLevels.student,
@@ -114,7 +114,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/courses', {
+  when('/s/courses', {
     controller: 'CoursesController',
     templateUrl: 'views/student/studentCourses.html',
     access: accessLevels.student,
@@ -123,7 +123,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/assignment/:id', {
+  when('/s/assignment/:id', {
     controller: 'AssignmentController',
     templateUrl: 'views/student/studentAssignment.html',
     access: accessLevels.student,
@@ -135,7 +135,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/assignments/', {
+  when('/s/assignments/', {
     controller: 'AssignmentsController',
     templateUrl: 'views/student/studentAssignments.html',
     access: accessLevels.student,
@@ -144,7 +144,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/submissions/', {
+  when('/s/submissions/', {
     controller: 'SubmissionsController',
     templateUrl: 'views/student/studentSubmissions.html',
     access: accessLevels.student,
@@ -153,7 +153,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }).
-  when('/grades/', {
+  when('/s/grades/', {
     controller: 'GradesController',
     templateUrl: 'views/student/studentGrades.html',
     access: accessLevels.student,
@@ -221,7 +221,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       style: cssSetter('submissions'),
       currentUser: currentUserMapper
     }
-  }).
+  }). //** Other routes (these might be admin in the future **//
   when('/user/:id', { // TODO(samuel): user and users route are not being used.
     controller: 'UserController',
     access: accessLevels.admin,
