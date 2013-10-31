@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Samuel Rodriguez | samuel.rodriguez@upr.edu</h2>
+  <h2>{{user.firstName}} {{user.lastName}} | {{user.email}}</h2>
 
   <ul class="nav nav-tabs" style="cursor: pointer">
     <li id="profile-tab" ng-class="{active: isProfileVisible}">
@@ -58,6 +58,12 @@
       <div class="col-md-4">
         <form>
           <h3>Change Password</h3>
+           <div class="form-group">
+            <label for="oldPassword">
+              Old Password
+            </label>
+            <input type="password" class="form-control" id="passwordInput0" placeholder="Password">
+          </div>
           <div class="form-group">
             <label for="newPassword1">
               New Password
@@ -77,19 +83,6 @@
       <div class="col-md-4"></div>
     </div>
     <hr>
-    <div class="row">
-      <div class="col-md-12">
-        <h3>SSH Keys</h3>
-        <ul>
-          <li>
-            <h4>MyPc-Key</h4>
-            <div class="well">
-              <p class="p-ssh">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEArkwv9X8eTVK4F7pMlSt45pWoiakFkZMwG9BjydOJPGH0RFNAy1QqIWBGWv7vS5K2tr+EEO+F8WL2Y/jK4ZkUoQgoi+n7DWQVOHsRijcS3LvtO+50Np4yjXYWJKh29JL6GHcp8o7+YKEyVUMB2CSDOP99eF9g5Q0d+1U2WVdBWQM= samus@sodium
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
     </div>
     <!-- end security -->
   </div>
