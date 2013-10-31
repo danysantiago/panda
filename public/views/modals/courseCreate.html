@@ -1,4 +1,4 @@
-<!-- Button trigger modal -->
+<!--
 <body>
 <head>
     <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
@@ -10,9 +10,10 @@
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createCourseModal">
   Launch demo modal
 </button>
+-->
 
 <!-- Modal -->
-<div ng-controller="Controller" class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModal" aria-hidden="true">
+<div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -25,7 +26,7 @@
         <!-- Text input-->
         <div class="form-group">
           <label class="control-label" for="courseName">Name</label>
-          <input ng-model="text" ng-pattern="word" required id="courseName" name="courseName" placeholder="Course Name" class="form-control" type="text">         
+          <input name="courseName" placeholder="Course Name" class="form-control" type="text">         
         </div>
 
         <!-- Text input-->
@@ -62,4 +63,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-</body>
+<!--</body>-->
