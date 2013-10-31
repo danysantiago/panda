@@ -17,16 +17,16 @@ touch README #create dummy read me file
 git add README #add dummy read me to git tracking files
 
 if [ $# -eq 5 ] ; then #if archive file
-	if [ grep -q ".zip" <<< $5 ] ; then #if .zip
-		unzip ../$5 #decompress zip file
-	elif [ grep -q ".tar" <<< $5 ] ; then #if tar file
-		tar -xvzf ../$5 #decompress tar file
+	if [[ "$5" = *.zip* ]] ; then #if .zip
+		unzip $5 #decompress zip file
+	elif [[ "$5" = *.tar* ]] ; then #if tar file
+		tar -xvzf $5 #decompress tar file
 	fi
 fi
 
 git add * #add all new files to git tracking files
 
-git commit -m 'first commit' #do first commit
+git commit -m 'initial commit' #make initial commit
 
 git remote add origin http://$2:$3@pandagitlab.sytes.net/$4/$1.git #add origin to repository
 

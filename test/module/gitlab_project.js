@@ -12,6 +12,8 @@ var test = function() {
     name: 'happyhour',
   }
 
+  var archive = __dirname + '/../res/'+params.name+'.tar.gz';
+
   describe('Gitlab Projects', function() {
 
     it('Create a Project', function(done) {
@@ -58,6 +60,13 @@ var test = function() {
       });
     });
 
+    it('Populate Project', function(done) {
+      gitlab.project.populate({ username: 'danysantiago', name: params.name, archive: __dirname + '/../res/'+params.name+'.tar.gz' }, function (error, stdout, stderr) {
+        expect(error).to.equal(null);
+        done();
+      });
+    });
+
     it('Add Member', function(done) {
       gitlab.project.addMember({ id: params.id, user_id: 3 }, function (err, res, body) {
         expect(res).to.exist;
@@ -66,18 +75,17 @@ var test = function() {
       });
     });
 
-    it('Delete Project', function(done) {
-      gitlab.project.delete(params, function (err, res, body) {
-        expect(res).to.exist;
-        expect(res.statusCode).to.not.equal(404);
-        console.log(body);
-        done();
-      });
-    });
+    // it('Delete Project', function(done) {
+    //   gitlab.project.delete(params, function (err, res, body) {
+    //     expect(res).to.exist;
+    //     expect(res.statusCode).to.not.equal(404);
+    //     console.log(body);
+    //     done();
+    //   });
+    // });
 
     it('Delete Unexistent Project', function(done) {
-      gitlab.project.delete(params, function (err, res, body) {
-        params.name = 'xyz';
+      gitlab.project.delete({name: 'xyz'}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);
         done();
