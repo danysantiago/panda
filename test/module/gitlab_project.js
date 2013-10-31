@@ -75,14 +75,14 @@ var test = function() {
       });
     });
 
-    // it('Delete Project', function(done) {
-    //   gitlab.project.delete(params, function (err, res, body) {
-    //     expect(res).to.exist;
-    //     expect(res.statusCode).to.not.equal(404);
-    //     console.log(body);
-    //     done();
-    //   });
-    // });
+    it('Delete Project', function(done) {
+      gitlab.project.delete(params, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.not.equal(404);
+        console.log(body);
+        done();
+      });
+    });
 
     it('Delete Unexistent Project', function(done) {
       gitlab.project.delete({name: 'xyz'}, function (err, res, body) {
