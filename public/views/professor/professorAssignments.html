@@ -1,17 +1,62 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div id="assignment1" class="container well">
-      <h3>
-          Pending Assignments
-        </h3>
+      <div class="well">
+      <h1>
+          Assignments
+        </h1>
         <hr>
+        <div class="row">
+  <div class="col-lg-2">
+  <button type="button" data-toggle="modal" href="#add-assignment-modal" class="btn btn-primary add-button">
+          Create Assignment
+        </button>
+  </div>
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Filter">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-refresh"></span></button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-3 -->
+</div><!-- /.row -->
+
+<br>
+
         <table class="table table-bordered table-hover text-center">
           <tbody>
           <tr>
-          <th class="text-center">Assignment Title</th>
-          <th class="text-center">Course</th>
-          <th class="text-center">Due Date</th>
+          <th class="text-center">
+            Name
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Course
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center">
+            Creation Date
+             <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Due Date
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center">
+            Test Cases
+             <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Total Score
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center">
+            Submissions
+             <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
           </tr>
             <tr>
               <td>
@@ -21,40 +66,19 @@
               <a href="course-prof.html">Course 1</a>
               </td>
               <td>
-                October 26, 2013
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="assignment-prof.html">Assignment #1</a>
+              October 31, 2013
               </td>
               <td>
-               <a href="course-prof.html">Course 2</a>
+              November 6, 2013
               </td>
               <td>
-               October 28, 2013
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="assignment-prof.html">Assignment #1</a>
+              3
               </td>
               <td>
-              <a href="course-prof.html">Course 3 </a>
+              10
               </td>
               <td>
-                October 30, 2013
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="assignment-prof.html">Assignment #2</a>
-              </td>
-              <td>
-              <a href="course-prof.html">Course 1 </a>
-              </td>
-              <td>
-                October 30, 2013
+              0
               </td>
             </tr>
           </tbody>
@@ -64,15 +88,15 @@
   </div>
 </div>
 
-<div id="add-course-modal" class="modal fade">
+<div id="add-assignment-modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add Course</h4>
+        <h4 class="modal-title">Add Assignment</h4>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control" placeholder="Course Name">
+        <input type="text" class="form-control" placeholder="Assignment Name">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Add</button>
