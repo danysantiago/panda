@@ -1,30 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="pandaApp">
   <head>
-    <title>Panda Code Review</title>
+    <title>Panda Code Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="css/index.css" rel="stylesheet">
+    <link id="mainCss" href="css/index.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-resource.js"></script>
+    <script src="./js/lib/http-auth-interceptor.js"></script>
+    <script src="./js/services/services.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/controllers/index.js"></script>
+    <script src="./js/controllers/student/studentHome.js"></script>
+    <script src="./js/controllers/login.js"></script>
+    <script src="./js/controllers/logout.js"></script>
+    <script src="./js/controllers/account.js"></script>
+    <script src="./js/controllers/student/studentCourses.js"></script>
+    <script src="./js/controllers/student/studentCourse.js"></script>
+    <script src="./js/controllers/student/studentAssignment.js"></script>
+    <script src="./js/controllers/student/studentAssignments.js"></script>
+    <script src="./js/controllers/student/studentSubmissions.js"></script>
+    <script src="./js/controllers/student/studentGrades.js"></script>
+    <script src="./js/controllers/professor/professorHome.js"></script>
+    <script src="./js/controllers/professor/professorAssignment.js"></script>
+    <script src="./js/controllers/professor/professorAssignments.js"></script>
+    <script src="./js/controllers/professor/professorCourse.js"></script>
+    <script src="./js/controllers/professor/professorCourses.js"></script>
+    <script src="./js/controllers/professor/professorSubmissions.js"></script>
   </head>
+
   <body>
-
-    <div id="navbar-container"></div>
-
-    <div class="container">
-      <div class="jumbotron">
-          <h1>Pandas are constructing this site...</h1>
-          <img src="http://fc08.deviantart.net/fs71/i/2010/173/9/0/Tare_Panda_Construction_Worker_by_Zlu5hy.jpg" height="500" width="500">
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavbarController">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          </button>
+          <a class="navbar-brand" href="/#/">Panda Code Reviews</a>
+        </div>
+        <div class="navbar-collapse collaspe">
+          <ul class="nav navbar-nav">
+            <!-- TODO change /s/home to the correct route depending on role -->
+            <li id="bar-home"><a href="/#/{{getRoleRoute()}}/home">Home</a></li>
+            <li id="bar-account"><a href="/#/account">Account</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a id="bar-login" href="/#/{{loggedIn ? 'logout' : 'login'}}">
+              {{loggedIn ? "Logout" : "Login"}}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#navbar-container').load('/navbar.html');
-      });
-    </script>
-
+    <div ng-view></div>
   </body>
 </html>

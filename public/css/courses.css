@@ -1,0 +1,31 @@
+/* Custom CSS for courses.html */
+
+body {
+  padding-top: 70px;
+}
+
+.table {
+  background-color: white;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+  background-color: lightblue;
+}
+
+.sidebar {
+  width: 253px;
+}
+
+.sidebar > li:hover {
+  background-color: lightblue;
+}
+
+.affix-container {
+  top: 70px;
+  position: fixed;
+}
+
+.add-button {
+  width: 253px;
+}

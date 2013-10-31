@@ -1,0 +1,384 @@
+<div class="container">
+
+  <h2>
+    {{assignment.name}}
+  </h2>
+
+  <ul class="nav nav-tabs" style="cursor: pointer">
+    <li id="info-tab" ng-class="{active: isInfoVisible}">
+      <a id="info-link" ng-click="showInfo()">Info</a>
+    </li>
+    <li id="submissions-tab" ng-class="{active: isSubmissionsVisible}">
+      <a id="submissions-link" ng-click="showSubmissions()">Submissions</a>
+    </li>
+    <li id="cases-tab" ng-class="{active: isTestCasesVisible}">
+      <a id="cases-link" ng-click="showTestCases()">Test Cases</a>
+    </li>
+    <li id="repo-tab" ng-class="{active: isRepositoryVisible}">
+      <a id="repo-link" ng-click="showRepository()">Repository</a>
+    </li>
+  </ul>
+
+  <div class="row">
+    <div class="col-md-9">
+      <div id="info" ng-show="isInfoVisible">
+        <div class="row">
+          <div class="col-md-9">
+            <h3>
+              Brief Description
+            </h3>
+            <p>
+              {{assignment.shortDescription}}
+            </p>
+          </div>
+          <div class="col-md-3">
+            <h3>
+              Tries
+            </h3>
+            <p>
+              0 / 4
+            </p>
+          </div>
+          <hr>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-9">
+            <h3>
+              Instructions
+            </h3>
+            <p>
+              These are some lengthy instructions that the professor added so that the
+              students know what they have to do.&nbsp;
+            </p>
+            <p align="justify">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam nisl,
+              scelerisque eget bibendum at, consectetur vitae justo. Quisque quis nulla
+              nisl. Donec at leo vitae justo fermentum suscipit eu sit amet quam. Aenean
+              at rutrum sapien. Sed quis ipsum quis odio auctor cursus sed vitae felis.
+              Vivamus feugiat diam nisl, in lacinia neque sollicitudin in. Vivamus commodo
+              metus eu nibh ultricies viverra. Phasellus tristique pharetra tortor, vel
+              rhoncus metus lobortis sit amet. Donec rhoncus feugiat tellus sed tincidunt.
+            </p>
+            <p align="justify">
+              Phasellus dapibus libero tempus, ornare sem et, elementum leo. Ut eget
+              nibh accumsan, malesuada arcu sit amet, aliquet sem. Fusce malesuada lectus
+              sed volutpat interdum. Mauris commodo nulla et metus dictum rhoncus. Donec
+              a congue arcu. Cras hendrerit elit nec libero aliquet, ut volutpat urna
+              accumsan. Donec ornare adipiscing viverra. Suspendisse hendrerit quam vel
+              dictum eleifend. Vestibulum in tortor sed turpis faucibus tincidunt a eu
+              arcu. Sed fringilla dapibus augue, nec consequat turpis sagittis sit amet.
+              Sed ut urna at orci lobortis tincidunt. Cras varius viverra eros et tincidunt.
+              Aenean imperdiet laoreet congue. Duis id lacinia dui. Pellentesque egestas
+              dui metus. Pellentesque luctus vel magna ac scelerisque.
+            </p>
+          </div>
+          <div class="col-md-3">
+            <a href="#" class="btn btn-default">Instructions.pdf</a>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <h3> Comments </h3>
+            <p> Content </p>
+          </div>
+        </div>
+      </div>
+      <div id="submissions" ng-show="isSubmissionsVisible">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>
+              Submissions
+            </h3>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th>#</th>
+                  <th>Hash ID</th>
+                  <th>Date</th>
+                  <th>Result </th>
+                  <th>Elapsed Time </th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>de12873940ffg</td>
+                  <td>Oct 25, 2013; 4:25pm</td>
+                  <td>ACCEPTED</td>
+                  <td>250ms</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>deba264300e5</td>
+                  <td>Oct 23, 2013; 2:40am</td>
+                  <td>COMPILATION ERROR</td>
+                  <td>4000ms</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>6deadbeef666</td>
+                  <td>Oct 20, 2013; 4:25pm</td>
+                  <td>WRONG ANSWER</td>
+                  <td>34ms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="cases" ng-show="isTestCasesVisible">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>
+              Test Cases
+            </h3>
+            <!-- table -->
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th colspan="2"> Test Cases </th>
+                  <th>Score </th>
+                </tr>
+                <tr>
+                  <td><a href="#public">Public</a></td>
+                  <td>2</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td> <a href="#private">Private</a></td>
+                  <td>4</td>
+                  <td>40</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>6</td>
+                  <td>50</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-8">
+            <!-- desglose de los test cases -->
+            <h3 id="public"> Public </h3>
+            <h5> Public Test Case #1 </h5>
+            <hr>
+            <div class="row">
+              <div class="col-md-4">
+                Time Limit #
+              </div>
+              <div class="col-md-4">
+                Memory Limit #
+              </div>
+              <div class="col-md-4">
+                Score:
+              </div>
+            </div>
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Input
+                </h3>
+              </div>
+              <div class="panel-body">
+                Collapsable content (collapse via js)
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Output
+                </h3>
+              </div>
+              <div class="panel-body">
+                Collapsable content (collapse via js)
+              </div>
+            </div>
+            <hr>
+            <h5>
+              Public Test Case #2
+            </h5>
+            <div class="row">
+              <div class="col-md-4">
+                Time Limit #
+              </div>
+              <div class="col-md-4">
+                Memory Limit #
+              </div>
+              <div class="col-md-4">
+                Score:
+              </div>
+            </div>
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Input
+                </h3>
+              </div>
+              <div class="panel-body">
+                Collapsable content (collapse via js)
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Output
+                </h3>
+              </div>
+              <div class="panel-body">
+                Collapsable content (collapse via js)
+              </div>
+            </div>
+            <hr>
+            <h5>
+              Public Test Case #3
+            </h5>
+            <div class="row">
+              <div class="col-md-4">
+                Time Limit #
+              </div>
+              <div class="col-md-4">
+                Memory Limit #
+              </div>
+              <div class="col-md-4">
+                Score:
+              </div>
+            </div>
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Input
+                </h3>
+              </div>
+              <div class="panel-body">
+                Collapsable content (collapse via js)
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Output
+                </h3>
+              </div>
+              <div class="panel-body">
+                Collapsable content (collapse via js)
+              </div>
+            </div>
+            <hr>
+            <h3 id="private">
+             Private
+            </h3>
+            <h5>
+              Private Test Case #1
+            </h5>
+            <hr>
+            <div class="row">
+              <div class="col-md-4">
+                Time Limit #
+              </div>
+              <div class="col-md-4">
+                Memory Limit #
+              </div>
+              <div class="col-md-4">
+                Score:
+              </div>
+            </div>
+            <hr>
+            <h5>
+              Private Test Case #2
+            </h5>
+            <div class="row">
+              <div class="col-md-4">
+                Time Limit #
+              </div>
+              <div class="col-md-4">
+                Memory Limit #
+              </div>
+              <div class="col-md-4">
+                Score:
+              </div>
+            </div>
+            <hr>
+            <h5>
+              Private Test Case #3
+            </h5>
+            <div class="row">
+              <div class="col-md-4">
+                Time Limit #
+              </div>
+              <div class="col-md-4">
+                Memory Limit #
+              </div>
+              <div class="col-md-4">
+                Score:
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <!--repository-->
+      <div id="repo" ng-show="isRepositoryVisible">
+        <div class="row">
+          <div class="col-md-9">
+            <h3>
+              Project Repository
+            </h3>
+            <p>
+              http://pandagitlab.sytes.net/user/projectname.git
+            </p>
+          </div>
+          <hr>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-9">
+            <h3>
+              Instructions
+            </h3>
+            <p>
+              Check <a href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository" target="_blank">this website</a> to learn how to work with your repository.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--end of repository-->
+    </div>
+    <div class="col-md-3 centered-div">
+      <h4> Due Date </h4>
+      <h5> October 25, 2013 </h5>
+      <hr>
+      <h4> Score </h4>
+      <h5> 0 / 100 </h5>
+      <hr>
+      <h4> Last Submission </h4>
+      <h5> October 24, 2013 | Success </h5>
+      <hr>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" href="#submit-modal">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="submit-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Submit Assignment</h4>
+      </div>
+      <div class="modal-body">
+        <p>Submitting commit:</p>
+        <p>6deadbeef666 | 09/25/13 14:30
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
+        <button type="button" class="btn btn-default">Download Source Code</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+[
+  {
+    "_id": 0,
+    "email": "samuel.rodriguez8@upr.edu",
+    "password": "12345",
+    "firstName": "Samuel",
+    "lastName": "Rodriguez",
+    "role": "Student",
+    "deleted": false,
+    "Repositories": [
+      {
+        "id": 0,
+        "path": "pandagitlab.sytes.net/assig0"
+      },
+      {
+        "id": 1,
+        "path": "pandagitlab.sytes.net/assig1"
+      },
+      {
+        "id": 2,
+        "path": "pandagitlab.sytes.net/assig2"
+      },
+      {
+        "id": 3,
+        "path": "pandagitlab.sytes.net/assig3"
+      }
+    ]
+
+  },
+
+  {
+    "_id": 1,
+    "email": "daniel.santiago5@upr.edu",
+    "password": "12345",
+    "firstName": "Daniel",
+    "lastName": "Santiago",
+    "role": "Student",
+    "deleted": false,
+    "Repositories": [
+      {
+        "id": 0,
+        "path": "pandagitlab.sytes.net/assig0"
+      },
+      {
+        "id": 1,
+        "path": "pandagitlab.sytes.net/assig1"
+      }
+    ]
+  },
+
+  {
+    "_id": 2,
+    "email": "nelian.colon@upr.edu",
+    "password": "12345",
+    "firstName": "Nelian",
+    "lastName": "Colon",
+    "role": "Student",
+    "deleted": false,
+    "Repositories": [
+      {
+        "id": 0,
+        "path": "pandagitlab.sytes.net/assig0"
+      },
+      {
+        "id": 1,
+        "path": "pandagitlab.sytes.net/assig1"
+      },
+      {
+        "id": 2,
+        "path": "pandagitlab.sytes.net/assig2"
+      },
+      {
+        "id": 3,
+        "path": "pandagitlab.sytes.net/assig3"
+      }
+    ]
+  },
+
+  {
+    "_id": 3,
+    "email": "juan.santiago@upr.edu",
+    "password": "12345",
+    "firstName": "Juan",
+    "lastName": "Santiago",
+    "role": "Student",
+    "deleted": true,
+    "Repositories": []
+  },
+  
+  {
+    "_id": 4,
+    "email": "pedro.delpueblo@upr.edu",
+    "password": "12345",
+    "firstName": "Pedro",
+    "lastName": "Del Pueblo",
+    "role": "Student",
+    "deleted": false,
+    "Repositories": [
+      {
+        "id": 2,
+        "path": "pandagitlab.sytes.net/assig0"
+      },
+      {
+        "id": 3,
+        "path": "pandagitlab.sytes.net/assig0"
+      }
+    ]
+  },
+
+  {
+    "_id": 5,
+    "email": "pedro.rivera@upr.edu",
+    "password": "12345",
+    "firstName": "Pedro",
+    "lastName": "Rivera",
+    "role": "Professor",
+    "deleted": false,
+    "Repositories": []
+
+  }
+]

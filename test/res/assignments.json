@@ -1,0 +1,112 @@
+[
+  {
+    "_id": 0,
+    "Course": 0,
+    "name": "Single Source Shortest Path",
+    "shortDescription": "Implement Dijkstra's algorithm",
+    "deadline": "4/11/2013",
+    "numOfTries": 3,
+    "deleted": false,
+    "Instructions": {
+      "text": "Print shortest length to each node."
+    },
+    "TestCases": [
+      {
+        "type": "I/O",
+        "score": 10,
+        "timeLimit": 10,
+        "memLimit": 5,
+        "resource": {
+          "input": "5\n1 2\n2 3\n1 4\n3 4\n2 4",
+          "output": "0, 1, 2, 1"
+        }
+      }
+    ]
+  },
+
+  {
+    "_id": 1,
+    "Course": 0,
+    "name": "Substring Matching",
+    "shortDescription": "Identify substrings",
+    "deadline": "8/11/2013",
+    "numOfTries": 1,
+    "deleted": false,
+    "Instructions": {
+      "text": "Print true or false if substring between pairs"
+    },
+    "TestCases": [
+      {
+        "type": "I/O",
+        "score": 5,
+        "timeLimit": 5,
+        "memLimit": 5,
+        "resource": {
+          "input": "3\ncow chicken\ncarpool car\nrocket racket",
+          "output": "false\ntrue\nfalse"
+        }
+      },
+      {
+        "type": "I/O",
+        "score": 10,
+        "timeLimit": 5,
+        "memLimit": 5,
+        "resource": {
+          "input": "1\n1234321 343",
+          "output": "true"
+        }
+      }
+    ]
+  },
+
+  {
+    "_id": 2,
+    "Course": 1,
+    "name": "Linked list Implementation",
+    "shortDescription": "Implement single and doubly linked list ADT",
+    "deadline": "6/11/2013",
+    "numOfTries": 3,
+    "deleted": false,
+    "Instructions": {
+      "text": "See PDF sent via email"
+    },
+    "TestCases": [
+      {
+        "type": "Exec",
+        "score": 10,
+        "resource": {
+          "input": "",
+          "output": "Here goes the Big Output File",
+          "lang": "java",
+          "tester": {
+            "name": "LinkedListTester1.java",
+            "src": "0101010110"
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "_id": 3,
+    "Course": 1,
+    "name": "Java 101",
+    "shortDescription": "Print me a string.",
+    "deadline": "6/11/2013",
+    "numOfTries": 3,
+    "deleted": false,
+    "Instructions": {
+      "text": "Print to the standard output 'Hello World!'"
+    },
+    "TestCases": [
+      {
+        "type": "I/O",
+        "score": 10,
+        "resource": {
+          "input": "",
+          "output": "Hello World!"
+        }
+      }
+    ]
+  }
+]
