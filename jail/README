@@ -1,4 +1,32 @@
-Notes about this jail:
+This README is for the setup of a Java Jail.
+Thanks to http://github.com/daveagp/java_jail
 
-Non temporary files and folder permissions: 555
-Temporary folder permission 766
+The purpose of this jail is to run java code using chroot. To do such things we need java binaries and some OS files.
+
+The content of this directory should be as follow:
+./java - Copy of unzipped java installation
+./etc - Necessary OS libs
+./lib64 - Necessary OS libs
+./lib - Necessary OS libs (Ubuntu)
+./dev - Necessary pseudo-files
+./proc - Necessary pseudo-files
+
+Each folder contains a .gitignore with the list of files that should be present.
+For the pseudo-files, execute the following commands:
+
+For proc:
+	mkdir proc
+	sudo mount --bind /proc ./proc
+
+For dev:
+	sudo mknod -m 0666 ./dev/null c 1 3
+        sudo mknod -m 0666 ./dev/random c 1 8
+        sudo mknod -m 0444 ./dev/urandom c 1 9
+
+Recommended Permissions:
+
+Non temporary files and folder permissions: 666
+Temporary folder permission: 766
+
+Additional Notes:
+Normal logic dictates that you should not make this directoy available trough http.
