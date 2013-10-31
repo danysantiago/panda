@@ -1,11 +1,18 @@
-.carousel-inner {
-  height: 500px;  
+body{
+  padding-top: 50px;
+  background: url(../img/p2resize.JPG) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-.carousel-inner>.item>img {
-  max-height: 100%;
-  margin-left: auto;
-  margin-right: auto;
+.padded {
+	padding-top: 20%;
+}
+
+.panel {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .centered {
