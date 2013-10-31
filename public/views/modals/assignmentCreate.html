@@ -1,0 +1,119 @@
+
+<!--<body>
+<head>
+    <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="http://code.angularjs.org/1.2.0-rc.3/angular.min.js"></script>
+    <script src="../../js/controllers/modals/createCourse.js"></script>
+</head>
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createAssignmentModal">
+  Launch demo modal
+</button>-->
+
+
+<!-- Modal -->
+<div class="modal fade" id="createAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="createAssignmentModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Create Assignment</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="control-label" for="assignmentCourse">Course</label>
+            <div class="controls">
+              <select id="assignmentCourse" name="assignmentCourse"class="form-control" >
+                <option>ICOM3001</option>
+                <option>ICOM5995</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentName">Name</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentName" name="assignmentName" placeholder="Name" required="" type="text">
+              
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="control-label" for="assgnmentDescription">Description</label>
+            <div class="controls">                     
+              <textarea class="form-control" id="assgnmentDescription" name="assgnmentDescription">Description</textarea>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentDeadline">Deadline</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentDeadline" name="assignmentDeadline" placeholder="DD//MM/YYYY" required="" type="text">
+              
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assgnmentNumOfTries">Tries</label>
+            <div class="controls">
+              <input class="form-control" id="assgnmentNumOfTries" name="assgnmentNumOfTries" placeholder="1" required="" type="text">
+              
+            </div>
+          </div>
+
+          <!-- File Button --> 
+          <div class="form-group">
+            <label class="control-label" for="assignmentInstructions">Instructions File</label>
+            <div class="controls">
+              <input id="assignmentInstructions" name="assignmentInstructions" class="input-file" type="file">
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Multiple Checkboxes (inline) -->
+          <div class="form-group">
+            <div class="controls">
+              <label class="checkbox inline" for="singleFileAssig-0">
+                <input name="singleFileAssig" id="singleFileAssig-0" value="Yes" type="checkbox">
+                Single File Assignment?
+              </label>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assgnmentMainName">Entrance Filename</label>
+            <div class="controls">
+              <input class="form-control" id="assgnmentMainName" name="assgnmentMainName" placeholder="Main" type="text">
+              <p class="help-block">The file of the name to look in the repo.</p>
+            </div>
+          </div>
+
+          <!-- File Button --> 
+          <div class="form-group">
+            <label class="control-label" for="assgnmentTesterFile">Tester File</label>
+            <div class="controls">
+              <input id="assgnmentTesterFile" name="assgnmentTesterFile" class="input-file" type="file">
+            </div>
+          </div>
+
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--</body>-->
