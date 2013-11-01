@@ -8,7 +8,7 @@
         <hr>
         <div class="row">
   <div class="col-lg-2">
-  <button type="button" data-toggle="modal" href="#add-assignment-modal" class="btn btn-primary add-button">
+  <button type="button" data-toggle="modal" href="#add-assignment-modal" class="btn btn-primary add-button" ng-click="toggleAssignmentModal()">
           Create Assignment
         </button>
   </div>
@@ -16,7 +16,7 @@
   </div>
   <div class="col-lg-6">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Filter">
+      <input type="text" class="form-control" placeholder="Filter" ng-model="q">
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-refresh"></span></button>
       </span>
@@ -29,58 +29,60 @@
         <table class="table table-bordered table-hover text-center">
           <tbody>
           <tr>
-          <th class="text-center">
-            Name
-            <span class="glyphicon glyphicon-chevron-down"></span>
-          </th>
-          <th class="text-center">
-            Course
-             <span class="glyphicon glyphicon-chevron-up"></span>
-          </th>
-          <th class="text-center">
-            Creation Date
-             <span class="glyphicon glyphicon-chevron-down"></span>
-          </th>
-          <th class="text-center">
-            Due Date
-             <span class="glyphicon glyphicon-chevron-up"></span>
-          </th>
-          <th class="text-center">
-            Test Cases
-             <span class="glyphicon glyphicon-chevron-down"></span>
-          </th>
-          <th class="text-center">
-            Total Score
-             <span class="glyphicon glyphicon-chevron-up"></span>
-          </th>
-          <th class="text-center">
-            Submissions
-             <span class="glyphicon glyphicon-chevron-down"></span>
-          </th>
+            <th class="text-center">
+              Name
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </th>
+            <th class="text-center">
+              Course
+               <span class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th class="text-center">
+              Creation Date
+               <span class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th class="text-center">
+              Due Date
+               <span class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th class="text-center">
+              Test Cases
+               <span class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th class="text-center">
+              Total Score
+               <span class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th class="text-center">
+              Submissions
+               <span class="glyphicon glyphicon-chevron-up"></span>
+            </th>
           </tr>
-            <tr>
-              <td>
-                <a href="assignment-prof.html">Assignment#1</a>
-              </td>
-              <td>
-              <a href="course-prof.html">Course 1</a>
-              </td>
-              <td>
-              October 31, 2013
-              </td>
-              <td>
-              November 6, 2013
-              </td>
-              <td>
-              3
-              </td>
-              <td>
-              10
-              </td>
-              <td>
-              0
-              </td>
-            </tr>
+          <tr ng-repeat="assignment in user.assignments | filterByAttributes:q:['name', 'deadline', 'courseCode']">
+            <td>
+              <a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a>
+            </td>
+            <td>
+              <a href="/#/p/course/{{assignment.course._id}}">
+                {{assignment.course.code}}
+              </a>
+            </td>
+            <td>
+              {{assignment.creationDate}}
+            </td>
+            <td>
+              {{assignment.deadline}}
+            </td>
+            <td>
+              {{assignment.TestCases.length}}
+            </td>
+            <td>
+              {{assignment.totalScore}}
+            </td>
+            <td>
+              {{assignment.submissions.length}}
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
@@ -88,19 +90,106 @@
   </div>
 </div>
 
-<div id="add-assignment-modal" class="modal fade">
+<div class="modal fade" id="createAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="createAssignmentModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add Assignment</h4>
+        <h4 class="modal-title" id="modalTitle">Create Assignment</h4>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control" placeholder="Assignment Name">
+        <form role="form">
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="control-label" for="assignmentCourse">Course</label>
+            <div class="controls">
+              <select id="assignmentCourse" name="assignmentCourse"class="form-control" ng-model="newAssignment.Course" ng-options="course.code + ' - ' + course.name for course in user.courses">
+                <!-- <option ng-repeat="course in user.courses">{{course.code}} - {{course.name}}</option> -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentName">Name</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentName" name="assignmentName" placeholder="Name" required="" type="text" ng-model="newAssignment.name">
+              
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="control-label" for="assgnmentDescription">Description</label>
+            <div class="controls">                     
+              <textarea class="form-control" id="assgnmentDescription" name="assgnmentDescription" placeholder="Description" ng-model="newAssignment.description"></textarea>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentDeadline">Deadline</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentDeadline" name="assignmentDeadline" placeholder="DD//MM/YYYY" required="" type="text" ng-model="newAssignment.deadline">
+              
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assgnmentNumOfTries">Tries</label>
+            <div class="controls">
+              <input class="form-control" id="assgnmentNumOfTries" name="assgnmentNumOfTries" placeholder="1" required="" type="text" ng-model="newAssignment.numofTries">
+              
+            </div>
+          </div>
+
+          <!-- File Button --> 
+          <div class="form-group">
+            <label class="control-label" for="assignmentInstructions">Instructions File</label>
+            <div class="controls">
+              <input id="assignmentInstructions" name="assignmentInstructions" class="input-file" type="file">
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Multiple Checkboxes (inline) -->
+          <div class="form-group">
+            <div class="controls">
+              <label class="checkbox inline" for="singleFileAssig-0">
+                <input name="singleFileAssig" id="singleFileAssig-0" value="Yes" type="checkbox" ng-model="singleAssignment">
+                Single File Assignment?
+              </label>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group" ng-show="singleAssignment">
+            <label class="control-label" for="assgnmentMainName">Entrance Filename</label>
+            <div class="controls">
+              <input class="form-control" id="assgnmentMainName" name="assgnmentMainName" placeholder="Main" type="text">
+              <p class="help-block">The file of the name to look in the repo.</p>
+            </div>
+          </div>
+
+          <!-- File Button --> 
+          <div class="form-group" ng-hide="singleAssignment">
+            <label class="control-label" for="assgnmentTesterFile">Tester File</label>
+            <div class="controls">
+              <input id="assgnmentTesterFile" name="assgnmentTesterFile" class="input-file" type="file">
+            </div>
+          </div>
+
+          </form>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary"
+        ng-click="createAssignment(newAssignment)">Create</button>
       </div>
-    </div>
-  </div>
-</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

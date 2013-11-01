@@ -9,20 +9,20 @@ pandaApp.controller('IndexController', ['$scope',
 pandaApp.controller('NavbarController', ['$rootScope', '$scope',
     function($rootScope, $scope) {
 
-  $scope.getRoleRoute = function() {
+  $scope.getHomeRouteByRole = function() {
     var currentUser = $rootScope.currentUser;
     var currentRole = (currentUser ? currentUser.role : null);
     
     if (currentUser && currentRole) {
       if (currentRole.toLowerCase() == 'student') {
-        return 's';
+        return '/#/s/home';
       } else if (currentRole.toLowerCase() == 'professor') {
-        return 'p';
+        return '/#/p/home';
       } else {
-        return 'a'; // for anonymous, or someting.
+        return '/#/login'; // for anonymous, or someting.
       }
     } else {
-      return 'a';
+      return '/#/login';
     }
   };
 }]);

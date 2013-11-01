@@ -5,23 +5,23 @@
   </h2>
 
   <ul class="nav nav-tabs" style="cursor: pointer">
-    <li id="info-tab" ng-class="{active: isInfoVisible}">
-      <a id="info-link" ng-click="showInfo()">Info</a>
+    <li id="info-tab" ng-class="{active: infoTab}">
+      <a id="info-link" ng-click="showTab('infoTab')">Info</a>
     </li>
-    <li id="submissions-tab" ng-class="{active: isSubmissionsVisible}">
-      <a id="submissions-link" ng-click="showSubmissions()">Submissions</a>
+    <li id="submissions-tab" ng-class="{active: submissionsTab}">
+      <a id="submissions-link" ng-click="showTab('submissionsTab')">Submissions</a>
     </li>
-    <li id="cases-tab" ng-class="{active: isTestCasesVisible}">
-      <a id="cases-link" ng-click="showTestCases()">Test Cases</a>
+    <li id="cases-tab" ng-class="{active: testCasesTab}">
+      <a id="cases-link" ng-click="showTab('testCasesTab')">Test Cases</a>
     </li>
-    <li id="repo-tab" ng-class="{active: isRepositoryVisible}">
-      <a id="repo-link" ng-click="showRepository()">Repository</a>
+    <li id="repo-tab" ng-class="{active: repositoryTab}">
+      <a id="repo-link" ng-click="showTab('repositoryTab')">Repository</a>
     </li>
   </ul>
 
   <div class="row">
     <div class="col-md-9">
-      <div id="info" ng-show="isInfoVisible">
+      <div id="info" ng-show="infoTab">
         <div class="row">
           <div class="col-md-9">
             <h3>
@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div id="submissions" ng-show="isSubmissionsVisible">
+      <div id="submissions" ng-show="submissionsTab">
         <div class="row">
           <div class="col-md-12">
             <h3>
@@ -126,7 +126,7 @@
           </div>
         </div>
       </div>
-      <div id="cases" ng-show="isTestCasesVisible">
+      <div id="cases" ng-show="testCasesTab">
         <div class="row">
           <div class="col-md-4">
             <h3>
@@ -320,7 +320,7 @@
         </div>
       </div>
       <!--repository-->
-      <div id="repo" ng-show="isRepositoryVisible">
+      <div id="repo" ng-show="repositoryTab">
         <div class="row">
           <div class="col-md-9">
             <h3>

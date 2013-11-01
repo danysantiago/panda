@@ -296,7 +296,9 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     $rootScope.loggedIn = true;
     $rootScope.currentUser = user;
     if ($location.url() == '/login' && !lastTriedUrl) {
-      $location.url('/home'); // TODO(samuel): routes were changed so figure out
+      $location.url('/' +
+          $rootScope.currentUser.role[0].toLowerCase() + '/home');
+      // TODO(samuel): routes were changed so figure out
       // how to handle this :??
       
     } else if (lastTriedUrl) {
