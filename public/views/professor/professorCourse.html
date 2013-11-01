@@ -95,13 +95,13 @@
                  <span class="glyphicon glyphicon-chevron-up"></span>
               </th>
               </tr>
-                <tr ng-repear="for assignment in course.assignments">
+                <tr ng-repeat="assignment in course.assignments">
                   <td><a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
-                  <td>{{assignment.createdDate}}</td>
+                  <td>{{assignment.creationDate}}</td>
                   <td>{{assignment.deadline}}</td>
-                  <td>{{assignment.testCases.length}}</td>
-                  <td>10</td>
-                  <td>0</td>
+                  <td>{{assignment.numOfTestCases}}</td>
+                  <td>{{assignment.totalScore}}</td>
+                  <td>{{assignment.numOfSubmissions}}</td>
                 </tr>
               </tbody>
             </table>
