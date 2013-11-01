@@ -2,37 +2,21 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', 'assignmen
     function($scope, currentUser, assignment) {
   $scope.assignment = assignment;
 
-  $scope.isInfoVisible = true;
-  $scope.isSubmissionsVisible = false;
-  $scope.isTestCasesVisible = false;
-  $scope.isRepositoryVisible = false;
+  $scope.infoTab = true;
+  $scope.submissionsTab = false;
+  $scope.testCasesTab = false;
+  $scope.repositoryTab = false;
 
-  $scope.showInfo = function() {
-    $scope.isInfoVisible = true;
-    $scope.isSubmissionsVisible = false;
-    $scope.isTestCasesVisible = false;
-    $scope.isRepositoryVisible = false;
-  };
+  var tabNames = ['infoTab', 'submissionsTab', 'testCasesTab', 'repositoryTab'];
 
-  $scope.showSubmissions = function() {
-    $scope.isInfoVisible = false;
-    $scope.isSubmissionsVisible = true;
-    $scope.isTestCasesVisible = false;
-    $scope.isRepositoryVisible = false;
-  };
-
-  $scope.showTestCases = function() {
-    $scope.isInfoVisible = false;
-    $scope.isSubmissionsVisible = false;
-    $scope.isTestCasesVisible = true;
-    $scope.isRepositoryVisible = false;
-  };
-
-  $scope.showRepository = function() {
-    $scope.isInfoVisible = false;
-    $scope.isSubmissionsVisible = false;
-    $scope.isTestCasesVisible = false;
-    $scope.isRepositoryVisible = true;
+  $scope.showTab = function (view) {
+    tabNames.forEach(function (tabName) {
+      if(tabName === view) {
+        $scope[tabName] = true;
+      } else {
+        $scope[tabName] = false;
+      }
+    });
   };
 
 }]);
