@@ -77,7 +77,7 @@ services.factory('CourseLoader', ['Course', '$route', '$q',
     function(Course, $route, $q) {
   return function() {
     var delay = $q.defer();
-    Course.get({id: $route.current.params.id}, function(user) {
+    Course.get({id: $route.current.params.id, users: true}, function(user) {
       delay.resolve(user);
     }, function() {
       delay.reject('Unable to fetch course' + $route.current.params.id);
