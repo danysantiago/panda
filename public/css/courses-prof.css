@@ -13,14 +13,6 @@ body {
   background-color: lightblue;
 }
 
-.sidebar {
-  width: 253px;
-}
-
-.sidebar > li:hover {
-  background-color: lightblue;
-}
-
 .affix-container {
   top: 70px;
   position: fixed;

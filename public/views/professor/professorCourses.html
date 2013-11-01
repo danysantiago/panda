@@ -1,38 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-      <div class="affix-container">
-        <button type="button" data-toggle="modal" href="#add-course-modal" class="btn btn-primary add-button">
-          Create Course
-        </button>
-        <hr>
-        <ul class="list-group sidebar">
-          <li class="list-group-item">
-            <a href="#2013">2013</a>
-            <ul class="nav">
-              <li><a href="#2013#Spring">Spring</a></li>
-              <li><a href="#2013#Fall">Fall</a></li>
-            </ul>
-          </li>
-          <li class="list-group-item">
-            <a href="#2012">2012</a>
-          </li>
-          <li class="list-group-item">
-            <a href="#2011">2011</a>
-          </li>
-          <li class="list-group-item">
-            <a href="#2010">2010</a>
-          </li>
-        </ul>
-      </div>
+    <div class="col-md-2">
+      <button ng-click="toggleCourseModal()" type="button" class="btn btn-primary add-button ">
+      Create Course
+      </button>
     </div>
-    <div class="col-md-9">
+  
+    <div class="col-md-4">
+    </div>
+    
+    <div class="col-md-6">
+      <input type="search" ng-model="q" class="form-control" placeholder="Filter Courses">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
       <h2>Fall 2013</h2>
       <hr>
-      <div id="course1" class="container well">
+      
+      <div id="course1" class="well">
         <h3>
           <a href="course-prof.html">Course 1</a> - Course #1
         </h3>
+        
         <ul class="nav nav-pills">
           <li id="students-tab">
             <a id="students-link" href="#students">Students <span class="badge">4</span></a>
@@ -41,6 +32,7 @@
             <a id="assignments-link" href="#assignments">Assignments <span class="badge">3</span></a>
           </li>
         </ul>
+        
         <div id="students" style="display:none">
           <hr>
           <table class="table table-bordered table-hover">
@@ -53,44 +45,9 @@
               <th>A3</th>
               <th>Grade</th>
             </tr>
-            <tr>
-              <td>1</td>
-              <td><a href="account.html">Samuel Rodriguez</a></td>
-              <td>samuel.rodriguez@upr.edu</td>
-              <td>10 / 10</td>
-              <td>5 / 15</td>
-              <td>8 / 10</td>
-              <td>23 / 35</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="#nelian">Nelian Colon</a></td>
-              <td>nelian.colon@upr.edu</td>
-              <td>10 / 10</td>
-              <td>5 / 15</td>
-              <td>8 / 10</td>
-              <td>23 / 35</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><a href="#daniel">Daniel Santiago</a></td>
-              <td>daniel.santiago@upr.edu</td>
-              <td>10 / 10</td>
-              <td>5 / 15</td>
-              <td>8 / 10</td>
-              <td>23 / 35</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td><a href="#juan">Juan Del Pueblo</a></td>
-              <td>juan.pueblo@upr.edu</td>
-              <td>10 / 10</td>
-              <td>15 / 15</td>
-              <td>10 / 10</td>
-              <td>35 / 35</td>
-            </tr>
           </table>
         </div>
+
         <div id="assignments" style="display:none">
           <hr>
           <table class="table table-bordered table-hover">
@@ -104,84 +61,63 @@
               <th>Tries</th>
               <th>Submissions</th>
             </tr>
-            <tr>
-              <td>1</td>
-              <td><a href="assignment-prof.html">Assignments 1</a></td>
-              <td>10</td>
-              <td>5</td>
-              <td>10/25/2013</td>
-              <td>10/30/2013</td>
-              <td>3</td>
-              <td>8 - 4</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="assignment-prof.html">Assignments 2</a></td>
-              <td>15</td>
-              <td>5</td>
-              <td>11/1/2013</td>
-              <td>11/7/2013</td>
-              <td>3</td>
-              <td>12 - 4</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><a href="assignment-prof.html">Assignments 3</a></td>
-              <td>10</td>
-              <td>5</td>
-              <td>11/12/2013</td>
-              <td>11/20/2013</td>
-              <td>1</td>
-              <td>5 - 4</td>
-            </tr>
           </table>
         </div>
       </div>
-      <hr>
-      <div id="course2" class="container well">
-        <h3>
-          <a href="course-prof.html">Course 2</a> - Course #2
-        </h3>
-        <ul class="nav nav-pills">
-          <li>
-            <a href="#">Students <span class="badge">33</span></a>
-          </li>
-          <li>
-            <a href="#">Assignments <span class="badge">5</span></a>
-          </li>
-        </ul>
-      </div>
-      <div id="course2" class="container well">
-        <h3>
-          <a href="course-prof.html">Course 3</a> - Course #3
-        </h3>
-        <ul class="nav nav-pills">
-          <li>
-            <a href="#">Students <span class="badge">15</span></a>
-          </li>
-          <li>
-            <a href="#">Assignments <span class="badge">4</span></a>
-          </li>
-        </ul>
-      </div>
-      <hr>
-    </div>
-  </div>
-</div>
 
-<div id="add-course-modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Create Course</h4>
-      </div>
-      <div class="modal-body">
-        <input type="text" class="form-control" placeholder="Course Name">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Create</button>
-      </div>
+      
     </div>
   </div>
+
+  <div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="modalTitle">Create Course</h4>
+        </div>
+        <div class="modal-body" ng-model="createCourseForm">
+          <form ng-submit="postThat(createCourseForm)">
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="courseName">Name</label>
+            <input name="courseName" placeholder="Course Name" class="form-control" type="text" ng-model="createCourseForm.courseName">         
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="courseCode">Code</label>
+            <input id="courseCode" name="courseCode" placeholder="Course Code (MATE3001)" class="form-control" type="text" ng-model="createCourseForm.courseCode">
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="control-label" for="courseYear">Year</label>
+            <select id="courseYear" name="courseYear" class="form-control">
+              <option>2014</option>
+              <option>2013</option>
+              <option>2012</option>
+            </select>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="control-label" for="courseSemester">Semester</label>
+            <select id="courseSemester" name="courseSemester" class="form-control">
+              <option>Fall</option>
+              <option>Spring</option>
+            </select>
+          </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" ng>Create</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
 </div>
