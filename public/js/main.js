@@ -2,7 +2,7 @@
  * The Panda AngularJS app. :)
  */
 var pandaApp = angular.module('pandaApp', ['panda.services',
-  'http-auth-interceptor', 'ngRoute', 'ui.bootstrap']);
+  'http-auth-interceptor', 'ngRoute']);
 
 /**
  * This is the resolve map for the current logged in user that will be injected
