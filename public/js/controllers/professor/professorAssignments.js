@@ -65,7 +65,7 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
 
     // Refresh data so that the table contains the newly added assignment.
     $scope.refreshUser();
-  }
+  };
 
   var fieldNames = {'name': false, 'courseCode': false, 'creationDate': false,
     'deadline': false, 'numOfTestCases': false, 'totalScore': false,
@@ -74,8 +74,8 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
   $scope.predicate = 'name';
   $scope.reverseOrder = fieldNames[$scope.predicate];
 
-  $scope.toggleOrder = function (field) {
-    Object.keys(fieldNames).forEach(function (fieldName) {
+  $scope.toggleOrder = function(field) {
+    Object.keys(fieldNames).forEach(function(fieldName) {
       if (fieldName === field) {
         $scope.predicate = field;
         fieldNames[field] = !fieldNames[field];
