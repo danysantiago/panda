@@ -22,9 +22,8 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
          `//-\\    into user.assignments :@
          ^^  ^^
     */
-
     var assignments = [];
-    async.eachSeries(user.courses, function(course, done) {
+    async.each(user.courses, function(course, done) {
       var course = Course.get({id: course._id, assignments: true}, function() {
         // Nested oinky oink: We need to reference each course with an
         // assignment some how. This is the way to do it.
@@ -61,5 +60,24 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
     var newAssignment = new Assignment(assignmentInfo);
     newAssignment.$save();
   }
+
+  var fieldNames = {'name': false, 'courseCode': false, 'creationDate': false,
+    'deadline': false, 'numOfTestCases': false, 'totalScore': false,
+    'numOfSubmissions': false};
+
+  $scope.predicate = 'name';
+  $scope.reverseOrder = fieldNames[$scope.predicate];
+
+  $scope.toggleOrder = function (field) {
+    Object.keys(fieldNames).forEach(function (fieldName) {
+      if (fieldName === field) {
+        $scope.predicate = field;
+        fieldNames[field] = !fieldNames[field];
+        $scope.reverseOrder = fieldNames[field];
+      } else {
+        fieldNames[fieldName] = false;
+      }
+    });
+  };
 
 }]);

@@ -26,45 +26,66 @@
 
 <br>
 
-        <table class="table table-bordered table-hover text-center">
+        <table class="table table-bordered table-hover text-center" >
           <tbody>
           <tr>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('name')">
               Name
-              <span class="glyphicon glyphicon-chevron-down"></span>
+              <span ng-show="predicate === 'name'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('courseCode')">
               Course
-               <span class="glyphicon glyphicon-chevron-up"></span>
+               <span ng-show="predicate === 'courseCode'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('creationDate')">
               Creation Date
-               <span class="glyphicon glyphicon-chevron-up"></span>
+               <span ng-show="predicate === 'creationDate'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('deadline')">
               Due Date
-               <span class="glyphicon glyphicon-chevron-up"></span>
+               <span ng-show="predicate === 'deadline'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('numOfTestCases')">
               Test Cases
-               <span class="glyphicon glyphicon-chevron-up"></span>
+               <span ng-show="predicate === 'numOfTestCases'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('totalScore')">
               Total Score
-               <span class="glyphicon glyphicon-chevron-up"></span>
+               <span ng-show="predicate === 'totalScore'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
-            <th class="text-center">
+            <th class="text-center" ng-click="toggleOrder('numOfSubmissions')">
               Submissions
-               <span class="glyphicon glyphicon-chevron-up"></span>
+               <span ng-show="predicate === 'numOfSubmissions'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
             </th>
           </tr>
-          <tr ng-repeat="assignment in user.assignments | filterByAttributes:q:['name', 'deadline', 'courseCode']">
+          <tr ng-repeat="assignment in user.assignments | filterByAttributes:q:['name', 'deadline', 'courseCode'] | orderBy:predicate:reverseOrder">
             <td>
               <a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a>
             </td>
             <td>
               <a href="/#/p/course/{{assignment.course._id}}">
-                {{assignment.course.code}}
+                {{assignment.courseCode}}
               </a>
             </td>
             <td>
