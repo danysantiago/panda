@@ -24,7 +24,7 @@ echo -e ${lgreen} "Executing jshint..." ${NC}
 jshintErrors=$(tail -2 ./test/style_result.txt | head -2)
 echo -e "jshint reported" ${red} ${jshintErrors} ${NC}
 
-curl http://localhost:${PORT}/kill/after/tests > /dev/null 2>&1 #Call kill route on running server
+curl http://localhost/kill/after/tests > /dev/null 2>&1 #Call kill route on running server
 sleep 1 #Wait 1 second
 echo -e ${lgreen} "Starting Server and running tests..." ${NC}
 #Start the server in the background
@@ -35,7 +35,7 @@ echo -e ${NC}
 #Run mocha tests
 ./node_modules/cover/bin/cover run ./node_modules/mocha/bin/_mocha -- -R spec --recursive
 echo -e ${lgreen} "Terminating Server..." ${NC}
-curl http://localhost:${PORT}/kill/after/tests > /dev/null 2>&1 #Call kill route on server
+curl http://localhost/kill/after/tests > /dev/null 2>&1 #Call kill route on server
 sleep 1 #Wait 1 second
 
 ./node_modules/cover/bin/cover combine #Combine reports

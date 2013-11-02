@@ -58,7 +58,7 @@
           <div class="col-md-4"></div>
           <div class="col-md-6">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Filter">
+              <input type="text" class="form-control" placeholder="Filter" ng-model="qa">
               <span class="input-group-btn">
                 <button class="btn btn-default" type="submit">
                   <span class="glyphicon glyphicon-refresh"></span>
@@ -95,7 +95,7 @@
                  <span class="glyphicon glyphicon-chevron-up"></span>
               </th>
               </tr>
-                <tr ng-repeat="assignment in course.assignments">
+                <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline']">
                   <td><a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
                   <td>{{assignment.creationDate}}</td>
                   <td>{{assignment.deadline}}</td>
