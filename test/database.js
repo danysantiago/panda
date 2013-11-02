@@ -103,6 +103,7 @@ describe('Database Preloading...', function(){
 
             //Refs correct user and assignment id
             submission.User = usersIds[submission.User];
+            submission.Course = coursesIds[submission.Course];
             submission.Assignment = assignmentsIds[submission.Assignment];
 
             collection.insert(submission, function (err, submission) {

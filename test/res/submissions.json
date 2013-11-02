@@ -2,10 +2,11 @@
   {
     "_id": 1,
     "User": 3,
+    "Course": 1,
     "Assignment": 3,
-    "grade": 10,
+    "score": 10,
     "file": "SimpleProgram.java",
-    "date": 1383009444,
+    "submitDate": "2013-11-02T17:06:29.710Z",
     "compile": {
       "status": "OK",
       "time": "1732 milliseconds"

@@ -76,33 +76,33 @@
             <table class="table table-bordered table-hover text-center">
               <tbody>
               <tr>
-              <th class="text-center"> Name
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              </th>
-              <th class="text-center"> Creation Date
-                 <span class="glyphicon glyphicon-chevron-up"></span>
-              </th>
-              <th class="text-center"> Due Date
-                 <span class="glyphicon glyphicon-chevron-up"></span>
-              </th>
-              <th class="text-center"> Test Cases
-                 <span class="glyphicon glyphicon-chevron-up"></span>
-              </th>
-              <th class="text-center"> Total Score
-                 <span class="glyphicon glyphicon-chevron-up"></span>
-              </th>
-              <th class="text-center"> Submissions
-                 <span class="glyphicon glyphicon-chevron-up"></span>
-              </th>
+                <th class="text-center"> Name
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </th>
+                <th class="text-center"> Creation Date
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Due Date
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Test Cases
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Total Score
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Submissions
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
               </tr>
-                <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline']">
-                  <td><a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
-                  <td>{{assignment.creationDate}}</td>
-                  <td>{{assignment.deadline}}</td>
-                  <td>{{assignment.numOfTestCases}}</td>
-                  <td>{{assignment.totalScore}}</td>
-                  <td>{{assignment.numOfSubmissions}}</td>
-                </tr>
+              <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline']">
+                <td><a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
+                <td>{{assignment.creationDate}}</td>
+                <td>{{assignment.deadline}}</td>
+                <td>{{assignment.numOfTestCases}}</td>
+                <td>{{assignment.totalScore}}</td>
+                <td>{{assignment.numOfSubmissions}}</td>
+              </tr>
               </tbody>
             </table>
 
@@ -121,9 +121,73 @@
 
       <div id="submissions" ng-show="submissionsTab">
         <!-- Submissions tab content -->
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Filter" ng-model="qsub">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <br>
+
         <div class="row">
           <div class="col-md-12">
             
+            <table class="table table-bordered table-hover text-center">
+              <tbody>
+              <tr>
+                <th class="text-center"> Hash ID
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </th>
+                <th class="text-center"> Student
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Assignment
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Date Submitted
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Verdict
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Time
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Score
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+                <th class="text-center"> Test Passed/Tests
+                   <span class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+              </tr>
+              <tr ng-repeat="submission in course.submissions">
+                <td>---</td>
+                <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
+                <td>
+                  <a href="/#/p/assignment/{{submission.assignment._id}}">
+                  {{submission.assignment.name}}
+                  </a>
+                </td>
+                <td>{{submission.submitDate}}</td>
+                <td>ACCEPTED</td>
+                <td>250ms</td>
+                <td>10</td>
+                <td>1/1</td>
+              </tr>
+              </tbody>
+            </table>
+
           </div>
         </div>
       </div>
