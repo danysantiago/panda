@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="text-center"><a href="/#/p/courses/">Courses</a></h3>
@@ -16,10 +16,12 @@
           <table class="table table-striped table-hover table-condensed text-left">
             <tr>
               <th>Code</th>
+              <th>Session</th>
               <th>Name</th>
             </tr>
-            <tr ng-repeat="course in user.courses | filterByAttributes:q:['code', 'name'] | orderBy:'code'">
+            <tr ng-repeat="course in user.courses | filterByAttributes:q:['code', 'name', 'semester', 'year'] | orderBy:'code'">
               <td><a href="/#/p/course/{{course._id}}">{{course.code}}</a></td>
+              <td>{{course.year}} - {{course.semester}}</td>
               <td><a href="/#/p/course/{{course._id}}">{{course.name}}</a></td>
             </tr>
           </table>
@@ -27,7 +29,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="text-center"><a href="/#/p/assignments/">Assignments</a></h3>
@@ -42,12 +44,12 @@
           <br>
           <table class="table table-striped table-hover table-condensed text-left">
             <tr>
-              <th>Name</th>
               <th>Course</th>
+              <th>Name</th>
             </tr>
             <tr ng-repeat="assignment in user.assignments | filterByAttributes:qa:['name', 'courseCode'] | orderBy:'creationDate':true">
-              <td><a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
               <td><a href="/#/p/course/{{assignment.Course}}">{{assignment.courseCode}}</a></td>
+              <td><a href="/#/p/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
             </tr>
           </table>
           <hr>
@@ -55,7 +57,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="text-center"><a href="/#/p/submissions/">Submissions</a></h3>
@@ -66,7 +68,7 @@
           </h4>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModal" aria-hidden="true">
