@@ -74,13 +74,13 @@
               {{assignment.deadline}}
             </td>
             <td>
-              {{assignment.TestCases.length}}
+              {{assignment.numOfTestCases}}
             </td>
             <td>
               {{assignment.totalScore}}
             </td>
             <td>
-              {{assignment.submissions.length}}
+              {{assignment.numOfSubmissions}}
             </td>
           </tr>
           </tbody>
@@ -131,7 +131,7 @@
           <div class="form-group">
             <label class="control-label" for="assignmentDeadline">Deadline</label>
             <div class="controls">
-              <input class="form-control" id="assignmentDeadline" name="assignmentDeadline" placeholder="DD//MM/YYYY" required="" type="text" ng-model="newAssignment.deadline">
+              <input class="form-control" id="assignmentDeadline" name="assignmentDeadline" placeholder="DD/MM/YYYY" required="" type="text" ng-model="newAssignment.deadline">
               
             </div>
           </div>

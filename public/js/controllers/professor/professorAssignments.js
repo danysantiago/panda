@@ -15,7 +15,6 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
 
     // Set the default course when creating a new assignment. This is optional.
     $scope.newAssignment.Course = user.courses[0];
-    var assignments = [];
 
     /*
         __,___@
@@ -23,7 +22,9 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
          `//-\\    into user.assignments :@
          ^^  ^^
     */
-    user.courses.forEach(function(course, index) {
+
+    var assignments = [];
+    async.eachSeries(user.courses, function(course, done) {
       var course = Course.get({id: course._id, assignments: true}, function() {
         // Nested oinky oink: We need to reference each course with an
         // assignment some how. This is the way to do it.
@@ -34,12 +35,12 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
 
         // Concat == flatten.
         assignments = assignments.concat(course.assignments);
-        if (index === user.courses.length - 1) {
-          // Update $scope.user only on last iteration.
-          $scope.user.assignments = assignments;
-        }
+        done();
       });
+    }, function () {
+        $scope.user.assignments = assignments;
     });
+
   });
 
   $scope.toggleAssignmentModal = function() {
