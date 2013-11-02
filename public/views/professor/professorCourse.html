@@ -180,10 +180,10 @@
                   </a>
                 </td>
                 <td>{{submission.submitDate}}</td>
-                <td>ACCEPTED</td>
+                <td>{{submission.finalVerdict}}</td>
                 <td>250ms</td>
-                <td>10</td>
-                <td>1/1</td>
+                <td>{{submission.score}}/{{submission.totalScore}}</td>
+                <td>{{submission.acceptedTestCases}}/{{submission.totalTestCases}}</td>
               </tr>
               </tbody>
             </table>

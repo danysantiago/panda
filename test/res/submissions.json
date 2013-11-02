@@ -1,10 +1,14 @@
 [
   {
     "_id": 1,
-    "User": 3,
+    "User": 4,
     "Course": 1,
     "Assignment": 3,
     "score": 10,
+    "totalScore": 10,
+    "finalVerdict": "Accepted",
+    "acceptedTestCases": 1,
+    "totalTestCases": 1,
     "file": "SimpleProgram.java",
     "submitDate": "2013-11-02T17:06:29.710Z",
     "compile": {
