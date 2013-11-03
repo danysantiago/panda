@@ -2,38 +2,56 @@ var config = require('../../lib/config/config.js'),
     request = require('request'),
     url = require('url'),
     expect = require('chai').expect,
-    async = require('async');
+    async = require('async'),
+    fs = require('fs');
 
 var test = function() {
 
   var baseUrl = config.appProtocol + '://' +
     config.localAddress + ':' +config.appPort +
-    '/api/courses';
+    '/api/assignments';
 
   var loginUrl = config.appProtocol + '://' +
     config.localAddress + ':' +config.appPort +
     '/auth/login';
 
+  var coursesUrl = config.appProtocol + '://' +
+    config.localAddress + ':' +config.appPort +
+    '/api/courses';
+
   var usersUrl = config.appProtocol + '://' +
     config.localAddress + ':' +config.appPort +
     '/api/users';
 
+
   var fakeUser = {
-    'email': 'alguien.fantasma@upr.edu',
+    'email': 'juan.fantasma@upr.edu',
     'password': '12345',
-    'firstName': 'Alguien',
+    'firstName': 'Juan',
     'lastName': 'Fantasma',
     'role': 'Professor'
   };
 
-  var fakeCourse = {
-    'name': 'A Fake Course',
-    'code': 'FAKE3001',
-    'year': '2013',
-    'semester': 'Fall',
+  var fakeAssignment = {
+    'name': 'A fake assignment',
+    'shortDescription': 'Not a real assignment',
+    'creationDate': '2013-11-02T18:41:55.410Z',
+    'deadline': '11/11/2013',
+    'numOfTries': 2,
   };
 
-  describe('Courses Routes', function() {
+  var fakeTestCase = {
+    'score': 10,
+    'timeLimit': 10,
+    'memLimit': 5,
+    'testInput': '5\n1 2\n2 3\n1 4\n3 4\n2 4',
+    'testOutput': '0, 1, 2, 1'
+  };
+
+  var courseId;
+  var testCaseId;
+
+  describe('Assignments Routes', function() {
 
     before(function(done) {
 
@@ -71,29 +89,40 @@ var test = function() {
             expect(res.statusCode).to.equal(200);
             callback();
           });
+        },
+
+        function (callback) {
+          request.get(coursesUrl, {'json':true, 'jar': true}, function (err, res, body) {
+            expect(res).to.exist;
+            expect(res.statusCode).to.equal(200);
+            expect(body).to.be.a('array');
+            expect(body).to.have.length.above(0);
+            fakeAssignment.Course = body[0]._id;
+            done();
+          });
         }
+
       ], done);
     });
 
-    it('Create Course', function(done) {
-      fakeCourse.grader = fakeUser._id;
+    it('Create Assignment', function(done) {
       var reqParams = {
         'url': baseUrl,
         'method': 'POST',
         'json': true,
-        'body': fakeCourse,
+        'body': fakeAssignment,
         'jar': true
       };
 
       request(reqParams, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(201);
-        fakeCourse = body; //Get id of created course
+        fakeAssignment = body; //Get id of created course
         done();
       });
     });
 
-    it('Fail creating course with missing payload', function(done) {
+    it('Fail creating assignment with missing payload', function(done) {
       var reqParams = {
         'url': baseUrl,
         'method': 'POST',
@@ -108,19 +137,19 @@ var test = function() {
       });
     });
 
-    it('Get created course', function(done) {
-      var reqUrl = baseUrl + '/' + fakeCourse._id;
+    it('Get created assignment', function(done) {
+      var reqUrl = baseUrl + '/' + fakeAssignment._id;
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
         expect(body).to.exist;
-        expect(body.code).to.equal(fakeCourse.code);
+        expect(body.name).to.equal(fakeAssignment.name);
         done();
       });
     });
 
-    it('Get multiple courses', function(done) {
+    it('Get multiple assignments', function(done) {
       var reqUrl = baseUrl;
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
@@ -132,91 +161,52 @@ var test = function() {
       });
     });
 
-    it('Get a course and his users, assignments and submissions', function(done) {
-      var reqUrl = baseUrl + '/' + fakeCourse._id + '?users=true&assignments=true&submissions=true';
+    it('Get an assignments and his  submissions', function(done) {
+      var reqUrl = baseUrl + '/' + fakeAssignment._id + '?submissions=true';
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
-        expect(body).to.have.property('users');
-        expect(body.users).to.be.a('array');
-        expect(body).to.have.property('assignments');
-        expect(body.assignments).to.be.a('array');
         expect(body).to.have.property('submissions');
         expect(body.submissions).to.be.a('array');
         done();
       });
     });
 
-    it('Add student to course', function(done) {
+    it('Add test case to assignment', function(done) {
+      var url = baseUrl + '/' + fakeAssignment._id + '/test'
       var reqParams = {
-        'url': baseUrl + '/' + fakeCourse._id + '/users/' + fakeUser._id,
+        'url': url,
         'method': 'POST',
         'json': true,
+        'body': fakeTestCase,
         'jar': true
       };
 
       request(reqParams, function (err, res, body) {
         expect(res).to.exist;
-        expect(res.statusCode).to.equal(200);
+        expect(res.statusCode).to.equal(201);
         done();
       });
     });
 
-    it('Get course and check student was added', function(done) {
-      var reqUrl = baseUrl + '/' + fakeCourse._id;
+    it('Check test case was added to assignment', function(done) {
+      var reqUrl = baseUrl + '/' + fakeAssignment._id;
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
         expect(body).to.exist;
-        expect(body).to.have.property('Users');
-        expect(body.Users).to.be.a('array');
-        expect(body.Users).to.have.length.above(0);
-        expect(body.Users[0]).to.equal(fakeUser._id);
+        expect(body.TestCases).to.be.a('array');
+        expect(body.TestCases).to.have.length.above(0);
+        testCaseId = body.TestCases[0]._id;
         done();
       });
     });
 
-    it('Fail adding student to unknown course', function(done) {
-      var url = baseUrl + '/' + '000000000000000000000001' +
-        '/users/' + fakeUser._id;
-
+    it('Delete test case', function(done) {
       var reqParams = {
-        'url': url,
-        'method': 'POST',
-        'json': true,
-        'jar': true
-      };
-
-      request(reqParams, function (err, res, body) {
-        expect(res).to.exist;
-        expect(res.statusCode).to.equal(404);
-        done();
-      });
-    });
-
-    it('Fail adding unknown student to course', function(done) {
-      var url = baseUrl + '/' + fakeCourse._id +
-        '/users/' + '000000000000000000000001';
-
-      var reqParams = {
-        'url': url,
-        'method': 'POST',
-        'json': true,
-        'jar': true
-      };
-
-      request(reqParams, function (err, res, body) {
-        expect(res).to.exist;
-        expect(res.statusCode).to.equal(404);
-        done();
-      });
-    });
-
-    it('Remove user from course', function(done) {
-      var reqParams = {
-        'url': baseUrl + '/' + fakeCourse._id + '/users/' + fakeUser._id,
+        'url': baseUrl + '/' + fakeAssignment._id + '/test/' + testCaseId,
         'method': 'DELETE',
         'json': true,
         'jar': true
@@ -229,41 +219,60 @@ var test = function() {
       });
     });
 
-    it('Fail removing user from unknown course', function(done) {
-      var url = baseUrl + '/' + '000000000000000000000001' +
-        '/users/' + fakeUser._id;
-
-      var reqParams = {
-        'url': url,
-        'method': 'DELETE',
-        'json': true,
-        'jar': true
-      };
-
-      request(reqParams, function (err, res, body) {
-        expect(res).to.exist;
-        expect(res.statusCode).to.equal(404);
-        done();
-      });
-    });
-
-    it('Get course and check student was removed', function(done) {
-      var reqUrl = baseUrl + '/' + fakeCourse._id;
+    it('Check test case was deleted in assignment', function(done) {
+      var reqUrl = baseUrl + '/' + fakeAssignment._id;
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
         expect(body).to.exist;
-        expect(body).to.have.property('Users');
-        expect(body.Users).to.be.a('array');
-        expect(body.Users).to.have.length(0);
+        expect(body.TestCases).to.be.a('array');
+        expect(body.TestCases).to.have.length(0);
         done();
       });
     });
 
-    it('Delete course', function(done) {
+    it('Fail creating test case without payload', function(done) {
+      var url = baseUrl + '/' + fakeAssignment._id + '/test'
       var reqParams = {
-        'url': baseUrl + '/' + fakeCourse._id,
+        'url': url,
+        'method': 'POST',
+        'json': true,
+        'jar': true
+      };
+
+      request(reqParams, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+    });
+
+    it('Create assignment with files', function(done) {
+      var url = baseUrl + '/' + fakeAssignment._id + '/test'
+      var reqParams = {
+        'url': url,
+        'method': 'POST',
+        'jar': true
+      };
+
+      var r = request(reqParams, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.equal(201);
+        done();
+      });
+      var form = r.form();
+      form.append('score', fakeTestCase.score);
+      form.append('timeLimit', fakeTestCase.timeLimit);
+      form.append('memLimit', fakeTestCase.memLimit);
+      form.append('testInput', fs.createReadStream(__dirname + '/../res/testInput.txt'));
+      form.append('testOutput', fs.createReadStream(__dirname + '/../res/testOutput.txt'));
+      form.append('testerFile', fs.createReadStream(__dirname + '/../res/ExampleProgram.java'));
+    });
+
+    it('Delete assignment', function(done) {
+      var reqParams = {
+        'url': baseUrl + '/' + fakeAssignment._id,
         'method': 'DELETE',
         'json': true,
         'jar': true
@@ -276,9 +285,9 @@ var test = function() {
       });
     });
 
-    it('Fail deleting already deleted course', function(done) {
+    it('Fail deleting already deleted assignment', function(done) {
       var reqParams = {
-        'url': baseUrl + '/' + fakeCourse._id,
+        'url': baseUrl + '/' + fakeAssignment._id,
         'method': 'DELETE',
         'json': true,
         'jar': true
@@ -291,8 +300,8 @@ var test = function() {
       });
     });
 
-    it('Fail getting deleted course', function(done) {
-      var reqUrl = baseUrl + '/' + fakeCourse._id;
+    it('Fail getting deleted assignment', function(done) {
+      var reqUrl = baseUrl + '/' + fakeAssignment._id;
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
         expect(res).to.exist;
