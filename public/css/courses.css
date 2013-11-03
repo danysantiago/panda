@@ -4,6 +4,10 @@ body {
   padding-top: 70px;
 }
 
+th {
+  cursor: pointer;
+}
+
 .table {
   background-color: white;
 }
