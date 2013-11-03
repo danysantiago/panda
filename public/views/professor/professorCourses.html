@@ -19,22 +19,29 @@
       <h2>Fall 2013</h2>
       <hr>
       
-      <div id="course1" class="well">
+      <div class="well" ng-repeat="course in courses | filterByAttributes:q:['name', 'code', 'semester', 'year']">
         <h3>
-          <a href="course-prof.html">Course 1</a> - Course #1
+          <a href="/#/p/course/{{course._id}}">
+            {{course.code}} - {{course.name}}
+          </a>
         </h3>
         
         <ul class="nav nav-pills">
           <li id="students-tab">
-            <a id="students-link" href="#students">Students <span class="badge">4</span></a>
+            <a id="students-link" ng-click="toggleStudents($index)">
+              Students <span class="badge">4</span>
+            </a>
           </li>
           <li id="assignments-tab">
-            <a id="assignments-link" href="#assignments">Assignments <span class="badge">3</span></a>
+            <a id="assignments-link" ng-click="toggleAssignments($index)">
+              Assignments <span class="badge">{{course.assignments.length}}</span>
+            </a>
           </li>
         </ul>
         
-        <div id="students" style="display:none">
+        <div id="students" ng-show="showStudents[$index]">
           <hr>
+          <h3>Students</h3>
           <table class="table table-bordered table-hover">
             <tr>
               <th>#</th>
@@ -51,28 +58,62 @@
           </table>
         </div>
 
-        <div id="assignments" style="display:none">
+        <div id="assignments" ng-show="showAssignments[$index]">
           <hr>
+          <h3>Assignments</h3>
           <table class="table table-bordered table-hover">
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Total Score</th>
-              <th>Test Cases</th>
-              <th>Date Created</th>
-              <th>Deadline</th>
-              <th>Tries</th>
-              <th>Submissions</th>
+              <th ng-click="toggleOrder('name')">Name
+                <span ng-show="predicate === 'name'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleOrder('totalScore')">Total Score
+                <span ng-show="predicate === 'totalScore'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleOrder('numOfTestCases')">Test Cases
+                <span ng-show="predicate === 'numOfTestCases'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleOrder('creationDate')">Date Created
+                <span ng-show="predicate === 'creationDate'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleOrder('deadline')">Deadline
+                <span ng-show="predicate === 'deadline'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleOrder('numOfTries')">Tries
+                <span ng-show="predicate === 'numOfTries'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleOrder('numOfSubmissions')">Submissions
+                <span ng-show="predicate === 'numOfSubmissions'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+                </span>
+              </th>
             </tr>
-            <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <tr ng-repeat="assignment in course.assignments | orderBy:predicate:reverseOrder">
+              <td>{{assignment.name}}</td>
+              <td>{{assignment.totalScore}}</td>
+              <td>{{assignment.numOfTestCases}}</td>
+              <td>{{assignment.creationDate}}</td>
+              <td>{{assignment.deadline}}</td>
+              <td>{{assignment.numOfTries}}</td>
+              <td>{{assignment.numOfSubmissions}}</td>
             </tr>
           </table>
         </div>
@@ -95,19 +136,19 @@
           <!-- Text input-->
           <div class="form-group">
             <label class="control-label" for="courseName">Name</label>
-            <input name="courseName" placeholder="Course Name" class="form-control" type="text" ng-model="createCourseForm.courseName">         
+            <input name="courseName" placeholder="Course Name" class="form-control" type="text" ng-model="newCourse.name">         
           </div>
 
           <!-- Text input-->
           <div class="form-group">
             <label class="control-label" for="courseCode">Code</label>
-            <input id="courseCode" name="courseCode" placeholder="Course Code (MATE3001)" class="form-control" type="text" ng-model="createCourseForm.courseCode">
+            <input id="courseCode" name="courseCode" placeholder="Course Code (MATE3001)" class="form-control" type="text" ng-model="newCourse.code">
           </div>
 
           <!-- Select Basic -->
           <div class="form-group">
             <label class="control-label" for="courseYear">Year</label>
-            <select id="courseYear" name="courseYear" class="form-control">
+            <select id="courseYear" name="courseYear" class="form-control" ng-model="newCourse.year">
               <option>2014</option>
               <option>2013</option>
               <option>2012</option>
@@ -117,9 +158,10 @@
           <!-- Select Basic -->
           <div class="form-group">
             <label class="control-label" for="courseSemester">Semester</label>
-            <select id="courseSemester" name="courseSemester" class="form-control">
+            <select id="courseSemester" name="courseSemester" class="form-control" ng-model="newCourse.semester">
               <option>Fall</option>
               <option>Spring</option>
+              <option>Summer</option>
             </select>
           </div>
 
@@ -127,7 +169,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" ng>Create</button>
+          <button type="button" class="btn btn-primary" ng-click="createCourse(newCourse)">Create</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

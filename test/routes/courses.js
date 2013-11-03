@@ -76,6 +76,7 @@ var test = function() {
     });
 
     it('Create Course', function(done) {
+      fakeCourse.grader = fakeUser._id;
       var reqParams = {
         'url': baseUrl,
         'method': 'POST',
