@@ -17,19 +17,22 @@ pandaApp.controller('ProfessorCoursesController', ['$scope', 'currentUser',
       var assignments = [];
       var courses = [];
       async.each(user.courses, function(userCourse, done) {
-        var course = Course.get({id: userCourse._id, assignments: true},
-            function() {
+        var course = Course.get({id: userCourse._id, assignments: true,
+            users: true, submissions: true}, function() {
           // Nested oinky oink: We need to reference each course with an
           // assignment some how. This is the way to do it.
+          var totalCourseScore = 0;
           course.assignments.forEach(function(assignment) {
             assignment.courseCode = course.code;
             assignment.course = course;
+            totalCourseScore += assignment.totalScore;
           });
 
           // Concat == flatten.
           assignments = assignments.concat(course.assignments);
 
           // Add the course (that includes the assignments) in the courses array
+          course.totalScore = totalCourseScore; // Otro puerquito mas.
           courses.push(course);
           done();
         });
@@ -104,6 +107,16 @@ pandaApp.controller('ProfessorCoursesController', ['$scope', 'currentUser',
         fieldNames[fieldName] = false;
       }
     });
+  };
+
+  $scope.calcGrade = function(grades) {
+    // An array of grades from the student
+    var totalScore = 0;
+    grades.forEach(function(grade) {
+      totalScore += grade.score;
+    });
+
+    return totalScore;
   };
 
 }]);
