@@ -105,9 +105,45 @@
 
       <div id="students" ng-show="studentsTab">
         <!-- Students tab content -->
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Filter">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <br>
+
         <div class="row">
           <div class="col-md-12">
       
+            <table class="table table-bordered table-hover text-center">
+              <tbody>
+              <tr>
+                <th class="text-center"> Student
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </th>
+                <th class="text-center" ng-repeat="assignment in course.assignments">
+                  A{{$index+1}} - {{assignment.name}}
+                </th>
+              </tr>
+              <tr ng-repeat="user in course.users">
+                <td>{{user.firstName}} {{user.lastName}}</td>
+                <td ng-repeat="assignment in course.assignments">{{assignment.grades[user._id]}}</td>
+              </tr>
+              </tbody>
+            </table>
+
           </div>
         </div>
       </div>
