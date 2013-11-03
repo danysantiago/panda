@@ -2,7 +2,7 @@ var config = require('../../lib/config/config.js'),
     expect = require('chai').expect,
     Gitlab = require('../../lib/gitlab/Gitlab');
 
-    var gitlab = new Gitlab();
+    var gitlab = new Gitlab(console.log);
 
 
 var test = function() {
@@ -61,8 +61,9 @@ var test = function() {
     });
 
     it('Populate Project', function(done) {
-      gitlab.project.populate({ username: 'danysantiago', name: params.name, archive: __dirname + '/../res/'+params.name+'.tar.gz' }, function (error, stdout, stderr) {
-        expect(error).to.equal(null);
+      gitlab.project.populate({ username: 'danysantiago', name: params.name, archive: __dirname + '/../res/'+params.name+'.tar.gz' }, 
+      	function (error, stdout, stderr) {
+        expect(error).to.not.exist;
         done();
       });
     });

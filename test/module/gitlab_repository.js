@@ -2,7 +2,7 @@ var config = require('../../lib/config/config.js'),
     expect = require('chai').expect,
     Gitlab = require('../../lib/gitlab/Gitlab');
 
-    var gitlab = new Gitlab(console.log);
+    var gitlab = new Gitlab();
 
 
 var test = function() {

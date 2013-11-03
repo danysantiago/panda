@@ -18,8 +18,8 @@ var config = require('../../lib/config/config.js'),
 	    // sendgrid.sendEmail(params, function (err, json){
 	    //   expect(err).to.not.exist;
 	    //   expect(json.message).to.equal('success');
-	    //   	done();
-	    // });
+	      	done();
+	     //});
 	});
   });
 };
