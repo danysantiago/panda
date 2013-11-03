@@ -22,20 +22,10 @@
         <div class="row">
           <div class="col-md-12">
             <h3>
-              Brief Description
+              Description
             </h3>
             <p>
-              This is a brief description of the assignment.
-            </p>
-          </div>
-          <hr>
-        </div>
-        <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Instructions
-            </h3>
-            <p>
+              <p>
               These are some lengthy instructions that the professor added so that the
               students know what they have to do.&nbsp;
             </p>
@@ -60,18 +50,23 @@
               Aenean imperdiet laoreet congue. Duis id lacinia dui. Pellentesque egestas
               dui metus. Pellentesque luctus vel magna ac scelerisque.
             </p>
+            </p>
           </div>
-          <div class="col-md-3 centered-div">
-            <form role="form">
-              <div class="form-group">
-                <p>Upload instructions file.</p>
-                <input type="file" name="jfile">
-              </div>
-              <button type="submit" class="btn btn-default">Upload</button>
-            </form>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col-md-9">
+            <h3>
+              Instructions
+            </h3>
+
+            <button type="button" class="btn btn-primary" >
+              Download
+            </button>            
           </div>
         </div>
         <hr>
+
         <div class="row">
           <div class="col-md-12">
             <h3>
@@ -83,345 +78,135 @@
           </div>
         </div>
       </div>
+
       <div id="submissions" style="display: none;">
         <div class="row">
           <div class="col-md-12">
             <h3>
               Submissions
             </h3>
-            <table class="table table-striped">
+            
+            <table class="table table-bordered table-hover text-center">
               <tbody>
                 <tr>
-              <th>#</th>
-              <th>hash-id</th>
-              <th>Student</th>
-              <th>Submit Date</th>
-              <th>Result</th>
-              <th>Score</th>
-              <th>Compile Time</th>
-              <th>Run Time</th>
-              <th></th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td><a href="#">4deadbeef555</a></td>
-              <td>S. Rodriguez</td>
-              <td>09/25/2013 02:12PM</td>
-              <td>SUCCESS</td>
-              <td>15/15</td>
-              <td>020ms</td>
-              <td>030ms</td>
-              <td><a data-toggle="modal" href="#grade-modal">Grade</a></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="#">4ulalalala5332</a></td>
-              <td>N. Colon</td>
-              <td>09/25/2013 06:14PM</td>
-              <td>SUCCESS</td>
-              <td>15/15</td>
-              <td>025ms</td>
-              <td>028ms</td>
-              <td><a data-toggle="modal" href="#grade-modal">Grade</a></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="#">5tratrababy34</a></td>
-              <td>D. Santiago</td>
-              <td>09/25/2013 11:14PM</td>
-              <td>FAILED</td>
-              <td>5/15</td>
-              <td>030ms</td>
-              <td>031ms</td>
-              <td><a data-toggle="modal" href="#grade-modal">Grade</a></td>
-            </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div id="cases" style="display: none;">
-        <div class="row">
-          <div class="col-md-4">
-            <h3>
-              Test Cases
-            </h3>
-            <!-- table -->
-            <table class="table table-striped">
-              <tbody>
-                <tr>
-                  <th colspan="2">
-                    Test Cases
+                  <th class="text-center">
+                    Hash ID
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </th>
-                  <th>
+                  <th class="text-center">
+                    Student
+                     <span class="glyphicon glyphicon-chevron-up"></span>
+                  </th>
+                  <th class="text-center">
+                    Date Submitted
+                     <span class="glyphicon glyphicon-chevron-down"></span>
+                  </th>
+                  <th class="text-center">
+                    Verdict
+                     <span class="glyphicon glyphicon-chevron-up"></span>
+                  </th>
+                  <th class="text-center">
+                    Time
+                     <span class="glyphicon glyphicon-chevron-down"></span>
+                  </th>
+                  <th class="text-center">
                     Score
+                     <span class="glyphicon glyphicon-chevron-down"></span>
+                  </th>
+                  <th class="text-center">
+                    Test Passed/Tests
+                     <span class="glyphicon glyphicon-chevron-up"></span>
                   </th>
                 </tr>
+
                 <tr>
                   <td>
-                    Public
+                    
                   </td>
                   <td>
-                    2
+                   
                   </td>
                   <td>
-                    10
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Private
+
                   </td>
                   <td>
-                    4
+
                   </td>
                   <td>
-                    40
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Total
+
                   </td>
                   <td>
-                    6
+
                   </td>
                   <td>
-                    50
+
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="col-md-8">
-            <!-- desglose de los test cases -->
-            <h3>
-              Public
-            </h3>
-            <h5>
-              Public Test Case #1
-            </h5>
-            <hr>
-            <div class="row">
-              <div class="col-md-4">
-                Time Limit #
-              </div>
-              <div class="col-md-4">
-                Memory Limit #
-              </div>
-              <div class="col-md-4">
-                Score:
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Input
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Output
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <hr>
-            <h5>
-              Public Test Case #2
-            </h5>
-            <div class="row">
-              <div class="col-md-4">
-                Time Limit #
-              </div>
-              <div class="col-md-4">
-                Memory Limit #
-              </div>
-              <div class="col-md-4">
-                Score:
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Input
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Output
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <hr>
-            <h5>
-              Public Test Case #3
-            </h5>
-            <div class="row">
-              <div class="col-md-4">
-                Time Limit #
-              </div>
-              <div class="col-md-4">
-                Memory Limit #
-              </div>
-              <div class="col-md-4">
-                Score:
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Input
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Output
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <hr>
-            <h3>
-              Private
-            </h3>
-            <h5>
-              Private Test Case #1
-            </h5>
-            <hr>
-            <div class="row">
-              <div class="col-md-4">
-                Time Limit #
-              </div>
-              <div class="col-md-4">
-                Memory Limit #
-              </div>
-              <div class="col-md-4">
-                Score:
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Input
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Output
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <hr>
-            <h5>
-              Private Test Case #2
-            </h5>
-            <div class="row">
-              <div class="col-md-4">
-                Time Limit #
-              </div>
-              <div class="col-md-4">
-                Memory Limit #
-              </div>
-              <div class="col-md-4">
-                Score:
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Input
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Output
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <hr>
-            <h5>
-              Private Test Case #3
-            </h5>
-            <div class="row">
-              <div class="col-md-4">
-                Time Limit #
-              </div>
-              <div class="col-md-4">
-                Memory Limit #
-              </div>
-              <div class="col-md-4">
-                Score:
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Input
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  Output
-                </h3>
-              </div>
-              <div class="panel-body">
-                Collapsable content (collapse via js)
-              </div>
-            </div>
-          </div>
-          <hr>
         </div>
       </div>
+
+      <!-- Test Cases-->
+      <div id="cases" style="display: none;">
+        <h3> Test Cases </h3>
+        <hr>
+
+        <div class="row">
+          <div id="test1" class="well">
+            <h3>
+              Test Case #1 | Type
+            </h3>
+            <br>
+            <hr>
+        
+            If executable: 
+            <br>
+            fileName 
+        
+            <button type="button" class="btn btn-primary" >
+              Download
+            </button>
+            <hr>
+
+            If I/O:
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Expected Input</h3>
+              </div>
+
+              <div class="panel-body" style="overflow:scroll; max-height:100px">
+                Input
+                <br>
+                I
+                <br>
+                can
+                <br>
+                scroll
+              </div>
+            </div>
+          <hr>
+          <div class="panel panel-default" >
+            <div class="panel-heading">
+              <h3 class="panel-title">Expected Output</h3>
+            </div>
+            <div class="panel-body" style="overflow:scroll; max-height:100px">
+              Output
+              <br>
+              That's
+              <br>
+              how
+              <br>
+              we
+              <br>
+              scroll.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
       
     </div>
     <div class="col-md-3 centered-div">
@@ -465,25 +250,6 @@
       <h5>
         3
       </h5>
-    </div>
-  </div>
-</div>
-
-<div id="submit-modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Submit Assignment</h4>
-      </div>
-      <div class="modal-body">
-        <p>Submitting commit:</p>
-        <p>6deadbeef666 | 09/25/13 14:30
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
-        <button type="button" class="btn btn-default">View Source Code</button>
-        <button type="button" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </div>
