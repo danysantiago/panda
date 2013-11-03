@@ -1,33 +1,65 @@
 /**
  * This is the js file for the courses route (courses.html)
  */
-pandaApp.controller('CoursesController', ['$scope', 'currentUser', 'User',
-    function($scope, currentUser, User) {
+pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
+    'User', 'Course', 'courses',
+        function($scope, $http, currentUser, User, Course, courses) {
   // TODO(samuel): Initialize this better, since the query to the user is
   // async.
   $scope.user = {};
+  $scope.courses = courses;
 
-  /**
-   * Inserts the corresponding assignments into each course as an array by
-   * cross-referencing the ids of assignments and courses.
-   */
-  var insertAssignmentsIntoCourses = function(courses, assignments) {
-    // Build a map of courses, identified by id.
-    var coursesMap = [];
-    courses.forEach(function(course) {
-      course.assignments = [];
-      coursesMap[course._id] = course;
-    });
+  ($scope.refreshUser = function() {
+    var user = User.get({id: currentUser._id, submissions: true,
+        assignments: true, courses: true}, function() {
+      $scope.user = user;
 
-    // Go through each assignment and add it to the course by lookup of id.
-    assignments.forEach(function(assignment) {
-      coursesMap[assignment.Course].assignments.push(assignment);
+      /*
+          __,___@
+         [_'^   )    Oink Oink: This is for getting the assignments of a
+           `//-\\    professor into user.assignments :@
+           ^^  ^^
+      */
+      var assignments = [];
+      var courses = [];
+      async.each(user.courses, function(userCourse, done) {
+        var course = Course.get({id: userCourse._id, assignments: true},
+            function() {
+          // Nested oinky oink: We need to reference each course with an
+          // assignment some how. This is the way to do it.
+          course.assignments.forEach(function(assignment) {
+            assignment.courseCode = course.code;
+            assignment.course = course;
+          });
+
+          // Concat == flatten.
+          assignments = assignments.concat(course.assignments);
+
+          // Add the course (that includes the assignments) in the courses array
+          courses.push(course);
+          done();
+        });
+      }, function () {
+          $scope.user.assignments = assignments;
+      });
     });
+  })(); // Init the user as well :) wii
+
+  $scope.toggleEnrollCourseModal = function() {
+    $('#addCourseModal').modal();
   };
 
-  var user = User.get({id: currentUser._id, submissions: true,
-      assignments: true, courses: true}, function() {
-    insertAssignmentsIntoCourses(user.courses, user.assignments);
-    $scope.user = user;
-  });
+  $scope.studentEnroll = {};
+  $scope.studentEnroll.enrollCourseId = null;
+  $scope.enrollCourse = function(courseId) {
+    // There is a backend api route that does most of the work for us. Just
+    // need a regular http post.
+    $http.post('api/courses/' + courseId + '/users/' + currentUser._id, {})
+    .success(function() {
+      $('#addCourseModal').modal('hide');
+      $scope.refreshUser();
+    }).error(function() {
+      // oh noes
+    });
+  }
 }]);

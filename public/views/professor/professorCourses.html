@@ -107,7 +107,9 @@
               </th>
             </tr>
             <tr ng-repeat="assignment in course.assignments | orderBy:predicate:reverseOrder">
-              <td>{{assignment.name}}</td>
+              <td><a href="/#/p/assignment/{{assignment._id}}">
+                {{assignment.name}}
+              </a></td>
               <td>{{assignment.totalScore}}</td>
               <td>{{assignment.numOfTestCases}}</td>
               <td>{{assignment.creationDate}}</td>
