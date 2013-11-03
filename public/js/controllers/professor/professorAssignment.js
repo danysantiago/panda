@@ -2,37 +2,32 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     'assignment', function($scope, currentUser, assignment) {
   $scope.assignment = assignment;
 
-  $scope.isInfoVisible = true;
-  $scope.isSubmissionsVisible = false;
-  $scope.isTestCasesVisible = false;
-  $scope.isRepositoryVisible = false;
+  $scope.isDefined = angular.isDefined;
 
-  $scope.showInfo = function() {
-    $scope.isInfoVisible = true;
-    $scope.isSubmissionsVisible = false;
-    $scope.isTestCasesVisible = false;
-    $scope.isRepositoryVisible = false;
+  // var course = Course.get({id: assignment.Course}, function() {
+  //   assignment.course = course;
+  // });
+
+  $scope.testCaseType = 'I/O';
+
+  $scope.toggleTestCaseModal = function() {
+    $('#addTestCaseModal').modal();
   };
 
-  $scope.showSubmissions = function() {
-    $scope.isInfoVisible = false;
-    $scope.isSubmissionsVisible = true;
-    $scope.isTestCasesVisible = false;
-    $scope.isRepositoryVisible = false;
-  };
+  $scope.infoTab = true;
+  $scope.submissionsTab = false;
+  $scope.testCasesTab = false;
 
-  $scope.showTestCases = function() {
-    $scope.isInfoVisible = false;
-    $scope.isSubmissionsVisible = false;
-    $scope.isTestCasesVisible = true;
-    $scope.isRepositoryVisible = false;
-  };
+  var tabNames = ['infoTab', 'submissionsTab', 'testCasesTab'];
 
-  $scope.showRepository = function() {
-    $scope.isInfoVisible = false;
-    $scope.isSubmissionsVisible = false;
-    $scope.isTestCasesVisible = false;
-    $scope.isRepositoryVisible = true;
+  $scope.showTab = function (view) {
+    tabNames.forEach(function (tabName) {
+      if(tabName === view) {
+        $scope[tabName] = true;
+      } else {
+        $scope[tabName] = false;
+      }
+    });
   };
 
 }]);
