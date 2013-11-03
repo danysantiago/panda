@@ -6,7 +6,3 @@ body {
   text-align: center;
 }
 
-scroll {
-	overflow:scroll; 
-	max-height:100px;
-}
