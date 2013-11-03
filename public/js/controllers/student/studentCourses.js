@@ -64,5 +64,6 @@ pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
     }).error(function() {
       // oh noes
     });
-  }
+  };
+
 }]);
