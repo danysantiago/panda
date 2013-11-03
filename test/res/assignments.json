@@ -16,7 +16,7 @@
         "type": "I/O",
         "score": 10,
         "timeLimit": 10,
-        "memLimit": 5,
+        "memLimit": 4078,
         "resource": {
           "input": "5\n1 2\n2 3\n1 4\n3 4\n2 4",
           "output": "0, 1, 2, 1"
@@ -41,8 +41,8 @@
       {
         "type": "I/O",
         "score": 5,
-        "timeLimit": 5,
-        "memLimit": 5,
+        "timeLimit": 8,
+        "memLimit": 256,
         "resource": {
           "input": "3\ncow chicken\ncarpool car\nrocket racket",
           "output": "false\ntrue\nfalse"
@@ -71,12 +71,16 @@
     "numOfTries": 3,
     "deleted": false,
     "Instructions": {
-      "text": "See PDF sent via email"
+      "file": {
+        "name": "LLInstructions.pdf"
+      }
     },
     "TestCases": [
       {
         "type": "Exec",
         "score": 10,
+        "timeLimit": 5,
+        "memLimit": 1024,
         "resource": {
           "input": "",
           "output": "Here goes the Big Output File",
@@ -106,6 +110,8 @@
       {
         "type": "I/O",
         "score": 10,
+        "timeLimit": 5,
+        "memLimit": 128,
         "resource": {
           "input": "",
           "output": "Hello World!"
