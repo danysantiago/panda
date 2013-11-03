@@ -119,8 +119,11 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/views/student/studentCourses.html',
     access: accessLevels.student,
     resolve: {
-      style: cssSetter('courses'),
-      currentUser: currentUserMapper
+      style: cssSetter('studentCourses'),
+      currentUser: currentUserMapper,
+      courses: ['MultiCourseLoader', function(MultiCourseLoader) {
+        return MultiCourseLoader();
+      }],
     }
   }).
   when('/s/assignment/:id', {
