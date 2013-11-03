@@ -41,6 +41,9 @@ pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
         });
       }, function () {
           $scope.user.assignments = assignments;
+          // this is for adding courses that contain the assignments.
+          // TODO(samuel): filter out the pending ones...
+          $scope.user.courses = courses;
       });
     });
   })(); // Init the user as well :) wii
