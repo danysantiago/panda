@@ -135,9 +135,20 @@
             <br>
 
             <div class="well" ng-repeat="testCase in assignment.TestCases">
-              <h3>
-                Test Case #{{$index+1}}
-              </h3>
+
+              <div class="row">
+                <div class="col-md-10">
+                  <h3>
+                    Test Case #{{$index+1}}
+                  </h3>
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-default">
+                    Remove <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </div>
+              </div>
+
 
               <table class="table table-bordered">
                 <tr>

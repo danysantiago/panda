@@ -27,7 +27,7 @@ app.configure(function() {
   }
 
   //Use temp folder cleaner
-  //require('./lib/tmpClean.js')(config.root + 'tmp', log);
+  require('./lib/tmpClean.js')(config.root + 'tmp', log);
 });
 
 // Request logger middleware
