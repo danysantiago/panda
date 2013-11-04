@@ -5,74 +5,72 @@
         {{course.name}}
       </h2>
       <h4>
-        {{course.code}} - {{course.semester}} {{course.year}}
+        {{course.code}} - {{course.semester}} - {{course.year}}
       </h4>
     </div>
     <div class="col-md-3">
-      <div class="centered-div">
-        <br>
-        Grade: 0 / 100 (your/total)
+      <br>
+      <div class="button-group centered-div">
+        Your grade: {{scores.studentScore}} / {{scores.totalScore}}
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-12" ng-repeat="grader in course.Graders">
+      {{grader.firstName}} {{grader.lastName}} -
+      <a href="mailto://{{grader.email}}">{{grader.email}}</a>
+      <br>
+    </div>
+  </div>
+
+  <hr>
+
   <div class="row">
     <div class="col-md-12">
-      <hr>
-      Professor #1 -
-      <a href="mailto://professor1@upr.edu">professor1@upr.edu</a>
-      | TA #1 -
-      <a href="mailto://ta1@upr.edu">ta1@upr.edu</a>
-      <hr>
-      <h3>
-        <br>
-        <div>
-          Assignments
-        </div>
-      </h3>
-      <table class="table table-hover table-striped">
+      <h1>Assignments</h1>
+      <input type="text" class="form-control" placeholder="Filter" ng-model="qa">
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <table class="table table-bordered table-hover text-center">
         <tbody>
-          <tr>
-            <th>
-              #
-            </th>
-            <th>
-              Name
-            </th>
-            <th>
-              Description
-            </th>
-            <th>
-              Due Date
-            </th>
-            <th>
-              Submission Date
-            </th>
-            <th>
-              Score
-            </th>
-          </tr>
-          <tr ng-repeat="assignment in course.assignments">
-            <td>
-              {{$index + 1}}
-            </td>
-            <td>
-              <a href="assignment.html">{{assignmnet.name}}</a>
-            </td>
-            <td>
-              {{assignment.description}}
-            </td>
-            <td>
-              {{assignment.deadline}}
-            </td>
-            <td>
-              Not Submitted
-            </td>
-            <td>
-              0 / 10
-            </td>
-          </tr>
+        <tr>
+          <th class="text-center"> Name
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center"> Creation Date
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center"> Due Date
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center"> Test Cases
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center"> Total Score
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center"> Submissions
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+        </tr>
+        <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline']">
+          <td><a href="/#/s/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
+          <td>{{assignment.creationDate}}</td>
+          <td>{{assignment.deadline}}</td>
+          <td>{{assignment.numOfTestCases}}</td>
+          <td>{{assignment.totalScore}}</td>
+          <td>{{assignment.numOfSubmissions}}</td>
+        </tr>
         </tbody>
       </table>
+
     </div>
   </div>
 </div>
