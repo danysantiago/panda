@@ -1,0 +1,398 @@
+Testing the singly linked list (SLList): 
+java.lang.IndexOutOfBoundsException: add: index=1 is out of bounds. size = 0
+
+ -- adding value 435 at position 0
+
+*** The 1 elements in the list are: 
+ --Element in position 0 is: 435
+
+ -- adding value 200 at position 1
+
+*** The 2 elements in the list are: 
+ --Element in position 0 is: 435
+ --Element in position 1 is: 200
+
+*** The 10 elements in the list are: 
+ --Element in position 0 is: 435
+ --Element in position 1 is: 20
+ --Element in position 2 is: 25
+ --Element in position 3 is: 30
+ --Element in position 4 is: 35
+ --Element in position 5 is: 40
+ --Element in position 6 is: 45
+ --Element in position 7 is: 200
+ --Element in position 8 is: 435
+ --Element in position 9 is: 200
+
+ -- deleting element at position 4
+ -- value of deleted element was 35
+
+*** The 9 elements in the list are: 
+ --Element in position 0 is: 435
+ --Element in position 1 is: 20
+ --Element in position 2 is: 25
+ --Element in position 3 is: 30
+ --Element in position 4 is: 40
+ --Element in position 5 is: 45
+ --Element in position 6 is: 200
+ --Element in position 7 is: 435
+ --Element in position 8 is: 200
+
+ -- deleting element at position 2
+ -- value of deleted element was 25
+
+*** The 8 elements in the list are: 
+ --Element in position 0 is: 435
+ --Element in position 1 is: 20
+ --Element in position 2 is: 30
+ --Element in position 3 is: 40
+ --Element in position 4 is: 45
+ --Element in position 5 is: 200
+ --Element in position 6 is: 435
+ --Element in position 7 is: 200
+
+ -- deleting element at position 30
+java.lang.IndexOutOfBoundsException: remove: index=30 is out of bounds.
+
+ -- replacing value at position 3 by 400
+ -- value of replaced element was 40
+
+*** The 8 elements in the list are: 
+ --Element in position 0 is: 435
+ --Element in position 1 is: 20
+ --Element in position 2 is: 30
+ --Element in position 3 is: 400
+ --Element in position 4 is: 45
+ --Element in position 5 is: 200
+ --Element in position 6 is: 435
+ --Element in position 7 is: 200
+
+ -- replacing value at position 0 by 30
+ -- value of replaced element was 435
+
+*** The 8 elements in the list are: 
+ --Element in position 0 is: 30
+ --Element in position 1 is: 20
+ --Element in position 2 is: 30
+ --Element in position 3 is: 400
+ --Element in position 4 is: 45
+ --Element in position 5 is: 200
+ --Element in position 6 is: 435
+ --Element in position 7 is: 200
+
+ -- adding value 700 at position 3
+
+*** The 9 elements in the list are: 
+ --Element in position 0 is: 30
+ --Element in position 1 is: 20
+ --Element in position 2 is: 30
+ --Element in position 3 is: 700
+ --Element in position 4 is: 400
+ --Element in position 5 is: 45
+ --Element in position 6 is: 200
+ --Element in position 7 is: 435
+ --Element in position 8 is: 200
+
+ -- deleting element at position 9
+java.lang.IndexOutOfBoundsException: remove: index=9 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 30
+
+*** The 8 elements in the list are: 
+ --Element in position 0 is: 20
+ --Element in position 1 is: 30
+ --Element in position 2 is: 700
+ --Element in position 3 is: 400
+ --Element in position 4 is: 45
+ --Element in position 5 is: 200
+ --Element in position 6 is: 435
+ --Element in position 7 is: 200
+
+ -- deleting element at position 8
+java.lang.IndexOutOfBoundsException: remove: index=8 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 20
+
+*** The 7 elements in the list are: 
+ --Element in position 0 is: 30
+ --Element in position 1 is: 700
+ --Element in position 2 is: 400
+ --Element in position 3 is: 45
+ --Element in position 4 is: 200
+ --Element in position 5 is: 435
+ --Element in position 6 is: 200
+
+ -- deleting element at position 7
+java.lang.IndexOutOfBoundsException: remove: index=7 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 30
+
+*** The 6 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 400
+ --Element in position 2 is: 45
+ --Element in position 3 is: 200
+ --Element in position 4 is: 435
+ --Element in position 5 is: 200
+
+ -- deleting element at position 6
+java.lang.IndexOutOfBoundsException: remove: index=6 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 700
+
+*** The 5 elements in the list are: 
+ --Element in position 0 is: 400
+ --Element in position 1 is: 45
+ --Element in position 2 is: 200
+ --Element in position 3 is: 435
+ --Element in position 4 is: 200
+
+ -- deleting element at position 5
+java.lang.IndexOutOfBoundsException: remove: index=5 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 400
+
+*** The 4 elements in the list are: 
+ --Element in position 0 is: 45
+ --Element in position 1 is: 200
+ --Element in position 2 is: 435
+ --Element in position 3 is: 200
+
+ -- deleting element at position 4
+java.lang.IndexOutOfBoundsException: remove: index=4 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 45
+
+*** The 3 elements in the list are: 
+ --Element in position 0 is: 200
+ --Element in position 1 is: 435
+ --Element in position 2 is: 200
+
+ -- deleting element at position 3
+java.lang.IndexOutOfBoundsException: remove: index=3 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 200
+
+*** The 2 elements in the list are: 
+ --Element in position 0 is: 435
+ --Element in position 1 is: 200
+
+ -- deleting element at position 2
+java.lang.IndexOutOfBoundsException: remove: index=2 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 435
+
+*** The 1 elements in the list are: 
+ --Element in position 0 is: 200
+
+ -- deleting element at position 1
+java.lang.IndexOutOfBoundsException: remove: index=1 is out of bounds.
+
+ -- deleting element at position 0
+ -- value of deleted element was 200
+
+*** The 0 elements in the list are: 
+
+ -- adding value 700 at position 0
+
+*** The 1 elements in the list are: 
+ --Element in position 0 is: 700
+
+ -- adding value 800 at position 1
+
+*** The 2 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 800
+
+ -- adding value 900 at position 2
+
+*** The 3 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 800
+ --Element in position 2 is: 900
+
+ -- adding value 1000 at position 2
+
+*** The 4 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 800
+ --Element in position 2 is: 1000
+ --Element in position 3 is: 900
+
+ -- adding value 1001 at position 1
+
+*** The 5 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 800
+ --Element in position 3 is: 1000
+ --Element in position 4 is: 900
+
+ -- adding value 1002 at position 3
+
+*** The 6 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 800
+ --Element in position 3 is: 1002
+ --Element in position 4 is: 1000
+ --Element in position 5 is: 900
+
+ -- adding value 700 at position 3
+
+*** The 7 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 800
+ --Element in position 3 is: 700
+ --Element in position 4 is: 1002
+ --Element in position 5 is: 1000
+ --Element in position 6 is: 900
+
+ -- adding value 800 at position 1
+
+*** The 8 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 800
+ --Element in position 2 is: 1001
+ --Element in position 3 is: 800
+ --Element in position 4 is: 700
+ --Element in position 5 is: 1002
+ --Element in position 6 is: 1000
+ --Element in position 7 is: 900
+
+ -- adding value 900 at position 2
+
+*** The 9 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 800
+ --Element in position 2 is: 900
+ --Element in position 3 is: 1001
+ --Element in position 4 is: 800
+ --Element in position 5 is: 700
+ --Element in position 6 is: 1002
+ --Element in position 7 is: 1000
+ --Element in position 8 is: 900
+
+ -- adding value 1000 at position 2
+
+*** The 10 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 800
+ --Element in position 2 is: 1000
+ --Element in position 3 is: 900
+ --Element in position 4 is: 1001
+ --Element in position 5 is: 800
+ --Element in position 6 is: 700
+ --Element in position 7 is: 1002
+ --Element in position 8 is: 1000
+ --Element in position 9 is: 900
+
+ -- adding value 1001 at position 1
+
+*** The 11 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 800
+ --Element in position 3 is: 1000
+ --Element in position 4 is: 900
+ --Element in position 5 is: 1001
+ --Element in position 6 is: 800
+ --Element in position 7 is: 700
+ --Element in position 8 is: 1002
+ --Element in position 9 is: 1000
+ --Element in position 10 is: 900
+
+ -- adding value 1002 at position 3
+
+*** The 12 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 800
+ --Element in position 3 is: 1002
+ --Element in position 4 is: 1000
+ --Element in position 5 is: 900
+ --Element in position 6 is: 1001
+ --Element in position 7 is: 800
+ --Element in position 8 is: 700
+ --Element in position 9 is: 1002
+ --Element in position 10 is: 1000
+ --Element in position 11 is: 900
+
+ -- deleting element at position 2
+ -- value of deleted element was 800
+
+*** The 11 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 1002
+ --Element in position 3 is: 1000
+ --Element in position 4 is: 900
+ --Element in position 5 is: 1001
+ --Element in position 6 is: 800
+ --Element in position 7 is: 700
+ --Element in position 8 is: 1002
+ --Element in position 9 is: 1000
+ --Element in position 10 is: 900
+
+ -- deleting element at position 2
+ -- value of deleted element was 1002
+
+*** The 10 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 1000
+ --Element in position 3 is: 900
+ --Element in position 4 is: 1001
+ --Element in position 5 is: 800
+ --Element in position 6 is: 700
+ --Element in position 7 is: 1002
+ --Element in position 8 is: 1000
+ --Element in position 9 is: 900
+
+ -- deleting element at position 2
+ -- value of deleted element was 1000
+
+*** The 9 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 900
+ --Element in position 3 is: 1001
+ --Element in position 4 is: 800
+ --Element in position 5 is: 700
+ --Element in position 6 is: 1002
+ --Element in position 7 is: 1000
+ --Element in position 8 is: 900
+
+ -- deleting element at position 2
+ -- value of deleted element was 900
+
+*** The 8 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 1001
+ --Element in position 3 is: 800
+ --Element in position 4 is: 700
+ --Element in position 5 is: 1002
+ --Element in position 6 is: 1000
+ --Element in position 7 is: 900
+
+ -- deleting element at position 2
+ -- value of deleted element was 1001
+
+*** The 7 elements in the list are: 
+ --Element in position 0 is: 700
+ --Element in position 1 is: 1001
+ --Element in position 2 is: 800
+ --Element in position 3 is: 700
+ --Element in position 4 is: 1002
+ --Element in position 5 is: 1000
+ --Element in position 6 is: 900
