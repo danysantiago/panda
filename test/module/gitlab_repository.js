@@ -22,6 +22,7 @@ var test = function() {
 
     //Get Project archive and save it using out
     it('Get Project Archive', function(done) {
+      this.slow(800);
       gitlab.repository.archive(params, out, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -31,6 +32,7 @@ var test = function() {
 
     //Get Project Branches
     it('Get Project Branches', function(done) {
+      this.slow(800);
       gitlab.repository.getBranches(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -40,6 +42,7 @@ var test = function() {
 
     //Get branch master
     it('Get Project Branch', function(done) {
+      this.slow(800);
       gitlab.repository.getBranch(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -50,6 +53,7 @@ var test = function() {
 
     //Get a branch that does not exist
     it('Get Unexistent Branch', function(done) {
+      this.slow(800);
       gitlab.repository.getBranch({id: params.id, branch: 'bla'}, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);
@@ -59,6 +63,7 @@ var test = function() {
 
     //Get Project Commits
     it('Get Project Commits', function(done) {
+      this.slow(800);
       gitlab.repository.getCommits(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -68,6 +73,7 @@ var test = function() {
 
     //Get a specific commit
     it('Get Project Commit', function(done) {
+      this.slow(800);
       gitlab.repository.getCommit(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -78,6 +84,7 @@ var test = function() {
 
     //Get diff from last commit to currnt
     it('Get Diff', function(done) {
+      this.slow(800);
       gitlab.repository.getDiff(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -87,6 +94,7 @@ var test = function() {
 
     //List Project Tree
     it('List Project Tree', function(done) {
+      this.slow(800);
       gitlab.repository.listTree(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -96,6 +104,7 @@ var test = function() {
 
     //Get Raw Blob for BadExampleProgram.java
     it('Get Blob', function(done) {
+      this.slow(800);
       params.filepath='src/BadExampleProgram.java';
       gitlab.repository.getBlob(params, function (err, res, body){
         expect(res).to.exist;

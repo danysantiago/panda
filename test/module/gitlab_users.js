@@ -17,6 +17,7 @@ var test = function() {
   describe('Gitlab Users', function() {
     //Create a Fake User
     it('Create User', function(done) {
+      this.slow(800);
       gitlab.user.create(fakeUser, function (err, res, body) {
           expect(res).to.exist;
           expect(res.statusCode).to.equal(201);
@@ -28,6 +29,7 @@ var test = function() {
 
     //Try to create same user again - 404
     it('Fail to create user', function(done) {
+      this.slow(800);
       gitlab.user.create(fakeUser, function (err, res, body) {
           expect(res).to.exist;
           expect(res.statusCode).to.equal(404);
@@ -38,6 +40,7 @@ var test = function() {
 
     //Get all users
     it('Get Users', function(done) {
+      this.slow(800);
       gitlab.user.getAll(function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -47,6 +50,7 @@ var test = function() {
 
     //Get the user we created before
     it('Get User', function(done) {
+      this.slow(800);
       gitlab.user.get(fakeUser,function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -58,6 +62,7 @@ var test = function() {
 
     //Modify user - Change user email
     it('Modify User', function(done) {
+      this.slow(800);
       gitlab.user.modify({id: fakeUser.id, email: 'other@email.com'},function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -69,6 +74,7 @@ var test = function() {
 
     //Delete the user we created before
     it('Delete User', function(done) {
+      this.slow(800);
       gitlab.user.delete(fakeUser,function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -79,6 +85,7 @@ var test = function() {
 
     //Try to get the user we deleted
     it('Fail getting deleted user', function(done) {
+      this.slow(800);
       gitlab.user.get(fakeUser,function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);

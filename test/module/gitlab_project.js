@@ -17,6 +17,7 @@ var test = function() {
   describe('Gitlab Projects', function() {
   	//Create Project happyhour
     it('Create a Project', function(done) {
+      this.slow(800);
       gitlab.project.create(params, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(201);
@@ -30,6 +31,7 @@ var test = function() {
 
     //Create a project with the same name - error
     it('Fail creating a Project', function(done) {
+      this.slow(800);
       gitlab.project.create(params, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);
@@ -40,6 +42,7 @@ var test = function() {
 
     //Get all projects
     it('Get Projects', function(done) {
+      this.slow(800);
       gitlab.project.getAll(function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -49,6 +52,7 @@ var test = function() {
 
     //Get the project we just created
     it('Get Project', function(done) {
+      this.slow(800);
       gitlab.project.get(params, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
@@ -61,6 +65,7 @@ var test = function() {
 
     //Get a project that does not exist
     it('Get Unexistent Project', function(done) {
+      this.slow(800);
       gitlab.project.get({ id: 0 }, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);
@@ -72,6 +77,7 @@ var test = function() {
     //Populate project with archive file given
     it('Populate Project', function(done) {
       this.timeout(5000);
+      this.slow(2000);
       gitlab.project.populate({ username: 'danysantiago', name: params.name, archive: __dirname + '/../res/'+params.name+'.tar.gz' }, 
       	function (error, stdout, stderr) {
         expect(error).to.not.exist;
@@ -81,6 +87,7 @@ var test = function() {
 
     //Add member to project
     it('Add Member', function(done) {
+      this.slow(800);
       gitlab.project.addMember({ id: params.id, user_id: 3 }, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(201);
@@ -91,6 +98,7 @@ var test = function() {
 
     //Delete the project we just created
     it('Delete Project', function(done) {
+      this.slow(800);
       gitlab.project.delete(params, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.not.equal(404);
@@ -100,6 +108,7 @@ var test = function() {
 
     //Delete a project that does not exist
     it('Delete Unexistent Project', function(done) {
+      this.slow(800);
       gitlab.project.delete({name: 'xyz'}, function (err, res, body) {
         expect(res).to.exist;
         expect(res.statusCode).to.equal(404);
