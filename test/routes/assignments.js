@@ -161,7 +161,7 @@ var test = function() {
       });
     });
 
-    it('Get an assignments and his  submissions', function(done) {
+    it('Get an assignments and his submissions', function(done) {
       var reqUrl = baseUrl + '/' + fakeAssignment._id + '?submissions=true';
 
       request.get(reqUrl, {'json':true, 'jar': true}, function (err, res, body) {
@@ -248,7 +248,7 @@ var test = function() {
       });
     });
 
-    it('Create assignment with files', function(done) {
+    it('Create test case with files', function(done) {
       var url = baseUrl + '/' + fakeAssignment._id + '/test'
       var reqParams = {
         'url': url,

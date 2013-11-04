@@ -13,6 +13,7 @@ var test = function() {
   }
 
   describe('Gitlab Session', function() {
+    this.slow(800);
     it('Login', function(done) {
       gitlab.session.login(params, function (err, res, body){
         expect(res).to.exist;
