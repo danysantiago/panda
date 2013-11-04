@@ -3,29 +3,6 @@
  * 
  */
 
-/**
- * Filter with multiple params
- */
-pandaApp.filter('filterByAttributes', function() {
-  return function(array, query, attributes) {
-    if (!array || !query) {
-      return array;
-    }
-
-    // Returns an array filtered by the params. Params is an array of object
-    // attributes that we wish to filter.
-    return array.filter(function(element) {
-      for (var i = 0; i < attributes.length; i++) {
-        if (element[attributes[i]].toLowerCase().indexOf(
-            query.toLowerCase()) > -1) {
-          return true;
-        };
-      }
-      return false;
-    });
-  };
-});
-
 pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     'Course', 'Assignment',
     function($scope, currentUser, User, Course, Assignment) {

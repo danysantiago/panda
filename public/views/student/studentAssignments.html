@@ -1,11 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div id="assignment1" class="container well">
-      <h3>
-          Pending Assignments
-        </h3>
+      <div class="well">
+        <h1>Pending Assignments</h1>
         <hr>
+        <div class="row">
+          <div class="col-lg-12">
+             <input type="text" class="form-control" placeholder="Filter" ng-model="q">
+          </div>
+        </div>
+        <br>
         <table class="table table-bordered table-hover text-center">
           <tbody>
             <tr>
@@ -13,14 +17,16 @@
             <th class="text-center">Course</th>
             <th class="text-center">Due Date</th>
             </tr>
-            <tr ng-repeat="assignment in user.assignments">
+            <tr ng-repeat="assignment in user.assignments | filterByAttributes:q:['name', 'courseName', 'courseCode']">
               <td>
                 <a href="/#/s/assignment/{{assignment._id}}">
                   {{assignment.name}}
                 </a>
               </td>
               <td>
-              <a href="course.html">{{assignment.course.name}}</a>
+              <a href="/#/s/course/{{assignment.course._id}}">
+                {{assignment.course.name}}
+              </a>
               </td>
               <td>
                 {{assignment.deadline}}

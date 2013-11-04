@@ -21,6 +21,8 @@ pandaApp.controller('AssignmentsController', ['$scope', 'currentUser', 'User',
     // Each assignment has only one course.
     assignments.forEach(function(assignment) {
       assignment.course = coursesMap[assignment.Course];
+      assignment.courseName = assignment.course.name;
+      assignment.courseCode = assignment.course.code;
     });
   };
 

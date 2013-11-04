@@ -1,3 +1,4 @@
+<!-- <div class="alert alert-success text-center enrollAlert">Class was successfully enrolled.</div> -->
 <div class="container">
   <div class="row">
     <div class="col-md-3">
@@ -16,7 +17,10 @@
       </div>
     </div>
     <div class="col-md-9">
-      <div class="well" ng-repeat="course in user.courses">
+      <div class="well">
+        <input type="text" class="form-control" placeholder="Filter Courses" ng-model="qc">
+      </div class="well">
+      <div class="well" ng-repeat="course in user.courses | filterByAttributes:qc:['name', 'code', 'semester', 'year']">
         <h3>
           <a id="{{course.code + $index}}" href="/#/s/course/{{course._id}}">{{course.name}}</a>
         </h3>
@@ -77,7 +81,7 @@
               Year
             </th>
           </tr>
-          <tr ng-repeat="course in courses | filterByAttributes:q:['code', 'name', 'semester', 'year']">
+          <tr ng-repeat="course in courses | filterByAttributes:q:['code', 'name', 'semester', 'year'] | removeEnrolledCourses:user.courses">
             <td><input type="radio" name="foo" ng-model="studentEnroll.enrollCourseId" value="{{course._id}}"></td>
             <td>{{course.code}}</td>
             <td>{{course.name}}</td>

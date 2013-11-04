@@ -38,3 +38,22 @@ th {
 .add-button {
   width: 253px;
 }
+
+/*
+.enrollAlert {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  z-index: 1000000;
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+
+}
+
+.enrollAlertOn {
+  opacity: 1;
+  height: auto;
+}
+*/
