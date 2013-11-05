@@ -17,7 +17,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12" ng-repeat="grader in course.Graders">
+    <div class="col-md-12" ng-repeat="grader in course.graders">
       {{grader.firstName}} {{grader.lastName}} -
       <a href="mailto://{{grader.email}}">{{grader.email}}</a>
       <br>
@@ -62,7 +62,7 @@
         </tr>
         <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline']">
           <td><a href="/#/s/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
-          <td>{{assignment.creationDate}}</td>
+          <td>{{assignment.creationDate | filterDateTime}}</td>
           <td>{{assignment.deadline}}</td>
           <td>{{assignment.numOfTestCases}}</td>
           <td>{{assignment.totalScore}}</td>

@@ -117,7 +117,12 @@
       <h5>{{scores.studentScore}} / {{scores.totalScore}}</h5>
       <hr>
       <h4> Last Submission </h4>
-      <h5>{{assignment.lastSubmissionDate | filterDateTime}}</h5>
+      <h5 ng-hide="noSubmissions">
+        {{assignment.lastSubmissionDate | filterDateTime}}
+      </h5>
+      <h5 ng-show="noSubmissions">
+        You have no submissions.
+      </h5>
       <hr>
       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" href="#submit-modal">
         Submit

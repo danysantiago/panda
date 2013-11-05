@@ -37,7 +37,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser',
 
   // Add the last submission date
   if (assignment.submissions.length === 0) {
-    assignment.lastSubmissionDate = "You have no submissions.";
+    $scope.noSubmissions = true;
   } else {
     assignment.lastSubmissionDate = assignment.submissions[0].submitDate;
   }
