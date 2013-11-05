@@ -2,115 +2,66 @@
   <div class="row">
     <div class="col-md-12">
       <div id="assignment1" class="container well">
-      <h3>
-          Submissions
-        </h3>
+        <h1>Submissions</h1>
         <hr>
+
+        <div class="row">
+          <div class="col-lg-6">
+          </div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" placeholder="Filter" ng-model="q">
+          </div>
+        </div>
+        <br>
         <table class="table table-bordered table-hover text-center">
-          <tbody>
           <tr>
-          <th colspan="5" class="text-center">
-                Assignment #1 - Course 1
+          <th class="text-center">
+            Hash ID
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Course
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Assignment
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center">
+            Date Submitted
+             <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Verdict
+             <span class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+          <th class="text-center">
+            Time
+             <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Score
+             <span class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th class="text-center">
+            Test Passed/Tests
+             <span class="glyphicon glyphicon-chevron-up"></span>
           </th>
           </tr>
-          <tr>
-                  <th class="text-center">
-                    #
-                  </th>
-                  <th class="text-center">
-                    Hash ID
-                  </th>
-                  <th class="text-center">
-                    Date
-                  </th>
-                  <th class="text-center">
-                    Result
-                  </th>
-                  <th class="text-center">
-                    Elapsed Time
-                  </th>
-                </tr>
+          <tr ng-repeat="submission in user.submissions | filterByAttributes:q:['courseName', 'assignmentName', 'submitDate', 'finalVerdict']">
+            <td>{{submission.hashId}}</td>
+            <td><a href="/#/s/course/{{submission.course._id}}">
+              {{submission.courseName}}
+            </a></td>
+            <td><a href="/#/s/assignment/{{submission.assignment._id}}">
+              {{submission.assignmentName}}
+            </a></td>
+            <td>{{submission.submitDate | filterDateTime}} </td>
+            <td>{{submission.finalVerdict}} </td>
+            <td>{{submission.cpuTime}}</td>
+            <td>{{submission.score}}</td>
+            <td>{{submission.testsPassed}} / {{submission.totalTestCases}}</td>
           </tr>
-            <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    de12873940ffg
-                  </td>
-                  <td>
-                    Oct 25, 2013; 4:25pm
-                  </td>
-                  <td>
-                    ACCEPTED
-                  </td>
-                  <td>
-                    250ms
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    deba264300e5
-                  </td>
-                  <td>
-                    Oct 23, 2013; 2:40am
-                  </td>
-                  <td>
-                    COMPILATION ERROR
-                  </td>
-                  <td>
-                    4000ms
-                  </td>
-                </tr>
-          </tbody>
-        </table>
-        <hr>
-         <table class="table table-bordered table-hover text-center">
-          <tbody>
-          <tr>
-          <th colspan="5" class="text-center">
-                Assignment #1 - Course 2
-          </th>
-          </tr>
-          <tr>
-                  <th class="text-center">
-                    #
-                  </th>
-                  <th class="text-center">
-                    Hash ID
-                  </th>
-                  <th class="text-center">
-                    Date
-                  </th>
-                  <th class="text-center">
-                    Result
-                  </th>
-                  <th class="text-center">
-                    Elapsed Time
-                  </th>
-                </tr>
-          </tr>
-            <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    6deadbeef666
-                  </td>
-                  <td>
-                    Oct 20, 2013; 4:25pm
-                  </td>
-                  <td>
-                    WRONG ANSWER
-                  </td>
-                  <td>
-                    34ms
-                  </td>
-                </tr>
-          </tbody>
         </table>
       </div>
     </div>
