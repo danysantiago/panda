@@ -305,7 +305,12 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       // how to handle this :??
       
     } else if (lastTriedUrl) {
-      $location.url(lastTriedUrl);
+      if (lastTriedUrl == '/login' || lastTriedUrl == '/') {
+        $location.url('/' +
+            $rootScope.currentUser.role[0].toLowerCase() + '/home');
+      } else {
+        $location.url(lastTriedUrl);
+      }
     }
     lastTriedUrl = null;
   });

@@ -84,10 +84,10 @@
               </a>
             </td>
             <td>
-              {{assignment.creationDate}}
+              {{assignment.creationDate | filterDateTime}}
             </td>
             <td>
-              {{assignment.deadline}}
+              {{assignment.deadline | filterDateTime}}
             </td>
             <td>
               {{assignment.numOfTestCases}}
