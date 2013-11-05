@@ -105,7 +105,8 @@ services.factory('AssignmentLoader', ['Assignment', '$route', '$q',
     function(Assignment, $route, $q) {
   return function() {
     var delay = $q.defer();
-    Assignment.get({id: $route.current.params.id, submissions: true}, function(assignment) {
+    Assignment.get({id: $route.current.params.id, submissions: true},
+        function(assignment) {
       delay.resolve(assignment);
     }, function() {
       delay.reject('Unable to fetch assignment' + $route.current.params.id);

@@ -2,11 +2,16 @@
   <div class="row">
     <div class="col-md-12">
       <div class="well">
-        <h1>Pending Assignments</h1>
+        <h1>{{pageTitle}}</h1>
         <hr>
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-9">
              <input type="text" class="form-control" placeholder="Filter" ng-model="q">
+          </div>
+          <div class="col-lg-3">
+            <button type="button" class="btn btn-primary" ng-click="togglePending()">
+              {{buttonMessage}}
+            </button>
           </div>
         </div>
         <br>
@@ -17,7 +22,7 @@
             <th class="text-center">Course</th>
             <th class="text-center">Due Date</th>
             </tr>
-            <tr ng-repeat="assignment in user.assignments | filterByAttributes:q:['name', 'courseName', 'courseCode']">
+            <tr ng-repeat="assignment in assignmentsToShow | filterByAttributes:q:['name', 'courseName', 'courseCode']">
               <td>
                 <a href="/#/s/assignment/{{assignment._id}}">
                   {{assignment.name}}
