@@ -73,7 +73,7 @@
                 <tr ng-repeat="submission in assignment.submissions">
 <!--                   <td>1</td>
                   <td>de12873940ffg</td> -->
-                  <td>{{submission.submitDate}}</td>
+                  <td>{{submission.submitDate | filterDateTime}}</td>
                   <td>{{submission.finalVerdict}}</td>
                   <td>{{submission.cpuTime}}</td>
                 </tr>
@@ -117,7 +117,7 @@
       <h5>{{scores.studentScore}} / {{scores.totalScore}}</h5>
       <hr>
       <h4> Last Submission </h4>
-      <h5>{{assignment.lastSubmissionDate}}</h5>
+      <h5>{{assignment.lastSubmissionDate | filterDateTime}}</h5>
       <hr>
       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" href="#submit-modal">
         Submit

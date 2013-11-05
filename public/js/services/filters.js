@@ -41,3 +41,27 @@ pandaApp.filter('removeEnrolledCourses', function() {
     });
   };
 });
+
+/**
+ * Filters for standard dates and times.
+ */
+pandaApp.filter('filterDate', function() {
+  return function(d) {
+    var date = new Date(d);
+    return date.toLocaleDateString();
+  };
+});
+
+pandaApp.filter('filterTime', function() {
+  return function(d) {
+    var date = new Date(d);
+    return date.toLocaleTimeString();
+  };
+});
+
+pandaApp.filter('filterDateTime', function() {
+  return function(d) {
+    var date = new Date(d);
+    return date.toLocaleString();
+  };
+});
