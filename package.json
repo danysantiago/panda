@@ -4,7 +4,7 @@
   "description": "Code Review tool",
   "main": "app.js",
   "scripts": {
-    "preinstall": "mkdir tmp; mkdir jail; cd ./safeexec; make;",
+    "preinstall": "mkdir tmp; mkdir jail; mkdir jail/tmp; cd ./safeexec; make;",
     "test": "./test/test.sh",
     "postinstall": "./patches/patch.sh"
   },

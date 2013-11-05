@@ -32,7 +32,31 @@ var test = function() {
 
       var form = r.form();
       form.append('input', '');
-      form.append('output', 'I\'m a Simple Program');
+      form.append('output', 'I\'m a Simple Program\n');
+      form.append('jfile', fs.createReadStream(__dirname + '/res/ExampleProgram.java'));
+    });
+
+    it('Single file \'Wrong Answer\' verdict', function(done) {
+      this.timeout(10000);
+      this.slow(5000);
+
+      var reqParms = {
+        'url': baseUrl + '/test/jsubmit',
+        'method': 'POST',
+        'json': true
+      };
+
+      var r = request(reqParms, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.equal(200);
+        expect(body).to.exist;
+        expect(body.status).to.equal('Wrong Answer');
+        done();
+      });
+
+      var form = r.form();
+      form.append('input', '');
+      form.append('output', 'Different Expected Output');
       form.append('jfile', fs.createReadStream(__dirname + '/res/ExampleProgram.java'));
     });
 
@@ -178,6 +202,31 @@ var test = function() {
       var form = r.form();
       form.append('input', '');
       form.append('output', fs.readFileSync(__dirname + '/res/llReferenceOutput.txt'));
+      form.append('jfile', fs.createReadStream(__dirname + '/res/IndexListTester.java'));
+      form.append('zipfile', fs.createReadStream(__dirname + '/res/llzip.zip'));
+    });
+
+    it('Multiple File \'Wrong Answer\' verdict', function(done) {
+      this.timeout(10000);
+      this.slow(5000);
+
+      var reqParms = {
+        'url': baseUrl + '/test/zipsubmit',
+        'method': 'POST',
+        'json': true
+      };
+
+      var r = request(reqParms, function (err, res, body) {
+        expect(res).to.exist;
+        expect(res.statusCode).to.equal(200);
+        expect(body).to.exist;
+        expect(body.status).to.equal('Wrong Answer');
+        done();
+      });
+
+      var form = r.form();
+      form.append('input', '');
+      form.append('output', 'Bad Expected Output, Causes Wrong Answer');
       form.append('jfile', fs.createReadStream(__dirname + '/res/IndexListTester.java'));
       form.append('zipfile', fs.createReadStream(__dirname + '/res/llzip.zip'));
     });

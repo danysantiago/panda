@@ -31,6 +31,7 @@ echo -e ${lgreen} "Starting Server and running tests..." ${NC}
 echo -e ${dgray}
 ./node_modules/cover/bin/cover run app.js -- --nc > ./test/log.json &
 sleep 3 #Wait 3 seconds
+rm -rf ./jail/tmp/* #Clean jail tmp dir
 echo -e ${NC}
 #Run mocha tests
 ./node_modules/cover/bin/cover run ./node_modules/mocha/bin/_mocha -- -R spec --recursive
