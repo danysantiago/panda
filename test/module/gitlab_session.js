@@ -14,6 +14,7 @@ var test = function() {
 
   describe('Gitlab Session', function() {
     this.slow(800);
+    //login with user credentials
     it('Login', function(done) {
       gitlab.session.login(params, function (err, res, body){
         expect(res).to.exist;
