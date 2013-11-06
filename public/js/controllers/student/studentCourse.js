@@ -1,3 +1,7 @@
+/**
+ * This is the controller for the studnet's individual course view.
+ */
+
 pandaApp.controller('CourseController', ['$scope', 'currentUser', 'course',
     function($scope, currentUser, course) {
   $scope.course = course;

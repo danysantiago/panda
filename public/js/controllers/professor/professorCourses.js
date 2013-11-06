@@ -1,6 +1,7 @@
 /**
- * This is the js file for the courses route (courses.html)
+ * This is the controller for the professor's multiple courses view.
  */
+
 pandaApp.controller('ProfessorCoursesController', ['$scope', 'currentUser',
     'User', 'Course', function($scope, currentUser, User, Course) {
   ($scope.refreshUser = function() {

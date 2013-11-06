@@ -1,5 +1,9 @@
-pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser', 'course',
-    function($scope, currentUser, course) {
+/**
+ * This is the controller for the professor's individual course view.
+ */
+
+pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
+    'course', function($scope, currentUser, course) {
   $scope.course = course;
 
   //This Oink Oink Pt.2 is for mapping the grades of each student to the

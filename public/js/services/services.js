@@ -1,3 +1,7 @@
+/**
+ * This file contains all the angular services that are used accross the
+ * whole application.
+ */
 var services = angular.module('panda.services', ['http-auth-interceptor',
   'ngResource']);
 

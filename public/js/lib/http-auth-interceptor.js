@@ -1,6 +1,10 @@
 /*global angular:true, browser:true */
 
 /**
+ * This is an interceptor for http responses.
+ */
+
+/**
  * @license HTTP Auth Interceptor Module for AngularJS
  * (c) 2012 Witold Szczerba
  * License: MIT
