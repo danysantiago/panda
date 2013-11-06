@@ -1,6 +1,7 @@
 /**
- * Controller for logging in.
+ * This is the controller for the site's login view.
  */
+
 pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
     function($scope, $http, authService) {
   var user = {'email': null, 'password': null};

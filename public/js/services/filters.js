@@ -1,5 +1,9 @@
 /**
- * Filter with multiple params
+ * This file contains the filters used throught panda.
+ */
+
+/**
+ * Filter an array by multiple attributes.
  */
 pandaApp.filter('filterByAttributes', function() {
   return function(array, query, attributes) {
@@ -43,7 +47,7 @@ pandaApp.filter('removeEnrolledCourses', function() {
 });
 
 /**
- * Filters for standard dates and times.
+ * Filter for standard date. Filtered data contains only the date.
  */
 pandaApp.filter('filterDate', function() {
   return function(d) {
@@ -52,6 +56,9 @@ pandaApp.filter('filterDate', function() {
   };
 });
 
+/**
+ * Filter for standard date. Filtered data contains only the time.
+ */
 pandaApp.filter('filterTime', function() {
   return function(d) {
     var date = new Date(d);
@@ -59,6 +66,9 @@ pandaApp.filter('filterTime', function() {
   };
 });
 
+/**
+ * Filter for standard date. The filtered data contains both date and time.
+ */
 pandaApp.filter('filterDateTime', function() {
   return function(d) {
     var date = new Date(d);

@@ -1,6 +1,7 @@
 /**
- * This is the js file for the assignments route / controller (assignments.html)
+ * This is the controller for the student's multiple assignments view.
  */
+
 pandaApp.controller('AssignmentsController', ['$scope', 'currentUser', 'User',
     function($scope, currentUser, User) {
   // TODO(samuel): Initialize this better, since the query to the user is

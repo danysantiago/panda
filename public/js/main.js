@@ -1,5 +1,5 @@
 /**
- * The Panda AngularJS app. :)
+ * The Panda AngularJS app main entry point. :)
  */
 var pandaApp = angular.module('pandaApp', ['panda.services',
   'http-auth-interceptor', 'ngRoute', 'ngScrollTo']);

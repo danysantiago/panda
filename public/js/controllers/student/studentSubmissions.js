@@ -1,6 +1,7 @@
 /**
- * This is the js file for the submissions route (submissions.html)
+ * This is the controller for the student's submission view.
  */
+
 pandaApp.controller('SubmissionsController', ['$scope', 'currentUser', 'User',
     'Assignment', function($scope, currentUser, User, Assignment) {
   $scope.user = {};

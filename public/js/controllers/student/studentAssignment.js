@@ -1,3 +1,7 @@
+/**
+ * This is the controller for the student's individual assignment view.
+ */
+
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser',
     'assignment', function($scope, currentUser, assignment) {
   $scope.assignment = assignment;

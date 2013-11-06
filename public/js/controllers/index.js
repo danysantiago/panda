@@ -1,6 +1,7 @@
 /**
- * Controller for the index view.
+ * This file contains the controllers for the index view and the account view.
  */
+
 pandaApp.controller('IndexController', ['$scope',
     function($scope) {
   // Do nothing for now.

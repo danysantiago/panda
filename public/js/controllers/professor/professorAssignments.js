@@ -1,6 +1,7 @@
 /**
- * This is the js file for the assignments route / controller (assignments.html)
+ * This is the js file for the professor's multiple assignments view.
  */
+
 pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
     'User', 'Course', 'Assignment',
         function($scope, currentUser, User, Course, Assignment) {

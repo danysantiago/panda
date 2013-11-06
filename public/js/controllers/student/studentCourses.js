@@ -1,6 +1,7 @@
 /**
- * This is the js file for the courses route (courses.html)
+ * This is the controller for the student's multiple course view.
  */
+
 pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
     'User', 'Course', 'courses',
         function($scope, $http, currentUser, User, Course, courses) {
