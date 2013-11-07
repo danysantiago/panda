@@ -9,18 +9,18 @@ var test = function() {
     from: 		'no-reply@pandacode.sytes.net',
     to:       'nelian.colon@upr.edu',
     subject: 	'Hello World',
-    text: 		'Email sent for happy hour'
+    text: 		'Hola Fernando!'
   }
 
   describe('Sendgrid', function() {
     //send an email from no-reply@pandacode.sytes.net
-    it('Send Email', function(done) {
-      sendgrid.sendEmail(params, function (err, json){
-        expect(err).to.not.exist;
-        expect(json.message).to.equal('success');
-        done();
-      });
-    });
+    // it('Send Email', function(done) {
+    //   sendgrid.sendEmail(params, function (err, json){
+    //     expect(err).to.not.exist;
+    //     expect(json.message).to.equal('success');
+    //     done();
+    //   });
+    // });
   });
 };
 
