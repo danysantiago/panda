@@ -1,12 +1,12 @@
+/**
+ * This is the controller for the professor's individual assignment view.
+ */
+
 pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     'assignment', function($scope, currentUser, assignment) {
   $scope.assignment = assignment;
 
   $scope.isDefined = angular.isDefined;
-
-  // var course = Course.get({id: assignment.Course}, function() {
-  //   assignment.course = course;
-  // });
 
   $scope.testCaseType = 'I/O';
 

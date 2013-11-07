@@ -1,6 +1,5 @@
 /**
- * This is the js file for the professor home route (professorHome.html)
- * 
+ * This is the controller for the professor's home view.
  */
 
 pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',

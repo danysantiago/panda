@@ -1,6 +1,7 @@
 /**
- * Controller for the log out view.
+ * This is the controller for the site's logout view.
  */
+
 pandaApp.controller('LogoutController', ['$scope', '$http', '$rootScope',
     function($scope, $http, $rootScope) {
   var logout = {message: 'Logging you out...'};

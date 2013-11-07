@@ -1,6 +1,7 @@
 /**
- * This is the js file for the assignments route / controller (assignments.html)
+ * This is the controller for the student's grade view.
  */
+
 pandaApp.controller('GradesController', ['$scope', 'currentUser', 'User',
     'Course', function($scope, currentUser, User, Course) {
   $scope.user = {};
