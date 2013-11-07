@@ -2,7 +2,7 @@
  * The Panda AngularJS app main entry point. :)
  */
 var pandaApp = angular.module('pandaApp', ['panda.services',
-  'http-auth-interceptor', 'ngRoute', 'ngScrollTo']);
+  'http-auth-interceptor', 'ngRoute', 'ngScrollTo', 'angularFileUpload']);
 
 /**
  * This is the resolve map for the current logged in user that will be injected

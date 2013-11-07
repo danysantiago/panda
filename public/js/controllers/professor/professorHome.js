@@ -3,8 +3,9 @@
  */
 
 pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
-    'Course', 'Assignment',
-    function($scope, currentUser, User, Course, Assignment) {
+    'Course', 'Assignment', '$upload', 'formDataObject', '$http',
+        function($scope, currentUser, User, Course, Assignment, $upload,
+            formDataObject, $http) {
 
   ($scope.refreshUser = function() {
     var user = User.get({id: currentUser._id, submissions: true,
@@ -73,17 +74,45 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     shortDescription: '',
     deadline: '',
     numOfTries: 0,
+    instructions: null
   };
 
   $scope.createAssignment = function(assignmentInfo) {
+    $http({
+      method: 'POST',
+      url: '/api/assignments/',
+      headers: {
+        'Content-Type': undefined
+      },
+      data: {
+        Course: assignmentInfo.Course._id,
+        name: assignmentInfo.name,
+        description: assignmentInfo.description,
+        deadline: assignmentInfo.deadline,
+        numOfTries: assignmentInfo.numOfTries,
+        instructions: assignmentInfo.instructions
+      },
+      transformRequest: formDataObject
+    }).success(function() {
+      // Success
+      $('#createAssignmentModal').modal('hide');
+      $scope.refreshUser();
+    }).error(function() {
+      // Error
+    });
+
     // Post attribute Course is a string id.
-    assignmentInfo.Course = assignmentInfo.Course._id;
-    var newAssignment = new Assignment(assignmentInfo);
-    newAssignment.$save();
-    $('#createAssignmentModal').modal('hide');
+    //assignmentInfo.Course = assignmentInfo.Course._id;
+    //var newAssignment = new Assignment(assignmentInfo);
+    //newAssignment.$save();
+    //$('#createAssignmentModal').modal('hide');
 
     // Refresh data so that the table contains the newly added assignment.
-    $scope.refreshUser();
-  }
+    //$scope.refreshUser();
+  };
+
+  $scope.onInstructionsFileSelect = function($files) {
+    $scope.newAssignment.instructions = $files[0];
+  };
 
 }]);

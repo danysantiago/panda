@@ -25,6 +25,16 @@ services.factory('Submission', ['$resource', function($resource) {
   return $resource('/api/submissions/:id', {id: '@_id'});
 }]);
 
+services.factory('formDataObject', function() {
+  return function(data) {
+    var fd = new FormData();
+    angular.forEach(data, function(value, key) {
+      fd.append(key, value);
+    });
+    return fd;
+  };
+});
+
 services.factory('LoginService', ['$http', function($http) {
   var verifyAuth = function(callback) {
     $http.get('/auth/current').success(function(response) {
