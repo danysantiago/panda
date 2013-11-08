@@ -44,11 +44,26 @@
           <h3>Students</h3>
           <table class="table table-bordered table-hover">
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Total Grade</th>
+              <th ng-click="toggleStudentOrder('name')">Name
+                <span ng-show="studentPredicate === 'name'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='studentReverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='studentReverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleStudentOrder('email')">Email
+                <span ng-show="studentPredicate === 'email'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='studentReverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='studentReverseOrder'></span>
+                </span>
+              </th>
+              <th ng-click="toggleStudentOrder('grade')">Total Grade
+                <span ng-show="studentPredicate === 'grade'">
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide='studentReverseOrder'></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show='studentReverseOrder'></span>
+                </span>
+              </th>
             </tr>
-            <tr ng-repeat="student in course.users">
+            <tr ng-repeat="student in course.users | orderBy:studentProcessedPredicate:studentReverseOrder">
             <td>{{student.firstName}} {{student.lastName}}</td>
             <td>{{student.email}}</td>
             <td>{{calcGrade(student.grades)}} / {{course.totalScore}}</td>
@@ -110,8 +125,8 @@
               </a></td>
               <td>{{assignment.totalScore}}</td>
               <td>{{assignment.numOfTestCases}}</td>
-              <td>{{assignment.creationDate}}</td>
-              <td>{{assignment.deadline}}</td>
+              <td>{{assignment.creationDate | filterDateTime}}</td>
+              <td>{{assignment.deadline | filterDateTime}}</td>
               <td>{{assignment.numOfTries}}</td>
               <td>{{assignment.numOfSubmissions}}</td>
             </tr>

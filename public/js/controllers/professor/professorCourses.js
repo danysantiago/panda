@@ -120,4 +120,29 @@ pandaApp.controller('ProfessorCoursesController', ['$scope', 'currentUser',
     return totalScore;
   };
 
+  // For controlling the headers of the student tables
+  var studentFieldNames = {'name': false, 'email': false, 'grade': false};
+  $scope.studentPredicate = 'name';
+  $scope.studentReverseOrder = studentFieldNames[$scope.studentPredicate];
+
+  var processPredicate = function(predicate) {
+    if (predicate === 'name') {
+      return ['firstName', 'lastName'];
+    } else {
+      return predicate;
+    }
+  };
+  
+  $scope.toggleStudentOrder = function(field) {
+    Object.keys(studentFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.studentPredicate = field;
+        $scope.studentProcessedPredicate = processPredicate(field);
+        studentFieldNames[field] = !studentFieldNames[field];
+        $scope.studentReverseOrder = studentFieldNames[field];
+      } else {
+        studentFieldNames[fieldName] = false;
+      }
+    });
+  };
 }]);
