@@ -95,4 +95,58 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     $scope.newAssignment.repoFile = $files[0];
   };
 
+  // These are the field names for the assignments table.
+  var fieldNames = {'name': false, 'creationDate': false,
+    'deadline': false, 'numOfTestCases': false, 'totalScore': false,
+    'numOfSubmissions': false
+  };
+
+  $scope.predicate = 'name';
+  $scope.reverseOrder = fieldNames[$scope.predicate];
+
+  $scope.toggleOrder = function(field) {
+    Object.keys(fieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.predicate = field;
+        fieldNames[field] = !fieldNames[field];
+        $scope.reverseOrder = fieldNames[field];
+      } else {
+        fieldNames[fieldName] = false;
+      }
+    });
+  };
+
+  // This is the logic for sorting the students table, which can only be
+  // sorted by students for now.
+  $scope.studentReverseOrder = false;
+  $scope.toggleStudentOrder = function() {
+    $scope.studentReverseOrder = !$scope.studentReverseOrder;
+  };
+
+  // This is the logic for sorting the submissions table...
+  var submissionFieldNames = {'hash': false, 'student': false, 'assignment': false,
+      'submissionDate': false, 'verdict': false, 'time': false, 'score': false,
+      'tests': false
+  };
+
+  $scope.submissionPredicate = 'hash';
+  $scope.submissionReverseOrder =
+      submissionFieldNames[$scope.submissionPredicate];
+
+  $scope.toggleSubmissionOrder = function(field) {
+    Object.keys(submissionFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.submissionPredicate = field;
+        submissionFieldNames[field] = !submissionFieldNames[field];
+        $scope.submissionReverseOrder = submissionFieldNames[field];
+      } else {
+        submissionFieldNames[fieldName] = false;
+      }
+    });
+  };
+
+  // TODO (samuel): The predicates MUST BE FIXED in the html page, since they
+  // are not matching the correct object attributes. The user.firstName and
+  // user.lastNames will need to be flatten into submissions.
+
 }]);
