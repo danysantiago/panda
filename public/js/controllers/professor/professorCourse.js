@@ -135,13 +135,19 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     $('#editCourseModal').modal();
   };
 
-  $scope.editCourse = function() {
-    // $resource.$update on course does put.
-    $scope.course.$update(function(c) {
-      course = c;
-      // The course was saved successfully.
+  
+  $scope.editCourse = function () {
+    $http.put('/api/courses/' + course._id, {
+      _id: course._id,
+      name: course.name,
+      code: course.code,
+      year: course.year,
+      semester: course.semester
+    })
+    .success(function() {
       $('#editCourseModal').modal('hide');
+    }).error(function() {
+
     });
   };
-
 }]);
