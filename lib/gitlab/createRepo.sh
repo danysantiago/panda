@@ -6,9 +6,11 @@
 # 4: project owner username (required)
 # 5: archive file (project skeleton) (optional)
 
-mkdir -p "../../tmp/"$2"/"$1 #create temp project directory
+tmpDir=`mktemp -d --tmpdir="../../tmp/"` #Create tmp folder
 
-cd "../../tmp/"$2"/"$1 #move to temp directory
+mkdir -p $tmpDir"/"$1 #create temp project directory
+
+cd $tmpDir"/"$1 #move to temp directory
 
 git init #initialize git repository
 
@@ -30,10 +32,9 @@ git commit -m 'Initial commit' #make initial commit
 
 git remote add origin http://$2:$3@pandagitlab.sytes.net/$4/$1.git #add origin to repository
 
-sleep 1 #Wait 1 seconds for propagation
+#SUPER SKETCHY VALUE
+sleep 2 #Wait 2 seconds for propagation
 
 git push origin master #push to master
-
-cd .. #go to original folder
  
-rm -rf "../../tmp/"$2"/"$1 #remove temp folder
+rm -rf $tmpDir #remove temp folder
