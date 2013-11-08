@@ -120,7 +120,7 @@
           <div class="form-group">
             <label class="control-label" for="assignmentCourse">Course</label>
             <div class="controls">
-              <select id="assignmentCourse" name="assignmentCourse"class="form-control" ng-model="newAssignment.Course" ng-options="course.code + ' - ' + course.name for course in user.courses">
+              <select id="assignmentCourse" name="assignmentCourse" class="form-control" ng-model="newAssignment.Course" ng-options="course.code + ' - ' + course.name for course in user.courses">
                 <!-- <option ng-repeat="course in user.courses">{{course.code}} - {{course.name}}</option> -->
               </select>
             </div>
@@ -156,7 +156,7 @@
           <div class="form-group">
             <label class="control-label" for="assgnmentNumOfTries">Tries</label>
             <div class="controls">
-              <input class="form-control" id="assgnmentNumOfTries" name="assgnmentNumOfTries" placeholder="1" required="" type="text" ng-model="newAssignment.numofTries">
+              <input class="form-control" id="assgnmentNumOfTries" name="assgnmentNumOfTries" placeholder="1" required="" type="text" ng-model="newAssignment.numOfTries">
               
             </div>
           </div>
@@ -165,7 +165,7 @@
           <div class="form-group">
             <label class="control-label" for="assignmentInstructions">Instructions File</label>
             <div class="controls">
-              <input id="assignmentInstructions" name="assignmentInstructions" class="input-file" type="file">
+              <input id="assignmentInstructions" name="assignmentInstructions" class="input-file" type="file" ng-file-select="onInstructionsFileSelect($files)">
             </div>
           </div>
 
@@ -194,18 +194,16 @@
           <div class="form-group" ng-hide="singleAssignment">
             <label class="control-label" for="assignmentInitFile">Initial Repository File</label>
             <div class="controls">
-              <input id="assignmentInitFile" name="assignmentInitFile" class="input-file" type="file">
+              <input id="assignmentInitFile" name="assignmentInitFile" class="input-file" type="file" ng-file-select="onRepoFileSelect($files)">
               <p class="help-block">An archive file defining the initial repository files and folders</p>
             </div>
           </div>
-
-          </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary"
-        ng-click="createAssignment(newAssignment)">Create</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary"
+            ng-click="createAssignment(newAssignment)">Create</button>
+          </div>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

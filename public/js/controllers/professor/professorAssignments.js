@@ -3,8 +3,9 @@
  */
 
 pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
-    'User', 'Course', 'Assignment',
-        function($scope, currentUser, User, Course, Assignment) {
+    'User', 'Course', 'Assignment', 'formDataObject', '$http',
+        function($scope, currentUser, User, Course, Assignment, formDataObject,
+            $http) {
   $scope.user = {};
 
   // The reason why we are doing this is because we need to refresh the whole
@@ -55,17 +56,44 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
     shortDescription: '',
     deadline: '',
     numOfTries: 0,
+    instructions: null,
+    repoFile: null
   };
 
   $scope.createAssignment = function(assignmentInfo) {
-    // Post attribute Course is a string id.
-    assignmentInfo.Course = assignmentInfo.Course._id;
-    var newAssignment = new Assignment(assignmentInfo);
-    newAssignment.$save();
-    $('#createAssignmentModal').modal('hide');
+    // Could return the promise of this, but don't know, that's probably
+    // useless.
+    $http({
+      method: 'POST',
+      url: '/api/assignments/',
+      headers: {
+        'Content-Type': undefined
+      },
+      data: {
+        Course: assignmentInfo.Course._id,
+        name: assignmentInfo.name,
+        description: assignmentInfo.description,
+        deadline: assignmentInfo.deadline,
+        numOfTries: assignmentInfo.numOfTries,
+        instructions: assignmentInfo.instructions,
+        repoFile: assignmentInfo.repoFile
+      },
+      transformRequest: formDataObject
+    }).success(function() {
+      // Success
+      $('#createAssignmentModal').modal('hide');
+      $scope.refreshUser();
+    }).error(function() {
+      // Error
+    });
+  };
 
-    // Refresh data so that the table contains the newly added assignment.
-    $scope.refreshUser();
+  $scope.onInstructionsFileSelect = function($files) {
+    $scope.newAssignment.instructions = $files[0];
+  };
+
+  $scope.onRepoFileSelect = function($files) {
+    $scope.newAssignment.repoFile = $files[0];
   };
 
   var fieldNames = {'name': false, 'courseCode': false, 'creationDate': false,
