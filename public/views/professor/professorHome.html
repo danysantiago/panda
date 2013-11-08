@@ -211,7 +211,7 @@
           <div class="form-group" ng-hide="singleAssignment">
             <label class="control-label" for="assignmentInitFile">Initial Repository File</label>
             <div class="controls">
-              <input id="assignmentInitFile" name="assignmentInitFile" class="input-file" type="file">
+              <input id="assignmentInitFile" name="assignmentInitFile" class="input-file" type="file" ng-file-select="onRepoFileSelect($files)">
               <p class="help-block">An archive file defining the initial repository files and folders</p>
             </div>
           </div>

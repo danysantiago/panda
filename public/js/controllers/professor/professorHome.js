@@ -74,10 +74,13 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     shortDescription: '',
     deadline: '',
     numOfTries: 0,
-    instructions: null
+    instructions: null,
+    repoFile: null
   };
 
   $scope.createAssignment = function(assignmentInfo) {
+    // Could return the promise of this, but don't know, that's probably
+    // useless.
     $http({
       method: 'POST',
       url: '/api/assignments/',
@@ -90,7 +93,8 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
         description: assignmentInfo.description,
         deadline: assignmentInfo.deadline,
         numOfTries: assignmentInfo.numOfTries,
-        instructions: assignmentInfo.instructions
+        instructions: assignmentInfo.instructions,
+        repoFile: assignmentInfo.repoFile
       },
       transformRequest: formDataObject
     }).success(function() {
@@ -100,19 +104,14 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     }).error(function() {
       // Error
     });
-
-    // Post attribute Course is a string id.
-    //assignmentInfo.Course = assignmentInfo.Course._id;
-    //var newAssignment = new Assignment(assignmentInfo);
-    //newAssignment.$save();
-    //$('#createAssignmentModal').modal('hide');
-
-    // Refresh data so that the table contains the newly added assignment.
-    //$scope.refreshUser();
   };
 
   $scope.onInstructionsFileSelect = function($files) {
     $scope.newAssignment.instructions = $files[0];
+  };
+
+  $scope.onRepoFileSelect = function($files) {
+    $scope.newAssignment.repoFile = $files[0];
   };
 
 }]);
