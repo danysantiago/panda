@@ -3,7 +3,8 @@
  */
 
 pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
-    'assignment', function($scope, currentUser, assignment) {
+    'assignment', '$http', 'formDataObject', function($scope, currentUser,
+        assignment, $http, formDataObject) {
   $scope.assignment = assignment;
 
   $scope.isDefined = angular.isDefined;
@@ -30,4 +31,38 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     });
   };
 
+  $scope.toggleEditAssignmentModal = function() {
+    $('#editAssignmentModal').modal();
+  };
+
+  var instructionsFile = null;
+  $scope.onInstructionsFileSelect = function($files) {
+    instructionsFile = $files[0];
+    $scope.assignment.Instructions = {file: {name: instructionsFile.name}};
+  };
+
+  $scope.editAssignment = function() {
+    var putData = {
+      name: assignment.name,
+      shortDescription: assignment.shortDescription,
+      deadline: assignment.deadline,
+      numOfTries: assignment.numOfTries,
+      Instructions: instructionsFile
+    };
+
+    $http({
+      method: 'PUT',
+      url: '/api/assignments/' + assignment._id,
+      headers: {
+        'Content-Type': undefined // Undefined will make angular insert correct
+        // content-type.
+      },
+      data: putData,
+      transformRequest: formDataObject
+    }).success(function() {
+      $('#editAssignmentModal').modal('hide');
+    }).error(function() {
+
+    });
+  };
 }]);

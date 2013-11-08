@@ -156,7 +156,7 @@ services.factory('AssignmentPoster', ['$http', 'formDataObject',
     var postData = {
       Course: assignmentInfo.Course,
       name: assignmentInfo.name,
-      description: assignmentInfo.description,
+      shortDescription: assignmentInfo.description,
       deadline: assignmentInfo.deadline,
       numOfTries: assignmentInfo.numOfTries,
       instructions: assignmentInfo.instructions,

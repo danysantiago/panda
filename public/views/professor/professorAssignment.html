@@ -116,7 +116,7 @@
               <tr ng-repeat="submission in assignment.submissions">
                 <td>---</td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
-                <td>{{submission.submitDate}}</td>
+                <td>{{submission.submitDate | filterDateTime}}</td>
                 <td>{{submission.finalVerdict}}</td>
                 <td>250ms</td>
                 <td>{{submission.score}}/{{submission.totalScore}}</td>
@@ -202,7 +202,7 @@
 
       <br>
       <div class="btn-group">
-        <button type="button" class="btn btn-info" >
+        <button type="button" class="btn btn-info" ng-click="toggleEditAssignmentModal()">
           Edit
         </button>
         <button type="button" class="btn btn-primary" ng-click="toggleTestCaseModal()">
@@ -318,6 +318,72 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="editAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="editAssignmentModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Edit Assignment</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentName">Name</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentName" name="assignmentName" placeholder="Name" required="" type="text" ng-model="assignment.name">
+              
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="control-label" for="assgnmentDescription">Description</label>
+            <div class="controls">                     
+              <textarea class="form-control" id="assgnmentDescription" name="assgnmentDescription" placeholder="Description" ng-model="assignment.shortDescription"></textarea>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentDeadline">Deadline</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentDeadline" name="assignmentDeadline" placeholder="DD/MM/YYYY" required="" type="text" ng-model="assignment.deadline">
+              
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="assignmentNumOfTries">Tries</label>
+            <div class="controls">
+              <input class="form-control" id="assignmentNumOfTries" name="assignmentNumOfTries" placeholder="1" required="" type="text" ng-model="assignment.numOfTries">
+              
+            </div>
+          </div>
+
+          <!-- File Button --> 
+          <div class="form-group">
+            <label class="control-label" for="assignmentInstructions">Instructions File</label>
+            <div class="controls">
+              <input id="assignmentInstructions" name="assignmentInstructions" class="input-file" type="file" ng-file-select="onInstructionsFileSelect($files)">
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary"
+            ng-click="editAssignment()">Save Changes</button>
+          </div>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
