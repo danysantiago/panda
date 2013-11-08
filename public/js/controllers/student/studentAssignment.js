@@ -70,4 +70,8 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser',
     });
   };
 
+  $scope.formatName = function(name) {
+    return name.replace(/\s/g, '').toLowerCase();
+  };
+
 }]);
