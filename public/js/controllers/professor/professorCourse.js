@@ -87,4 +87,12 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     });
   };
 
+  $scope.onInstructionsFileSelect = function($files) {
+    $scope.newAssignment.instructions = $files[0];
+  };
+
+  $scope.onRepoFileSelect = function($files) {
+    $scope.newAssignment.repoFile = $files[0];
+  };
+
 }]);
