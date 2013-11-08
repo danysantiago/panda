@@ -3,9 +3,9 @@
  */
 
 pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
-    'User', 'Course', 'Assignment', 'formDataObject', '$http',
+    'User', 'Course', 'Assignment', 'formDataObject', '$http', 'AssignmentPoster',
         function($scope, currentUser, User, Course, Assignment, formDataObject,
-            $http) {
+            $http,AssignmentPoster) {
   $scope.user = {};
 
   // The reason why we are doing this is because we need to refresh the whole
@@ -57,34 +57,16 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
     deadline: '',
     numOfTries: 0,
     instructions: null,
-    repoFile: null
+    repoFile: null,
+    singleFile: false,
+    singleFileName: 'Main'
   };
 
   $scope.createAssignment = function(assignmentInfo) {
-    // Could return the promise of this, but don't know, that's probably
-    // useless.
-    $http({
-      method: 'POST',
-      url: '/api/assignments/',
-      headers: {
-        'Content-Type': undefined
-      },
-      data: {
-        Course: assignmentInfo.Course._id,
-        name: assignmentInfo.name,
-        description: assignmentInfo.description,
-        deadline: assignmentInfo.deadline,
-        numOfTries: assignmentInfo.numOfTries,
-        instructions: assignmentInfo.instructions,
-        repoFile: assignmentInfo.repoFile
-      },
-      transformRequest: formDataObject
-    }).success(function() {
-      // Success
+    $scope.newAssignment.Course = $scope.newAssignment.Course._id;
+    AssignmentPoster.postAssignment(assignmentInfo, function() {
       $('#createAssignmentModal').modal('hide');
       $scope.refreshUser();
-    }).error(function() {
-      // Error
     });
   };
 

@@ -3,9 +3,9 @@
  */
 
 pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
-    'Course', 'Assignment', '$upload', 'formDataObject', '$http',
+    'Course', 'Assignment', '$upload', 'formDataObject', '$http', 'AssignmentPoster',
         function($scope, currentUser, User, Course, Assignment, $upload,
-            formDataObject, $http) {
+            formDataObject, $http, AssignmentPoster) {
 
   ($scope.refreshUser = function() {
     var user = User.get({id: currentUser._id, submissions: true,
@@ -75,34 +75,17 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     deadline: '',
     numOfTries: 0,
     instructions: null,
-    repoFile: null
+    repoFile: null,
+    singleFile: false,
+    singleFileName: 'Main'
   };
 
   $scope.createAssignment = function(assignmentInfo) {
-    // Could return the promise of this, but don't know, that's probably
-    // useless.
-    $http({
-      method: 'POST',
-      url: '/api/assignments/',
-      headers: {
-        'Content-Type': undefined
-      },
-      data: {
-        Course: assignmentInfo.Course._id,
-        name: assignmentInfo.name,
-        description: assignmentInfo.description,
-        deadline: assignmentInfo.deadline,
-        numOfTries: assignmentInfo.numOfTries,
-        instructions: assignmentInfo.instructions,
-        repoFile: assignmentInfo.repoFile
-      },
-      transformRequest: formDataObject
-    }).success(function() {
-      // Success
+    // We need to fill up the Course field correctly.
+    $scope.newAssignment.Course = $scope.newAssignment.Course._id;
+    AssignmentPoster.postAssignment(assignmentInfo, function() {
       $('#createAssignmentModal').modal('hide');
       $scope.refreshUser();
-    }).error(function() {
-      // Error
     });
   };
 

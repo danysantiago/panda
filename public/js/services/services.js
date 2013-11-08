@@ -141,3 +141,44 @@ services.factory('SubmissionLoader', ['Submission', '$route', '$q',
     return delay.promise;
   };
 }]);
+
+/**
+ * Service for posting an assignment.
+ */
+services.factory('AssignmentPoster', ['$http', 'formDataObject',
+    function($http, formDataObject) {
+  var assignmentPosterInstance = {};
+  assignmentPosterInstance.postAssignment = function(assignmentInfo,
+      successCallBack, failureCallBack) {
+    // Could return the promise of this, but don't know, that's probably
+    // useless.
+    var postData = {
+      Course: assignmentInfo.Course,
+      name: assignmentInfo.name,
+      description: assignmentInfo.description,
+      deadline: assignmentInfo.deadline,
+      numOfTries: assignmentInfo.numOfTries,
+      instructions: assignmentInfo.instructions,
+      repoFile: assignmentInfo.repoFile
+    };
+
+    if (assignmentInfo.singleFile) {
+      postData.singleFileName = assignmentInfo.singleFileName;
+    } else {
+      postData.repoFile = assignmentInfo.repoFile;
+    }
+
+    $http({
+      method: 'POST',
+      url: '/api/assignments/',
+      headers: {
+        'Content-Type': undefined // Undefined will make angular insert correct
+        // content-type.
+      },
+      data: postData,
+      transformRequest: formDataObject
+    }).success(successCallBack).error(failureCallBack);
+  };
+
+  return assignmentPosterInstance;
+}]);

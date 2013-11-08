@@ -175,27 +175,27 @@
           <div class="form-group">
             <div class="controls">
               <label class="checkbox inline" for="singleFileAssig-0">
-                <input name="singleFileAssig" id="singleFileAssig-0" value="Yes" type="checkbox" ng-model="singleAssignment">
+                <input name="singleFileAssig" id="singleFileAssig-0" value="Yes" type="checkbox" ng-model="newAssignment.singleFile">
                 Single File Assignment?
               </label>
             </div>
           </div>
 
           <!-- Text input-->
-          <div class="form-group" ng-show="singleAssignment">
+          <div class="form-group" ng-show="newAssignment.singleFile">
             <label class="control-label" for="assgnmentMainName">Entrance Filename</label>
             <div class="controls">
-              <input class="form-control" id="assgnmentMainName" name="assgnmentMainName" placeholder="Main" type="text">
-              <p class="help-block">The file of the name to look in the repository.</p>
+              <input class="form-control" id="assgnmentMainName" name="assgnmentMainName" placeholder="Main" type="text" ng-model="newAssignment.singleFileName">
+              <p class="help-block">The name of the file to look for in the repository.</p>
             </div>
           </div>
 
           <!-- File Button --> 
-          <div class="form-group" ng-hide="singleAssignment">
+          <div class="form-group" ng-hide="newAssignment.singleFile">
             <label class="control-label" for="assignmentInitFile">Initial Repository File</label>
             <div class="controls">
               <input id="assignmentInitFile" name="assignmentInitFile" class="input-file" type="file" ng-file-select="onRepoFileSelect($files)">
-              <p class="help-block">An archive file defining the initial repository files and folders</p>
+              <p class="help-block">An archive file defining the initial repository files and folders.</p>
             </div>
           </div>
           <div class="modal-footer">

@@ -3,8 +3,9 @@
  */
 
 pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
-    'course', 'formDataObject', '$http', 'Course', function($scope, currentUser,
-        course, formDataObject, $http, Course) {
+    'course', 'formDataObject', '$http', 'Course', 'AssignmentPoster',
+        function($scope, currentUser, course, formDataObject, $http, Course,
+            AssignmentPoster) {
   $scope.course = course;
 
   //This Oink Oink Pt.2 is for mapping the grades of each student to the
@@ -50,40 +51,18 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     deadline: '',
     numOfTries: 0,
     instructions: null,
-    repoFile: null
+    repoFile: null,
+    singleFile: false,
+    singleFileName: 'Main'
   };
 
   $scope.createAssignment = function(assignmentInfo) {
-    // Could return the promise of this, but don't know, that's probably
-    // useless.
-    $http({
-      method: 'POST',
-      url: '/api/assignments/',
-      headers: {
-        'Content-Type': undefined
-      },
-      data: {
-        Course: course._id, // this is the only possible option on this view
-        name: assignmentInfo.name,
-        description: assignmentInfo.description,
-        deadline: assignmentInfo.deadline,
-        numOfTries: assignmentInfo.numOfTries,
-        instructions: assignmentInfo.instructions,
-        repoFile: assignmentInfo.repoFile
-      },
-      transformRequest: formDataObject
-    }).success(function() {
-      // Success
+    AssignmentPoster.postAssignment(assignmentInfo, function() {
       $('#createAssignmentModal').modal('hide');
-      //$scope.refreshUser();
-      // We now need to refresh the course.
       var c = Course.get({id: course._id, users: true, assignments: true,
           submissions: true}, function() {
         $scope.course = c;
       });
-
-    }).error(function() {
-      // Error
     });
   };
 
@@ -145,8 +124,9 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     });
   };
 
-  // TODO (samuel): The predicates MUST BE FIXED in the html page, since they
+  // TODO(samuel): The predicates MUST BE FIXED in the html page, since they
   // are not matching the correct object attributes. The user.firstName and
   // user.lastNames will need to be flatten into submissions.
 
+  // TODO(samuel): Add filtering for the submissions.
 }]);
