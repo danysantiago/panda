@@ -14,7 +14,8 @@ services.factory('CurrentUser', ['$resource', function($resource) {
 }]);
 
 services.factory('Course', ['$resource', function($resource) {
-  return $resource('/api/courses/:id', {id: '@_id'});
+  return $resource('/api/courses/:id', {id: '@_id'},
+      {update: {method: 'PUT'}});
 }]);
 
 services.factory('Assignment', ['$resource', function($resource) {

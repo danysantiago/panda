@@ -12,7 +12,7 @@
     <div class="col-md-3">
       <br>
       <div class="button-group centered-div">
-        <button type="button" class="btn btn-primary">Edit Course</button>
+        <button type="button" class="btn btn-primary" ng-click="toggleEditCourseModal()">Edit Course</button>
       </div>
     </div>
   </div>
@@ -375,4 +375,56 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+  <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="modalTitle">Edit Course</h4>
+        </div>
+        <div class="modal-body" ng-model="editCourseForm">
+          <form>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="courseName">Name</label>
+            <input name="courseName" placeholder="Course Name" class="form-control" type="text" ng-model="course.name">         
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="courseCode">Code</label>
+            <input id="courseCode" name="courseCode" placeholder="Course Code (MATE3001)" class="form-control" type="text" ng-model="course.code">
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="control-label" for="courseYear">Year</label>
+            <select id="courseYear" name="courseYear" class="form-control" ng-model="course.year">
+              <option>2014</option>
+              <option>2013</option>
+              <option>2012</option>
+            </select>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="control-label" for="courseSemester">Semester</label>
+            <select id="courseSemester" name="courseSemester" class="form-control" ng-model="course.semester">
+              <option>Fall</option>
+              <option>Spring</option>
+              <option>Summer</option>
+            </select>
+          </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="editCourse()">Save Changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
 </div>

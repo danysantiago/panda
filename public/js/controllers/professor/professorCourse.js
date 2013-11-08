@@ -129,4 +129,19 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
   // user.lastNames will need to be flatten into submissions.
 
   // TODO(samuel): Add filtering for the submissions.
+
+  // Course editing:
+  $scope.toggleEditCourseModal = function() {
+    $('#editCourseModal').modal();
+  };
+
+  $scope.editCourse = function() {
+    // $resource.$update on course does put.
+    $scope.course.$update(function(c) {
+      course = c;
+      // The course was saved successfully.
+      $('#editCourseModal').modal('hide');
+    });
+  };
+
 }]);
