@@ -8,7 +8,7 @@ var config = require('../../lib/config/config.js'),
 var test = function() {
 
   var params = {
-    login: 'nelii28o2',
+    login: 'danysantiago',
     password: 'mofongo',
   }
 
@@ -19,8 +19,7 @@ var test = function() {
       gitlab.session.login(params, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(201);
-        var credentials = require('../../lib/gitlab/credentials.js')
-        expect(body.private_token).to.equal(credentials.token);
+        expect(body.private_token).to.equal("CpmobLhkVjMn4AsrUVsU");
         done();
       });
     });

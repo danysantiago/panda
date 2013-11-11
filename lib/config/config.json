@@ -5,7 +5,11 @@
             "localAddress": "localhost",
             "appPort": 80,
             "appProtocol": "http",
-            "debugLvl": "debug"
+            "debugLvl": "debug",
+            "gitlab": {
+                "url": "http://pandagitlab.sytes.net",
+                "adminToken": "F6qyj6iG9z2SfhubH8CJ"
+            }
     },
 
     "production": {
@@ -14,6 +18,10 @@
             "localAddress": "localhost",
             "appPort": 80,
             "appProtocol": "http",
-            "debugLvl": "info"
+            "debugLvl": "info",
+            "gitlab": {
+                "url": "http://pandagitlab.sytes.net",
+                "adminToken": "F6qyj6iG9z2SfhubH8CJ"
+            }
     }
 }

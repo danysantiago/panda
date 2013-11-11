@@ -38,6 +38,7 @@ var test = function() {
     'creationDate': '2013-11-02T18:41:55.410Z',
     'deadline': '11/11/2013',
     'numOfTries': 2,
+    'singleFileName': 'Main'
   };
 
   var fakeTestCase = {

@@ -231,23 +231,23 @@ var test = function() {
       form.append('zipfile', fs.createReadStream(__dirname + '/res/llzip.zip'));
     });
 
-    it('Queue Test', function(done) {
-      this.timeout(10000);
-      this.slow(5000);
+    // it('Queue Test', function(done) {
+    //   this.timeout(10000);
+    //   this.slow(5000);
 
-      var reqParms = {
-        'url': baseUrl + '/test/queue',
-        'method': 'GET',
-        'json': true
-      };
+    //   var reqParms = {
+    //     'url': baseUrl + '/test/queue',
+    //     'method': 'GET',
+    //     'json': true
+    //   };
 
-      var r = request(reqParms, function (err, res, body) {
-        expect(res).to.exist;
-        expect(res.statusCode).to.equal(200);
-        expect(body).to.exist;
-        done();
-      });
-    });
+    //   var r = request(reqParms, function (err, res, body) {
+    //     expect(res).to.exist;
+    //     expect(res.statusCode).to.equal(200);
+    //     expect(body).to.exist;
+    //     done();
+    //   });
+    // });
 
   });
 };
