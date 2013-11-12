@@ -9,19 +9,19 @@
     "deleted": false,
     "Repositories": [
       {
-        "id": 0,
+        "assigId": 0,
         "path": "pandagitlab.sytes.net/assig0"
       },
       {
-        "id": 1,
+        "assigId": 1,
         "path": "pandagitlab.sytes.net/assig1"
       },
       {
-        "id": 2,
+        "assigId": 2,
         "path": "pandagitlab.sytes.net/assig2"
       },
       {
-        "id": 3,
+        "assigId": 3,
         "path": "pandagitlab.sytes.net/assig3"
       }
     ]
@@ -38,11 +38,11 @@
     "deleted": false,
     "Repositories": [
       {
-        "id": 0,
+        "assigId": 0,
         "path": "pandagitlab.sytes.net/assig0"
       },
       {
-        "id": 1,
+        "assigId": 1,
         "path": "pandagitlab.sytes.net/assig1"
       }
     ]
@@ -58,19 +58,19 @@
     "deleted": false,
     "Repositories": [
       {
-        "id": 0,
+        "assigId": 0,
         "path": "pandagitlab.sytes.net/assig0"
       },
       {
-        "id": 1,
+        "assigId": 1,
         "path": "pandagitlab.sytes.net/assig1"
       },
       {
-        "id": 2,
+        "assigId": 2,
         "path": "pandagitlab.sytes.net/assig2"
       },
       {
-        "id": 3,
+        "assigId": 3,
         "path": "pandagitlab.sytes.net/assig3"
       }
     ]
@@ -97,11 +97,11 @@
     "deleted": false,
     "Repositories": [
       {
-        "id": 2,
+        "assigId": 2,
         "path": "pandagitlab.sytes.net/assig0"
       },
       {
-        "id": 3,
+        "assigId": 3,
         "path": "pandagitlab.sytes.net/assig0"
       }
     ]

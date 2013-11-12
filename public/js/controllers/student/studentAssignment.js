@@ -2,8 +2,8 @@
  * This is the controller for the student's individual assignment view.
  */
 
-pandaApp.controller('AssignmentController', ['$scope', 'currentUser',
-    'assignment', function($scope, currentUser, assignment) {
+pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
+    'assignment', function($scope, currentUser, $http, assignment) {
   $scope.assignment = assignment;
   $scope.user = currentUser;
 
@@ -74,4 +74,17 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser',
     return name.replace(/\s/g, '').toLowerCase();
   };
 
+  $scope.toggleSubmitModal = function() {
+    $('#submit-modal').modal();
+  };
+  
+  $scope.submitAssignment = function() {
+    $http.post('/api/submissions', {
+        User: currentUser._id, Assignment: assignment._id}
+    ).success(function() {
+      $('#submit-modal').modal('hide');
+    }).error(function() {
+      // Oh noes.
+    });
+  }
 }]);
