@@ -308,7 +308,7 @@
         <div class="form-group">
           <label class="control-label" for="testOutput">Expected Output</label>
           <div class="controls">
-             <input id="testOutputFile" name="testOutputFile" class="input-file" type="file">                 
+             <input id="testOutputFile" name="testOutputFile" class="input-file" type="file" ng-file>                 
             <textarea class="form-control" id="testOutput" name="testOutput"></textarea>
           </div>
         </div>
@@ -317,7 +317,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-primary" ng-click="createTestCase()">Create</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

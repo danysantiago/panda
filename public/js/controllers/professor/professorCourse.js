@@ -138,7 +138,6 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
   
   $scope.editCourse = function () {
     $http.put('/api/courses/' + course._id, {
-      _id: course._id,
       name: course.name,
       code: course.code,
       year: course.year,
