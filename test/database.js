@@ -44,7 +44,7 @@ describe('Database Preloading...', function(){
 
             //Refs correct assignments ObjectIDs
             _.each(user.Repositories, function (repo, index, list) {
-              user.Repositories[index].id = assignmentsIds[repo.id];
+              user.Repositories[index].assigId = assignmentsIds[repo.id];
             });
 
             collection.insert(user, function (err, user) {
