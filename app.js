@@ -7,9 +7,13 @@ var config = require('./lib/config/config.js'),
     app = express(),
     mongodb = require('mongodb'),
     bunyan = require('bunyan'),
+    server = require('http').createServer(app);
+    io = require('socket.io').listen(server);
     path = require('path');
 
 var Database = require('./lib/models/database.js');
+var Sockets = require('./lib/models/sockets.js');
+Sockets.setIO(io);
 
 // Logger object, log lvl is set by config file.
 var log = bunyan.createLogger({'name': 'panda', 'level': config.debugLvl});
@@ -128,6 +132,6 @@ mongodb.connect(config.dbAddress, function (err, db) {
   Database.setDB(db); //Set DB singleton
   log.info('Database connection successful - ' + config.dbAddress);
 
-  app.listen(config.appPort);
+  server.listen(config.appPort);
   log.info('App started, listening at port %s', config.appPort);
 });

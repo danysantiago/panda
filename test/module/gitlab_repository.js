@@ -17,6 +17,7 @@ var test = function() {
 
   var fs = require('fs');
   var out = fs.createWriteStream(__dirname + '/../res/'+params.name+'.tar.gz');
+  var out2 = fs.createWriteStream(__dirname + '/../res/BlobFromRepo.java');
 
   describe('Gitlab Repository', function() {
 
@@ -106,7 +107,7 @@ var test = function() {
     it('Get Blob', function(done) {
       this.slow(800);
       params.filepath='src/BadExampleProgram.java';
-      gitlab.repository.getBlob(params, function (err, res, body){
+      gitlab.repository.getBlob(params, out2, function (err, res, body){
         expect(res).to.exist;
         expect(res.statusCode).to.equal(200);
         expect(body).to.contain('Simple Program');
