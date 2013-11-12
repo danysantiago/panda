@@ -65,4 +65,77 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
 
     });
   };
+
+  // Adding test case stuff
+
+  $scope.newTestCase = {
+    testInputText: '',
+    testOutputText: '',
+    testInputFile: null,
+    testOutputFile: null,
+    testerFile: null,
+    timeLimit: 5,
+    memLimit: 1024,
+    score: 0
+  };
+
+  $scope.onTestOutputFileSelect = function($files) {
+    if ($files.length > 0) {
+      $scope.newTestCase.testOutputFile = $files[0];
+    } else {
+      $scope.newTestCase.testOutputFile = null;
+    }
+  };
+
+  $scope.onTestInputFileSelect = function($files) {
+    if ($files.length > 0) {
+      $scope.newTestCase.testInputFile = $files[0];
+    } else {
+      $scope.newTestCase.testInputFile = null;
+    }
+  };
+
+  $scope.onTesterFileSelect = function($files) {
+    if ($files.length > 0) {
+      $scope.newTestCase.testerFile = $files[0];
+    } else {
+      $scope.newTestCase.testerFile = null;
+    }
+  };
+
+  $scope.createTestCase = function() {
+    var newTestCase = $scope.newTestCase;
+    var postTestCase = {};
+    if ($scope.newTestCase.testInputFile === null) {
+      postTestCase.testInput = newTestCase.testInputText;
+    } else {
+      postTestCase.testInput = newTestCase.testInputFile;
+    }
+
+    if ($scope.newTestCase.testOutputFile === null) {
+      postTestCase.testOutput = newTestCase.testOutputText;
+    } else {
+      postTestCase.testOutput = newTestCase.testOutputFile;
+    }
+
+    postTestCase.testerFile = newTestCase.testerFile;
+    postTestCase.timeLimit = newTestCase.timeLimit;
+    postTestCase.memLimit = newTestCase.memLimit;
+    postTestCase.score = newTestCase.score;
+
+    $http({
+      method: 'POST',
+      url: 'api/assignments/' + assignment._id + '/test',
+      headers: {
+        'Content-Type': undefined
+      },
+      data: postTestCase,
+      transformRequest: formDataObject
+    }).success(function() {
+      $('#addTestCaseModal').modal('hide');
+    }).error(function() {
+      // Oh noes
+    });
+  };
+
 }]);

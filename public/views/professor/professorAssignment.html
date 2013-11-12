@@ -272,16 +272,22 @@
           </div>      
         </div>
 
+        <!-- Score -->
+        <div class="form-group">
+          <label class="control-label" for="score">Score</label>
+          <input id="score" name="score" placeholder="5" class="form-control" type="number" ng-model="newTestCase.score">
+        </div>
+
         <!-- Text input-->
         <div class="form-group">
           <label class="control-label" for="timeLimit">Time Limit (Seconds)</label>
-          <input id="timeLimit" name="timeLimit" placeholder="5" class="form-control" type="number">
+          <input id="timeLimit" name="timeLimit" placeholder="5" class="form-control" type="number" ng-model="newTestCase.timeLimit">
         </div>
 
         <!-- Text input-->
         <div class="form-group">
           <label class="control-label" for="memoryLimit">Memory Limit (Kilobytes)</label>
-          <input id="memoryLimit" name="memoryLimit" placeholder="1024" class="form-control" type="number">
+          <input id="memoryLimit" name="memoryLimit" placeholder="1024" class="form-control" type="number" ng-model="newTestCase.memLimit">
         </div>
 
         <!-- I/O Type -->
@@ -289,8 +295,8 @@
           <div class="form-group">
             <label class="control-label" for="testInput">Test Input</label>
             <div class="controls">
-               <input id="testInputFile" name="testInputFile" class="input-file" type="file">                 
-              <textarea class="form-control" id="testInput" name="testInput"></textarea>
+               <input id="testInputFile" name="testInputFile" class="input-file" type="file" ng-file-select="onTestInputFileSelect($files)">                 
+              <textarea class="form-control" id="testInput" name="testInput" ng-model="newTestCase.testInputText"></textarea>
             </div>
           </div>
         </div>
@@ -300,7 +306,7 @@
           <div class="form-group">
             <label class="control-label" for="testInput">Tester File</label>
             <div class="controls">
-               <input id="testerFile" name="testerFile" class="input-file" type="file">                 
+               <input id="testerFile" name="testerFile" class="input-file" type="file" ng-file-select="onTestFileSelect($files)">                 
             </div>
           </div>
         </div>
@@ -308,8 +314,8 @@
         <div class="form-group">
           <label class="control-label" for="testOutput">Expected Output</label>
           <div class="controls">
-             <input id="testOutputFile" name="testOutputFile" class="input-file" type="file" ng-file>                 
-            <textarea class="form-control" id="testOutput" name="testOutput"></textarea>
+             <input id="testOutputFile" name="testOutputFile" class="input-file" type="file" ng-file-select="onTestOutputFileSelect($files)">                 
+            <textarea class="form-control" id="testOutput" name="testOutput" ng-model="newTestCase.testOutputText"></textarea>
           </div>
         </div>
 
