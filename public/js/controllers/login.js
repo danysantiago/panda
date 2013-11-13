@@ -16,5 +16,44 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
         // TODO(samuel): Try again I suppose.
       }
     });
-  }
+  };
+
+  $scope.toggleSignUpModal = function() {
+    $('#signup-modal').modal();
+  };
+
+  $scope.newUser = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    confirmPassword: ''
+  };
+
+  $scope.createUser = function() {
+    if ($scope.newUser.password !== $scope.newUser.confirmPassword) {
+      // Try again
+      return;
+    }
+
+    // Do some validation here.
+    var postUser = {};
+    postUser.email = $scope.newUser.email;
+    postUser.firstName = $scope.newUser.firstName;
+    postUser.lastName = $scope.newUser.lastName;
+    postUser.password = $scope.newUser.password;
+
+    $http.post('/api/users', {
+      email: postUser.email,
+      firstName: postUser.firstName,
+      lastName: postUser.lastName,
+      password: postUser.password,
+      role: 'Student'
+    }).success(function() {
+      $('#signup-modal').modal('hide');
+    }).error(function() {
+
+    });
+  };
+
 }]);
