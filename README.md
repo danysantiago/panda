@@ -9,6 +9,6 @@ By:
 
 [Nelian Colon](http://github.com/nelii28o2 "nelii28o2")
 
-[Samuel Rpodriguez](http://github.com/samus250 "samus250")
+[Samuel Rodriguez](http://github.com/samus250 "samus250")
 
 

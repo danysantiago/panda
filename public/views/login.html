@@ -30,7 +30,7 @@
               </button>
             </div>
             <div class="col-sm-6">
-              <button type="submit" data-toggle="modal" href="#signup-modal" class="btn btn-lg btn-primary">
+              <button type="submit" data-toggle="modal" class="btn btn-lg btn-primary" ng-click="toggleSignUpModal()">
                 Sign Up
               </button>
             </div>
@@ -56,27 +56,22 @@
         <h4 class="modal-title">Sign Up</h4>
       </div>
       <div class="modal-body">
-        <form action="/users" method="post">
+        <form>
           <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email"></div>
+            <input type="email" name="email" class="form-control" placeholder="Email" ng-model="newUser.email"></div>
           <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="Name"></div>
+            <input type="text" name="firstName" class="form-control" placeholder="First Name" ng-model="newUser.firstName"></div>
           <div class="form-group">
-            <input type="password" name="password" class="form-control" placeholder="Password"></div>
+            <input type="text" name="lastName" class="form-control" placeholder="Last Name" ng-model="newUser.lastName"></div>
           <div class="form-group">
-            <input type="password" name="password_confirm" class="form-control" placeholder="Retype Password"></div>
-            <div class="form-group">
-              <label>School: </label>
-              <select class="selectpicker">
-                <option>University of Puerto Rico, Mayaguez</option>
-                <option>University of Puerto Rico, Rio Piedras</option>
-                <option>University of Sr. Santiago</option>
-              </select>
-            </div>
+            <input type="password" name="password" class="form-control" placeholder="Password" ng-model="newUser.password"></div>
+          <div class="form-group">
+            <input type="password" name="password_confirm" class="form-control" placeholder="Retype Password" ng-model="newUser.confirmPassword"></div>
+            <span ng-show="newUser.password !== newUser.confirmPassword" style="color:red">Passwords do not match</span>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Sign Me Up!</button>
+        <button type="button" class="btn btn-primary" ng-click="createUser()">Sign Me Up!</button>
       </div>
     </div>
   </div>
