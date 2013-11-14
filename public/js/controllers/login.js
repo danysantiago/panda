@@ -22,17 +22,39 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
     $('#signup-modal').modal();
   };
 
+  $scope.hideSignUpSuccessModal = function() {
+    $('#signup-modal-success').modal('hide');
+  };
+
+  $scope.hideSignUpErrorModal = function() {
+    $('#signup-modal-error').modal('hide');
+    $('#signup-modal').modal();
+  }
+
   $scope.newUser = {
     email: '',
     firstName: '',
     lastName: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    errorMessage: ''
   };
 
   $scope.createUser = function() {
     if ($scope.newUser.password !== $scope.newUser.confirmPassword) {
       // Try again
+      $('#signup-modal').modal('hide');
+      $('#signup-modal-error').modal();
+      $scope.newUser.errorMessage =
+          "Please verify the information you have entered.";
+      return;
+    }
+
+    if ($scope.newUser.password.length < 6) {
+      $('#signup-modal').modal('hide');
+      $('#signup-modal-error').modal();
+      $scope.newUser.errorMessage =
+          "Please verify the information you have entered.";
       return;
     }
 
@@ -51,8 +73,14 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
       role: 'Student'
     }).success(function() {
       $('#signup-modal').modal('hide');
-    }).error(function() {
+      $('#signup-modal-success').modal();
 
+      // Immediately logging in the user here does not work, because the modal
+      // does not finish hiding before angular changes the browser's location.
+    }).error(function(res, data) {
+      $scope.newUser.errorMessage = "E-mail address already taken.";
+      $('#signup-modal').modal('hide');
+      $('#signup-modal-error').modal();
     });
   };
 
