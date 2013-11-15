@@ -106,6 +106,11 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
                 "Last Name " + entry.message + "\n");
           }
 
+          if (entry.property === "email") {
+            $scope.newUser.errorMessage.push(
+                "The email address you entered is invalid.");
+          }
+
         });
       }
       
