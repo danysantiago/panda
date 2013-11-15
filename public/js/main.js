@@ -282,9 +282,18 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   $rootScope.$on('event:auth-loginRequired', function() {
     $rootScope.loggedIn = false;
     $rootScope.currentUser = null;
+
+    if ($location.url() == '/login') {
+      // The user is in the login screen, it was probably bad credentials.
+      // Just show the incorrect credentials modal and return.
+      $('#incorrect-password-modal').modal();
+      return;
+    }
+
     if ($location.url() != '/login') {
       lastTriedUrl = $location.url();
     }
+
     // Only redirect to the login page for the pages that require login.
     // This check is needed because / runs this run function which requires a
     // call to /auth/current by the LoginService.

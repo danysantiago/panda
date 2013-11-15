@@ -73,6 +73,12 @@
             <span ng-show="newUser.password && newUser.password.length < 6" style="color:red">
               Password must be at least 6 characters long.<br>
             </span>
+            <span ng-show="newUser.firstName && newUser.firstName.length < 2" style="color:red">
+              First name must be at least 2 characters long.<br>
+            </span>
+            <span ng-show="newUser.lastName && newUser.lastName.length < 2" style="color:red">
+              Last name must be at least 2 characters long.<br>
+            </span>
         </form>
       </div>
       <div class="modal-footer">
@@ -107,10 +113,46 @@
         <h4 class="modal-title">Sign Up Error</h4>
       </div>
       <div class="modal-body">
-        {{newUser.errorMessage}}
+        <span ng-repeat="message in newUser.errorMessage">
+          {{message}}<br>
+        </span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="hideSignUpErrorModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="incorrect-password-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Login Error</h4>
+      </div>
+      <div class="modal-body">
+        Incorrect username or password. Please try again.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideIncorrectPasswordModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="service-unavailable-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Login Error</h4>
+      </div>
+      <div class="modal-body">
+        The service is unavailable. Please try again later.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideServiceUnavailableModal()">OK</button>
       </div>
     </div>
   </div>

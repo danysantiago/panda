@@ -9,12 +9,17 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
 
   $scope.submit = function(email, password) {
     $http.post('/auth/login', {'email': email, 'password': password})
-    .success(function (user, status, headers) {
+    .success(function(user, status, headers) {
       if (status == 200) {
         authService.loginConfirmed(user);
       } else {
-        // TODO(samuel): Try again I suppose.
+        // ?
+        $('#service-unavailable-modal-modal').modal();
       }
+    }).error(function(res, data) {
+      // An error is weird at this point. This should show some other error
+      // message.
+      $('#service-unavailable-modal').modal();
     });
   };
 
@@ -29,7 +34,15 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
   $scope.hideSignUpErrorModal = function() {
     $('#signup-modal-error').modal('hide');
     $('#signup-modal').modal();
-  }
+  };
+
+  $scope.hideIncorrectPasswordModal = function() {
+    $('#incorrect-password-modal').modal('hide');
+  };
+
+  $scope.hideServiceUnavailableModal = function() {
+    $('#service-unavailable-modal').modal('hide');
+  };
 
   $scope.newUser = {
     email: '',
@@ -37,7 +50,7 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
     lastName: '',
     password: '',
     confirmPassword: '',
-    errorMessage: ''
+    errorMessage: []
   };
 
   $scope.createUser = function() {
@@ -78,7 +91,24 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
       // Immediately logging in the user here does not work, because the modal
       // does not finish hiding before angular changes the browser's location.
     }).error(function(res, data) {
-      $scope.newUser.errorMessage = "E-mail address already taken.";
+      $scope.newUser.errorMessage = [];
+      if (res.error && res.error.toLowerCase() === "email already taken") {
+        $scope.newUser.errorMessage.push("E-mail address already taken.\n");
+      } else {
+        res.forEach(function(entry) {
+          if (entry.property === "firstName") {
+            $scope.newUser.errorMessage.push(
+                "First Name " + entry.message + "\n");
+          }
+
+          if (entry.property === "lastName") {
+            $scope.newUser.errorMessage.push(
+                "Last Name " + entry.message + "\n");
+          }
+
+        });
+      }
+      
       $('#signup-modal').modal('hide');
       $('#signup-modal-error').modal();
     });
