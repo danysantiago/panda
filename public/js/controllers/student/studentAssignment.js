@@ -23,7 +23,11 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     // Failed submissions have no tests.
     if (submission.tests) {
       submission.tests.forEach(function(test) {
-        submissionCpuTime += parseFloat(test.result['cpu usage']);
+        // The submission might have tests, but the tests might not have
+        // results -___-
+        if (test.result) {
+          submissionCpuTime += parseFloat(test.result['cpu usage']);
+        }
       });
     }
     submission.cpuTime = submissionCpuTime + ' seconds';
