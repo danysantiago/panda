@@ -48,9 +48,11 @@
               {{assignment.Instructions.text}}
             </p>
             <div ng-show="isDefined(assignment.Instructions.file)">
-              <button type="button" class="btn btn-primary">
-                {{assignment.Instructions.file.name}}
-              </button>
+              <form action="/api/assignments/{{assignment._id}}/instructions">
+                <button type="submit" class="btn btn-primary">
+                  {{assignment.Instructions.file.name}}
+                </button>
+              </form>
             </div>
           </div>
         </div>

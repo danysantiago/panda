@@ -6,9 +6,19 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     'assignment', '$http', 'formDataObject', function($scope, currentUser,
         assignment, $http, formDataObject) {
   $scope.assignment = assignment;
-
   $scope.isDefined = angular.isDefined;
 
+  assignment.submissions.forEach(function(submission) {
+    // Failed submissions have no tests.
+    var submissionCpuTime = 0.0;
+    if (submission.tests) {
+      submission.tests.forEach(function(test) {
+        submissionCpuTime += parseFloat(test.result['cpu usage']);
+      });
+    }
+    submission.cpuTime = submissionCpuTime + ' seconds';
+  });
+  
   $scope.testCaseType = 'I/O';
 
   $scope.toggleTestCaseModal = function() {

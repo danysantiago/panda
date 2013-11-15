@@ -20,9 +20,12 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     studentScore += submission.score;
 
     var submissionCpuTime = 0.0;
-    submission.tests.forEach(function(test) {
-      submissionCpuTime += parseFloat(test.result['cpu usage']);
-    });
+    // Failed submissions have no tests.
+    if (submission.tests) {
+      submission.tests.forEach(function(test) {
+        submissionCpuTime += parseFloat(test.result['cpu usage']);
+      });
+    }
     submission.cpuTime = submissionCpuTime + ' seconds';
   });
 
@@ -77,7 +80,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   $scope.toggleSubmitModal = function() {
     $('#submit-modal').modal();
   };
-  
+
   $scope.submitAssignment = function() {
     $http.post('/api/submissions', {
         User: currentUser._id, Assignment: assignment._id}
