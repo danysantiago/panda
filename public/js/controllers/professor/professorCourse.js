@@ -10,19 +10,34 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
 
   //This Oink Oink Pt.2 is for mapping the grades of each student to the
   //assignments so we can populate the students table
-  course.assignments.forEach(function(assignment, index) {
-    assignment.grades = {};
-    course.users.forEach(function(user, index) {
-      user.grades.forEach(function(grade, index) {
-        if(grade.Assignment === assignment._id) {
-          assignment.grades[user._id] = grade.score + ' / ' + grade.totalScore;
+  ($scope.refreshUser = function() {
+    // We need to get the course again actually.
+    // Injecting the course doesn't do much in this case then.
+    var newCourse = Course.get({id: course._id, users: true, assignments: true,
+        submissions:true}, function(c) {
+      // successfully got the course.
+      course = newCourse;
+      $scope.course = course;
+
+      course.assignments.forEach(function(assignment, index) {
+      assignment.grades = {};
+      course.users.forEach(function(user, index) {
+        user.grades.forEach(function(grade, index) {
+          if(grade.Assignment === assignment._id) {
+            assignment.grades[user._id] = grade.score + ' / ' + grade.totalScore;
+          }
+        });
+        if(!angular.isDefined(assignment.grades[user._id])) {
+          assignment.grades[user._id] = '---';
         }
       });
-      if(!angular.isDefined(assignment.grades[user._id])) {
-        assignment.grades[user._id] = '---';
-      }
     });
-  });
+    }, function() {
+      // error getting the course. No idea why
+      // TODO(samuel): handle this
+    });    
+  })();
+  $rootScope.refreshUser = $scope.refreshUser;
 
   $scope.assignmentsTab = true;
   $scope.studentsTab = false;
@@ -118,6 +133,4 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
 
   // This is needed so that the new assignment actually binds to this course.
   $rootScope.newAssignment.Course = course;
-
-  $rootScope.refreshUser = function () {};
 }]);
