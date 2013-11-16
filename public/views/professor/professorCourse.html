@@ -135,14 +135,7 @@
         <div class="row">
           <div class="col-md-6"></div>
           <div class="col-md-6">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Filter" ng-model="qs">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <span class="glyphicon glyphicon-refresh"></span>
-                </button>
-              </span>
-            </div>
+            <input type="text" class="form-control" placeholder="Filter" ng-model="qs">
           </div>
         </div>
 
@@ -181,14 +174,7 @@
         <div class="row">
           <div class="col-md-6"></div>
           <div class="col-md-6">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Filter" ng-model="qsub">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <span class="glyphicon glyphicon-refresh"></span>
-                </button>
-              </span>
-            </div>
+            <input type="text" class="form-control" placeholder="Filter" ng-model="qsub">
           </div>
         </div>
 
@@ -249,6 +235,8 @@
                     </span>
                 </th>
               </tr>
+              <!-- TODO(samuel): filterByAttributes when we get the submissions
+              right -->
               <tr ng-repeat="submission in course.submissions | orderBy:submissionPredicate:submissionReverseOrder">
                 <td>---</td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>

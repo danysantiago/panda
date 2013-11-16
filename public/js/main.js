@@ -365,9 +365,30 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   // The refresh user function must be defined on the individual controllers.
   $rootScope.refreshUser = function() {};
 
+  $rootScope.datePickerElement = null;
+
+  $rootScope.toggleDatePicker = function() {
+    $rootScope.datePickerElement = $('#deadlinePicker').datepicker({
+      format: 'mm/dd/yyyy',
+      startDate: 'today'
+    });
+  };
+
   $rootScope.createAssignment = function(assignmentInfo) {
     // We need to fill up the Course field correctly.
+    // And validate whether the course field has actually been selected or not.
     $rootScope.newAssignment.Course = $rootScope.newAssignment.Course._id;
+
+    if (!$rootScope.datePickerElement) {
+      // No date was selected, ever.
+      // TODO(samuel): Show a modal with the errors, do all the validations
+      // necessary.
+      return;
+    };
+
+    $rootScope.newAssignment.deadline =
+      $rootScope.datePickerElement.datepicker('getFormattedDate');
+
     AssignmentPoster.postAssignment(assignmentInfo, function() {
       $('#createAssignmentModal').modal('hide');
       $rootScope.refreshUser();
