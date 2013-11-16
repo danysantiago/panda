@@ -3,9 +3,9 @@
  */
 
 pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
-    'course', 'formDataObject', '$http', 'Course', 'AssignmentPoster',
+    'course', 'formDataObject', '$http', 'Course', 'AssignmentPoster', '$rootScope',
         function($scope, currentUser, course, formDataObject, $http, Course,
-            AssignmentPoster) {
+            AssignmentPoster, $rootScope) {
   $scope.course = course;
 
   //This Oink Oink Pt.2 is for mapping the grades of each student to the
@@ -38,40 +38,6 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
         $scope[tabName] = false;
       }
     });
-  };
-
-  $scope.toggleAssignmentModal = function() {
-    $('#createAssignmentModal').modal();
-  };
-
-  $scope.newAssignment = {
-    name: '',
-    Course: course._id, // This is first an object, but the post will post the id str
-    shortDescription: '',
-    deadline: '',
-    numOfTries: 0,
-    instructions: null,
-    repoFile: null,
-    singleFile: false,
-    singleFileName: 'Main'
-  };
-
-  $scope.createAssignment = function(assignmentInfo) {
-    AssignmentPoster.postAssignment(assignmentInfo, function() {
-      $('#createAssignmentModal').modal('hide');
-      var c = Course.get({id: course._id, users: true, assignments: true,
-          submissions: true}, function() {
-        $scope.course = c;
-      });
-    });
-  };
-
-  $scope.onInstructionsFileSelect = function($files) {
-    $scope.newAssignment.instructions = $files[0];
-  };
-
-  $scope.onRepoFileSelect = function($files) {
-    $scope.newAssignment.repoFile = $files[0];
   };
 
   // These are the field names for the assignments table.
@@ -149,4 +115,9 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
 
     });
   };
+
+  // This is needed so that the new assignment actually binds to this course.
+  $rootScope.newAssignment.Course = course;
+
+  $rootScope.refreshUser = function () {};
 }]);

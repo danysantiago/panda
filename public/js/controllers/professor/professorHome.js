@@ -4,8 +4,9 @@
 
 pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     'Course', 'Assignment', '$upload', 'formDataObject', '$http', 'AssignmentPoster',
+    '$rootScope',
         function($scope, currentUser, User, Course, Assignment, $upload,
-            formDataObject, $http, AssignmentPoster) {
+            formDataObject, $http, AssignmentPoster, $rootScope) {
 
   ($scope.refreshUser = function() {
     var user = User.get({id: currentUser._id, submissions: true,
@@ -42,13 +43,13 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
     });
   })(); // Init the user as well :) wii
 
+  // Add the needed refreshUser function for refreshing after adding a new
+  // assignment via the main add assignment modal
+  $rootScope.refreshUser = $scope.refreshUser;
+
   $scope.toggleCourseModal = function() {
     // Call the modal just how you do with bootstrap jqueried
     $('#createCourseModal').modal();
-  };
-
-  $scope.toggleAssignmentModal = function() {
-    $('#createAssignmentModal').modal();
   };
 
   $scope.newCourse = {
@@ -66,35 +67,6 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
 
     // Refresh data so that the table contains the newly added course.
     $scope.refreshUser();
-  };
-
-  $scope.newAssignment = {
-    name: '',
-    Course: null, // This is first an object, but the post will post the id str
-    shortDescription: '',
-    deadline: '',
-    numOfTries: 0,
-    instructions: null,
-    repoFile: null,
-    singleFile: false,
-    singleFileName: 'Main'
-  };
-
-  $scope.createAssignment = function(assignmentInfo) {
-    // We need to fill up the Course field correctly.
-    $scope.newAssignment.Course = $scope.newAssignment.Course._id;
-    AssignmentPoster.postAssignment(assignmentInfo, function() {
-      $('#createAssignmentModal').modal('hide');
-      $scope.refreshUser();
-    });
-  };
-
-  $scope.onInstructionsFileSelect = function($files) {
-    $scope.newAssignment.instructions = $files[0];
-  };
-
-  $scope.onRepoFileSelect = function($files) {
-    $scope.newAssignment.repoFile = $files[0];
   };
 
 }]);

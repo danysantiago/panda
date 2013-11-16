@@ -253,8 +253,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     redirectTo: '/'
   });
 }])
-.run(['authService', '$rootScope', '$location', 'LoginService',
-    function(authService, $rootScope, $location, LoginService) {
+.run(['authService', '$rootScope', '$location', 'LoginService', 'AssignmentPoster',
+    function(authService, $rootScope, $location, LoginService, AssignmentPoster) {
   // This code runs once at the start of the app.
 
   /**
@@ -346,6 +346,45 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       }
     }
   });
+
+  // Modal templates (create assignment, course assignment) need some code to
+  // actually work. Here it is.
+  $rootScope.newAssignment = {
+    name: '',
+    Course: null, // This is first an object, but the post will post the id str
+    shortDescription: '',
+    deadline: '',
+    numOfTries: 0,
+    instructions: null,
+    repoFile: null,
+    singleFile: false,
+    singleFileName: 'Main'
+  };
+
+  // The refresh user function must be defined on the individual controllers.
+  $rootScope.refreshUser = function() {};
+
+  $rootScope.createAssignment = function(assignmentInfo) {
+    // We need to fill up the Course field correctly.
+    $rootScope.newAssignment.Course = $rootScope.newAssignment.Course._id;
+    AssignmentPoster.postAssignment(assignmentInfo, function() {
+      $('#createAssignmentModal').modal('hide');
+      $rootScope.refreshUser();
+    });
+  };
+
+  $rootScope.onInstructionsFileSelect = function($files) {
+    $rootScope.newAssignment.instructions = $files[0];
+  };
+
+  $rootScope.onRepoFileSelect = function($files) {
+    $rootScope.newAssignment.repoFile = $files[0];
+  };
+
+  $rootScope.toggleAssignmentModal = function() {
+    $('#createAssignmentModal').modal();
+  };
+
 
 }]);
 
