@@ -3,11 +3,13 @@
  */
 
 pandaApp.controller('ProfessorCoursesController', ['$scope', 'currentUser',
-    'User', 'Course', function($scope, currentUser, User, Course) {
+    'User', 'Course', '$rootScope', function($scope, currentUser, User, Course,
+        $rootScope) {
   ($scope.refreshUser = function() {
     var user = User.get({id: currentUser._id, submissions: true,
         assignments: true, courses: true}, function() {
       $scope.user = user;
+      $rootScope.user = $scope.user;
 
       /*
           __,___@
@@ -43,28 +45,7 @@ pandaApp.controller('ProfessorCoursesController', ['$scope', 'currentUser',
       });
     });
   })(); // Init the user as well :) wii
-
-   $scope.newCourse = {
-    name: '',
-    code: '',
-    year: '',
-    semester: ''
-  };
-
-  $scope.createCourse = function(courseInfo) {
-    courseInfo.grader = $scope.user._id;
-    var newCourse = new Course(courseInfo);
-    newCourse.$save();
-    $('#createCourseModal').modal('hide');
-
-    // Refresh data so that the table contains the newly added course.
-    $scope.refreshUser();
-  };
-
-  $scope.toggleCourseModal = function() {
-    // Call the modal just how you do with bootstrap jqueried
-    $('#createCourseModal').modal();
-  };
+  $rootScope.refreshUser = $scope.refreshUser;
 
   $scope.showStudents = [];
   $scope.showAssignments = [];

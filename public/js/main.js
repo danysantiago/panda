@@ -254,7 +254,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   });
 }])
 .run(['authService', '$rootScope', '$location', 'LoginService', 'AssignmentPoster',
-    function(authService, $rootScope, $location, LoginService, AssignmentPoster) {
+    'Course', function(authService, $rootScope, $location, LoginService,
+      AssignmentPoster, Course) {
   // This code runs once at the start of the app.
 
   /**
@@ -385,6 +386,28 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     $('#createAssignmentModal').modal();
   };
 
+  // This is all stuff for adding a course.
+  $rootScope.toggleCourseModal = function() {
+    // Call the modal just how you do with bootstrap jqueried
+    $('#createCourseModal').modal();
+  };
+
+  $rootScope.newCourse = {
+    name: '',
+    code: '',
+    year: '',
+    semester: ''
+  };
+
+  $rootScope.createCourse = function(courseInfo) {
+    courseInfo.grader = $rootScope.user._id;
+    var newCourse = new Course(courseInfo);
+    newCourse.$save();
+    $('#createCourseModal').modal('hide');
+
+    // Refresh data so that the table contains the newly added course.
+    $rootScope.refreshUser();
+  };
 
 }]);
 

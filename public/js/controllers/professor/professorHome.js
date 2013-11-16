@@ -13,6 +13,10 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
         assignments: true, courses: true}, function() {
       $scope.user = user;
 
+      // Setting the rootScope user is important for creating a course. See the
+      // method in main.js
+      $rootScope.user = $scope.user;
+
       // Set the default course when creating a new assignment.
       $scope.newAssignment.Course = user.courses[0];
 
@@ -46,27 +50,4 @@ pandaApp.controller('ProfessorHomeController', ['$scope', 'currentUser', 'User',
   // Add the needed refreshUser function for refreshing after adding a new
   // assignment via the main add assignment modal
   $rootScope.refreshUser = $scope.refreshUser;
-
-  $scope.toggleCourseModal = function() {
-    // Call the modal just how you do with bootstrap jqueried
-    $('#createCourseModal').modal();
-  };
-
-  $scope.newCourse = {
-    name: '',
-    code: '',
-    year: '',
-    semester: ''
-  };
-
-  $scope.createCourse = function(courseInfo) {
-    courseInfo.grader = $scope.user._id;
-    var newCourse = new Course(courseInfo);
-    newCourse.$save();
-    $('#createCourseModal').modal('hide');
-
-    // Refresh data so that the table contains the newly added course.
-    $scope.refreshUser();
-  };
-
 }]);
