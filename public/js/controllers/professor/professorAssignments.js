@@ -4,8 +4,9 @@
 
 pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
     'User', 'Course', 'Assignment', 'formDataObject', '$http', 'AssignmentPoster',
+    '$rootScope',
         function($scope, currentUser, User, Course, Assignment, formDataObject,
-            $http,AssignmentPoster) {
+            $http,AssignmentPoster, $rootScope) {
   $scope.user = {};
 
   // The reason why we are doing this is because we need to refresh the whole
@@ -46,37 +47,7 @@ pandaApp.controller('ProfessorAssignmentsController', ['$scope', 'currentUser',
     });
   })(); // Init the user as well :) wii
 
-  $scope.toggleAssignmentModal = function() {
-    $('#createAssignmentModal').modal();
-  };
-
-  $scope.newAssignment = {
-    name: '',
-    Course: null, // This is first an object, but the post will post the id str
-    shortDescription: '',
-    deadline: '',
-    numOfTries: 0,
-    instructions: null,
-    repoFile: null,
-    singleFile: false,
-    singleFileName: 'Main'
-  };
-
-  $scope.createAssignment = function(assignmentInfo) {
-    $scope.newAssignment.Course = $scope.newAssignment.Course._id;
-    AssignmentPoster.postAssignment(assignmentInfo, function() {
-      $('#createAssignmentModal').modal('hide');
-      $scope.refreshUser();
-    });
-  };
-
-  $scope.onInstructionsFileSelect = function($files) {
-    $scope.newAssignment.instructions = $files[0];
-  };
-
-  $scope.onRepoFileSelect = function($files) {
-    $scope.newAssignment.repoFile = $files[0];
-  };
+  $rootScope.refreshUser = $scope.refreshUser;
 
   var fieldNames = {'name': false, 'courseCode': false, 'creationDate': false,
     'deadline': false, 'numOfTestCases': false, 'totalScore': false,
