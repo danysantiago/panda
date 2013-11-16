@@ -107,7 +107,7 @@
                   <label class="control-label" for="assignmentDeadline">Deadline</label>
 
                   <div id="deadlinePicker" class="input-group date">
-                    <input class="form-control" type="text" readonly="" ng-model="newAssignment.deadline">
+                    <input class="form-control" type="text" readonly="">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ng-click="toggleDatePicker()"></i></span>
                   </div>
 
@@ -212,10 +212,12 @@
                 <!-- Text input-->
                 <div class="form-group">
                   <label class="control-label" for="assignmentDeadline">Deadline</label>
-                  <div class="controls">
-                    <input class="form-control" id="assignmentDeadline" name="assignmentDeadline" placeholder="DD/MM/YYYY" required="" type="text" ng-model="newAssignment.deadline">
-                    
+
+                  <div id="deadlinePicker" class="input-group date">
+                    <input class="form-control" type="text" readonly="">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ng-click="toggleDatePicker()"></i></span>
                   </div>
+
                 </div>
 
                 <!-- Text input-->
