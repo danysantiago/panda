@@ -533,13 +533,72 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   };
 
   $rootScope.createCourse = function(courseInfo) {
+    var errors = {
+      name: false,
+      code: false,
+      year: false,
+      semester: false,
+    };
+
+    if (!courseInfo.name) {
+      errors.name = true;
+    }
+
+    var coursePattern = /[A-Za-z]{4}[0-9]{4}/;
+    if (!courseInfo.code || !courseInfo.code.match(coursePattern)) {
+      errors.code = true;
+    }
+
+    if (!courseInfo.year || !parseInt(courseInfo.year)) {
+      errors.year = true;
+    }
+
+    var semesterPattern = /^fall$|^spring$|^summer$/i;
+    if (!courseInfo.semester || !courseInfo.semester.match(semesterPattern)) {
+      errors.semester = true;
+    }
+
+    var errorMessages = [];
+    for (var errorType in errors) {
+      if (errors[errorType]) {
+        switch (errorType) {
+          case 'name':
+            errorMessages.push('Enter a valid course name.');
+            break;
+          case 'code':
+            errorMessages.push('Enter a 4 letter and 4 digit course code.');
+            break;
+          case 'year':
+            errorMessages.push('Select a valid year.');
+            break;
+          case 'semester':
+            errorMessages.push('Select a valid session.');
+            break;
+          default:
+            break
+        }
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      // We had errors. Display them and abort.
+      $rootScope.showGenericErrorModal('Invalid course information',
+          errorMessages);
+      return;
+    }
+
     courseInfo.grader = $rootScope.user._id;
     var newCourse = new Course(courseInfo);
-    newCourse.$save();
-    $('#createCourseModal').modal('hide');
-
-    // Refresh data so that the table contains the newly added course.
-    $rootScope.refreshUser();
+    newCourse.$save(function() {
+      // success...
+      $('#createCourseModal').modal('hide');
+      // Refresh data so that the table contains the newly added course.
+      $rootScope.refreshUser();
+    }, function() {
+      // Error, something blew up.
+      $rootScope.showGenericErrorModal('Invalid course information',
+        ['Please verify the information you have entered.']);
+    });
   };
 
   // Code for manipulating the generic error modal
