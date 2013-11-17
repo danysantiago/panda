@@ -132,5 +132,8 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
   };
 
   // This is needed so that the new assignment actually binds to this course.
-  $rootScope.newAssignment.Course = course;
+  ($rootScope.setInitialCourse = function() {
+    $rootScope.newAssignment.course = course;
+  })();
+
 }]);

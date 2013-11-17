@@ -352,14 +352,15 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   // actually work. Here it is.
   $rootScope.newAssignment = {
     name: '',
+    course: null,
     Course: null, // This is first an object, but the post will post the id str
-    shortDescription: '',
+    description: '',
     deadline: '',
     numOfTries: 0,
     instructions: null,
     repoFile: null,
     singleFile: false,
-    singleFileName: 'Main'
+    singleFileName: 'Main.java'
   };
 
   // The refresh user function must be defined on the individual controllers.
@@ -375,23 +376,134 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   };
 
   $rootScope.createAssignment = function(assignmentInfo) {
+    var errors = {
+      course: false,
+      name: false,
+      description: false,
+      deadline: false,
+      tries: false,
+      instructionFile: false,
+      singleFileName: false,
+      repoFile: false
+    };
+
     // We need to fill up the Course field correctly.
     // And validate whether the course field has actually been selected or not.
-    $rootScope.newAssignment.Course = $rootScope.newAssignment.Course._id;
+    if (!assignmentInfo.course || !assignmentInfo.course._id) {
+      // Set the fact that the course has an error.
+      errors.course = true;
+    } else {
+      // The course is good :)
+      assignmentInfo.Course = assignmentInfo.course._id;
+    }
 
     if (!$rootScope.datePickerElement) {
       // No date was selected, ever.
-      // TODO(samuel): Show a modal with the errors, do all the validations
-      // necessary.
-      return;
-    };
-
-    $rootScope.newAssignment.deadline =
+      errors.deadline = true;
+    } else {
+      assignmentInfo.deadline =
       $rootScope.datePickerElement.datepicker('getFormattedDate');
+    }
+
+    if (!assignmentInfo.name) {
+      errors.name = true;
+    }
+
+    if (!assignmentInfo.description) {
+      errors.description = true;
+    }
+
+    if (!parseInt(assignmentInfo.numOfTries) || assignmentInfo.numOfTries < 1) {
+      errors.tries = true;
+    }
+
+    if (!assignmentInfo.instructions) {
+      errors.instructionFile = true;
+    }
+
+    if (assignmentInfo.singleFile &&  !assignmentInfo.singleFileName) {
+      errors.singleFileName = true;
+    }
+
+    if (!assignmentInfo.singleFile && !assignmentInfo.repoFile) {
+      errors.repoFile = true;
+    }
+
+    // If there is any errors, then show the error messages and return.
+    var errorMessages = [];
+    for (var errorType in errors) {
+      if (errors[errorType]) {
+        switch(errorType) {
+          case 'course':
+            errorMessages.push("Select a valid course.");
+            break;
+          case 'name':
+            errorMessages.push("Enter a valid name.");
+            break;
+          case 'description':
+            errorMessages.push("Enter a description.");
+            break;
+          case 'deadline':
+            errorMessages.push("Select a deadline date.");
+            break;
+          case 'tries':
+            errorMessages.push("Enter a valid number of tries.");
+            break;
+          case 'instructionFile':
+            errorMessages.push("Select a valid instruction file.");
+            break;
+          case 'singleFileName':
+            errorMessages.push("Enter a valid file name.");
+            break;
+          case 'repoFile':
+            errorMessages.push("Select a valid repository file.");
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      // There were errros. Display them and abort.
+      $rootScope.showGenericErrorModal('Invalid assignment information',
+          errorMessages);
+      return;
+    }
 
     AssignmentPoster.postAssignment(assignmentInfo, function() {
       $('#createAssignmentModal').modal('hide');
       $rootScope.refreshUser();
+
+      // Finally, we need to clear all inputed data.
+      $rootScope.newAssignment = {
+        name: '',
+        course: null,
+        Course: null, // This is first an object, but the post will post the id str
+        description: '',
+        deadline: '',
+        numOfTries: 0,
+        instructions: null,
+        repoFile: null,
+        singleFile: false,
+        singleFileName: 'Main.java'
+      };
+
+      // This is an extremely quick fix for the invalid course in single course
+      // page bug. If a second assignment is created in the individual prof
+      // course page, select a valid course error message appears because in the
+      // expression above we deleted the initial course value of the new
+      // assignment. Oops. Check professorCourse.js
+      if (angular.isDefined($rootScope.setInitialCourse)) {
+        $rootScope.setInitialCourse();
+      }
+
+    }, function() {
+      // Failure for some reason... again, show the error.
+      $rootScope.showGenericErrorModal('Invalid assignment information',
+        ['Please verify your uploaded files are of the supported file types.',
+        'Instructions can be uploaded in PDF files.',
+        'Repository files can be uploaded in .zip files.']);
     });
   };
 
@@ -428,6 +540,28 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
 
     // Refresh data so that the table contains the newly added course.
     $rootScope.refreshUser();
+  };
+
+  // Code for manipulating the generic error modal
+  $rootScope.toggleGenericErrorModal = function() {
+    $('#generic-error-modal').modal();
+  };
+
+  $rootScope.hideGenericErrorModal = function() {
+    $('#generic-error-modal').modal('hide');
+  };
+
+  // Call the generic error modal with some information... the info must be in
+  // the root scope. It supports multiple messages.
+  $rootScope.genericErrorModalInfo = {
+    title: '',
+    messages: []
+  };
+
+  $rootScope.showGenericErrorModal = function(title, messages) {
+    $rootScope.genericErrorModalInfo.title = title;
+    $rootScope.genericErrorModalInfo.messages = messages;
+    $rootScope.toggleGenericErrorModal();
   };
 
 }]);

@@ -79,7 +79,7 @@
                 <div class="form-group">
                   <label class="control-label" for="assignmentCourse">Course</label>
                   <div class="controls" id="createAssignmentModalCourseSelect">
-                    <select id="assignmentCourse" name="assignmentCourse" class="form-control" ng-model="newAssignment.Course" ng-options="course.code + ' - ' + course.name for course in user.courses">
+                    <select id="assignmentCourse" name="assignmentCourse" class="form-control" ng-model="newAssignment.course" ng-options="course.code + ' - ' + course.name for course in user.courses">
                       <!-- <option ng-repeat="course in user.courses">{{course.code}} - {{course.name}}</option> -->
                     </select>
                   </div>
@@ -171,6 +171,8 @@
       </div><!-- /.modal -->
     </script>
 
+  <!-- The difference is that the individual course view does not need to assign
+  a different course. -->
     <script type='text/ng-template' id="createAssignmentModalTemplateCourse">
       <div class="modal fade" id="createAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="createAssignmentModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -332,6 +334,27 @@
       </div>
     </script>
 
+    <!-- a generic error modal -->
+    <script type='text/ng-template' id="genericErrorModalTemplate">
+      <div id="generic-error-modal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">{{genericErrorModalInfo.title}}</h4>
+            </div>
+            <div class="modal-body">
+              <span ng-repeat="message in genericErrorModalInfo.messages">
+                {{message}}<br>
+              </span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="hideGenericErrorModal()">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
     <div ng-view></div>
   </body>
 </html>
