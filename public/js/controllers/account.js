@@ -1,8 +1,8 @@
 /**
  * This is the controller for the account view.
  */
-pandaApp.controller('AccountController', ['$scope', 'currentUser',
-    function($scope, currentUser) {
+pandaApp.controller('AccountController', ['$scope', 'currentUser', 'md5',
+    function($scope, currentUser, md5) {
   $scope.user = currentUser;
   $scope.isProfileVisible = true;
   $scope.isSecurityVisible = false;

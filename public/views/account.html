@@ -1,61 +1,14 @@
 <div class="container">
   <h2>{{user.firstName}} {{user.lastName}} | {{user.email}}</h2>
 
-  <ul class="nav nav-tabs" style="cursor: pointer">
-    <li id="profile-tab" ng-class="{active: isProfileVisible}">
-      <a id="profile-link" ng-click="showProfile()">Profile</a>
-    </li>
-    <li id="security-tab" ng-class="{active: isSecurityVisible}">
-      <a id="security-link" ng-click="showSecurity()">Security</a>
-    </li>
-  </ul>
-
   <br>
 
   <div id="profile" ng-show="isProfileVisible">
     <div class="row">
       <div class="col-md-4">
-        <img src="http://parentpreviews.com/legacy-pics/fantastic_mr_fox.jpg"
-        class="profileImage">
+        <img src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?d=mm&s=500" class="profileImage">
       </div>
       <div class="col-md-8">
-        <p align="justify">
-          This is an extremely lengthy bio. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Integer posuere vehicula nulla, feugiat rhoncus velit
-          ullamcorper eu. Quisque euismod, dolor quis vehicula sollicitudin, odio
-          mauris venenatis orci, in convallis mi tellus eu nibh. Cras semper metus
-          arcu. Aliquam sodales scelerisque mi, at rhoncus justo vestibulum a. In
-          varius adipiscing ante ut tempor. Vestibulum vel faucibus libero, nec consectetur
-          dui. Pellentesque dapibus eleifend sodales.
-        </p>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-4">
-        <a href="http://www.github.com">
-          <img src="http://blog.nicoversity.com/wp-content/images/network_badge_github@2x.png"
-          class="badgeImage">
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="http://www.linkedin.com">
-          <img src="http://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
-          class="badgeImage">
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="http://www.facebook.com">
-          <img src="http://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg"
-          class="badgeImage">
-        </a>
-      </div>
-    </div>
-    <!-- end profile -->
-  </div>
-  <div id="security" ng-show="isSecurityVisible">
-    <div class="row">
-      <div class="col-md-4">
         <form>
           <h3>Change Password</h3>
            <div class="form-group">
@@ -76,15 +29,11 @@
             </label>
             <input type="password" class="form-control" id="passwordInput2" placeholder="Retype Password">
           </div>
-          <button type="submit" class="btn btn-primary">Change</Button>
+          <button type="submit" class="btn btn-primary">Change</button>
         </form>
       </div>
-      <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
     </div>
-    <hr>
-    </div>
-    <!-- end security -->
   </div>
-  <!-- end container -->
+  <!-- end profile -->
 </div>
+  <!-- end container -->
