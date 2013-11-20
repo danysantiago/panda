@@ -371,7 +371,6 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   $rootScope.toggleDatePicker = function() {
     $rootScope.datePickerElement = $('#deadlinePicker').datepicker({
       format: 'mm/dd/yyyy',
-      startDate: 'today'
     });
   };
 
@@ -403,9 +402,15 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     } else {
       assignmentInfo.deadline =
       $rootScope.datePickerElement.datepicker('getFormattedDate');
+
+      var today = new Date((new Date()).toLocaleDateString());
+      if (!assignmentInfo.deadline ||
+          (new Date(assignmentInfo.deadline)) < today) {
+        errors.deadline = true;
+      }
     }
 
-    if (!assignmentInfo.name) {
+    if (!assignmentInfo.name || !assignmentInfo.name.match(/^[a-zA-Z0-9 ]+$/)) {
       errors.name = true;
     }
 
@@ -435,28 +440,29 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       if (errors[errorType]) {
         switch(errorType) {
           case 'course':
-            errorMessages.push("Select a valid course.");
+            errorMessages.push('Select a valid course.');
             break;
           case 'name':
-            errorMessages.push("Enter a valid name.");
+            errorMessages.push('Enter a valid name (i.e. only letters, ' +
+                'numbers and spaces.');
             break;
           case 'description':
-            errorMessages.push("Enter a description.");
+            errorMessages.push('Enter a description.');
             break;
           case 'deadline':
-            errorMessages.push("Select a deadline date.");
+            errorMessages.push('Enter a valid deadline date.');
             break;
           case 'tries':
-            errorMessages.push("Enter a valid number of tries.");
+            errorMessages.push('Enter a valid number of tries.');
             break;
           case 'instructionFile':
-            errorMessages.push("Select a valid instruction file.");
+            errorMessages.push('Select a valid instruction file.');
             break;
           case 'singleFileName':
-            errorMessages.push("Enter a valid file name.");
+            errorMessages.push('Enter a valid file name.');
             break;
           case 'repoFile':
-            errorMessages.push("Select a valid repository file.");
+            errorMessages.push('Select a valid repository file.');
             break;
           default:
             break;
