@@ -14,6 +14,9 @@
     <li id="repo-tab" ng-class="{active: repositoryTab}">
       <a id="repo-link" ng-click="showTab('repositoryTab')">Repository</a>
     </li>
+    <li id="cont-tab" ng-class="{active: contactTab}">
+      <a id="cont-link" ng-click="showTab('contactTab')">Contact</a>
+    </li>
   </ul>
 
   <div class="row">
@@ -108,6 +111,20 @@
         </div>
       </div>
       <!--end of repository-->
+      <!--contact-->
+      <div id="cont" ng-show="contactTab">
+        <div class="row">
+          <div class="col-md-9">
+            <h3>
+              Contact Professor
+            </h3>
+            <textarea class="form-control" id="focusedInput" rows="3" type="text"></textarea>
+            <br>
+            <button type="button" class="btn btn-primary pull-right" ng-click="sendEmail()">Send</button>
+          </div>
+        </div>
+      </div>
+      <!--end of contact-->
     </div>
     <div class="col-md-3 centered-div">
       <h4> Due Date </h4>

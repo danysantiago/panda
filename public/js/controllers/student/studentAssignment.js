@@ -64,8 +64,9 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   $scope.infoTab = true;
   $scope.submissionsTab = false;
   $scope.repositoryTab = false;
+  $scope.contactTab = false;
 
-  var tabNames = ['infoTab', 'submissionsTab', 'repositoryTab'];
+  var tabNames = ['infoTab', 'submissionsTab', 'repositoryTab', 'contactTab'];
 
   $scope.showTab = function (view) {
     tabNames.forEach(function (tabName) {
@@ -83,6 +84,24 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
 
   $scope.toggleSubmitModal = function() {
     $('#submit-modal').modal();
+  };
+  
+  $scope.sendEmail = function() {
+  	//send email
+  	/*
+  	var sendgrid = require('sendgrid')('elbuo', '050505');
+
+  	var params = {
+  		to: 'profesor email',
+  		from: currentUser._email,
+  		fromname: currentUser._firstName + ' ' + currentUser._lastName,
+  		subject: 'Question about ' + assignment._name,
+  		text: 'text from textarea'
+  	} 
+
+  	sendgrid.send(params, function(err, json) {
+		});
+*/
   };
 
   $scope.submitAssignment = function() {
