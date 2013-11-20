@@ -17,4 +17,11 @@ pandaApp.controller('AccountController', ['$scope', 'currentUser',
     $scope.isSecurityVisible = true;
   };
 
+  $scope.getImage = function() {
+  	//TODO(samuel): fix this
+  	var crypto = require('crypto');
+		var hash = crypto.createHash('md5').update(currentUser._email.toLowerCase()).digest('hex');
+  	return 'http://www.gravatar.com/avatar/' + hash + '?d=mm';
+  };
+
 }]);
