@@ -239,4 +239,33 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     });
   };
 
+  var testCaseIdToRemove = null;
+
+  $scope.removeTestCase = function() {
+    if (!testCaseIdToRemove) {
+      // User tried to access this function by other means.
+      return;
+    }
+
+    var testCaseId = testCaseIdToRemove;
+    var url = '/api/assignments/' + assignment._id + '/test/' + testCaseId;
+    $http.delete(url).success(function() {
+      refreshUser();
+      $('#removeTestCaseModal').modal('hide');
+    }).error(function() {
+      // Woah
+      $rootScope.showGenericErrorModal('Test case could not be removed.');
+    });
+  };
+
+  $scope.toggleRemoveTestCaseModal = function(testCaseId) {
+    testCaseIdToRemove = testCaseId;
+    $('#removeTestCaseModal').modal();
+  };
+
+  $scope.cancelRemoveTestCase = function() {
+    testCaseIdToRemove = null;
+    $('#removeTestCaseModal').modal('hide');
+  };
+
 }]);

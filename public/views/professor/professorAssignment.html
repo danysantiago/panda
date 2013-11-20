@@ -138,7 +138,7 @@
                   </h3>
                 </div>
                 <div class="col-md-2">
-                  <button class="btn btn-default">
+                  <button class="btn btn-default" ng-click="toggleRemoveTestCaseModal(testCase._id)">
                     Remove <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </div>
@@ -387,5 +387,25 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="removeTestCaseModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Remove Test Case</h4>
+      </div>
+      <div class="modal-body">
+        <span>
+          Are you sure you want to remove this test case?<br>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="removeTestCase()">OK</button>
+        <button type="button" class="btn btn-primary" ng-click="cancelRemoveTestCase()">Do Not Remove</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <ng-include src="'genericErrorModalTemplate'"></ng-include>
