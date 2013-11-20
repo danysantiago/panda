@@ -1,8 +1,8 @@
 /**
  * This is the controller for the account view.
  */
-pandaApp.controller('AccountController', ['$scope', 'currentUser',
-    function($scope, currentUser) {
+pandaApp.controller('AccountController', ['$scope', 'currentUser', 'md5',
+    function($scope, currentUser, md5) {
   $scope.user = currentUser;
   $scope.isProfileVisible = true;
   $scope.isSecurityVisible = false;
@@ -18,9 +18,7 @@ pandaApp.controller('AccountController', ['$scope', 'currentUser',
   };
 
   $scope.getImage = function() {
-  	//TODO(samuel): fix this
-  	var crypto = require('crypto');
-		var hash = crypto.createHash('md5').update(currentUser._email.toLowerCase()).digest('hex');
+  	var hash = createHash(currentUser.email.toLowerCase() || '');
   	return 'http://www.gravatar.com/avatar/' + hash + '?d=mm';
   };
 
