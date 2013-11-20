@@ -3,60 +3,71 @@
  */
 
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
-    'assignment', function($scope, currentUser, $http, assignment) {
+    'assignment', '$rootScope', 'Assignment', function($scope, currentUser, $http,
+        assignment, $rootScope, Assignment) {
   $scope.assignment = assignment;
   $scope.user = currentUser;
 
   // Filter the submissions of this assignment. We only need this particular
   // student's submissions.
-  assignment.submissions = assignment.submissions.filter(function(submission) {
-    return submission.user._id === currentUser._id;
-  });
+  ($scope.refreshAssignment = function() {
+    assignment = Assignment.get({id: assignment._id, submissions: true},
+        function() {
+      // Getting the assignment succeeded
+      assignment.submissions = assignment.submissions.filter(function(submission) {
+        return submission.user._id === currentUser._id;
+      });
 
-  // Determine the student's score in the assignment and also each of the
-  // submission's totalTime.
-  var studentScore = 0;
-  assignment.submissions.forEach(function(submission) {
-    studentScore += submission.score;
+      // Determine the student's score in the assignment and also each of the
+      // submission's totalTime.
+      var studentScore = 0;
+      assignment.submissions.forEach(function(submission) {
+        studentScore += submission.score;
 
-    var submissionCpuTime = 0.0;
-    // Failed submissions have no tests.
-    if (submission.tests) {
-      submission.tests.forEach(function(test) {
-        // The submission might have tests, but the tests might not have
-        // results -___-
-        if (test.result) {
-          submissionCpuTime += parseFloat(test.result['cpu usage']);
+        var submissionCpuTime = 0.0;
+        // Failed submissions have no tests.
+        if (submission.tests) {
+          submission.tests.forEach(function(test) {
+            // The submission might have tests, but the tests might not have
+            // results -___-
+            if (test.result) {
+              submissionCpuTime += parseFloat(test.result['cpu usage']);
+            }
+          });
+        }
+        submission.cpuTime = submissionCpuTime + ' seconds';
+      });
+
+      // Sort submissions by date.
+      assignment.submissions.sort(function(a, b) {
+        if (a.submitDate > b.submitDate) {
+          return -1;
+        } else if (a.submitDate < b.submitDate) {
+          return 1;
+        } else {
+          // A student shouldn't have two submissions at the same time, but it is
+          // a possibility.
+          return 0;
         }
       });
-    }
-    submission.cpuTime = submissionCpuTime + ' seconds';
-  });
 
-  // Sort submissions by date.
-  assignment.submissions.sort(function(a, b) {
-    if (a.submitDate > b.submitDate) {
-      return -1;
-    } else if (a.submitDate < b.submitDate) {
-      return 1;
-    } else {
-      // A student shouldn't have two submissions at the same time, but it is
-      // a possibility.
-      return 0;
-    }
-  });
+      // Add the last submission date
+      if (assignment.submissions.length === 0) {
+        $scope.noSubmissions = true;
+      } else {
+        assignment.lastSubmissionDate = assignment.submissions[0].submitDate;
+      }
 
-  // Add the last submission date
-  if (assignment.submissions.length === 0) {
-    $scope.noSubmissions = true;
-  } else {
-    assignment.lastSubmissionDate = assignment.submissions[0].submitDate;
-  }
+      $scope.scores = {
+        totalScore: assignment.totalScore,
+        studentScore: studentScore
+      };
+      
+    }, function() {
+      // error getting the assignment... We should blow up now.
+    });
 
-  $scope.scores = {
-    totalScore: assignment.totalScore,
-    studentScore: studentScore
-  };
+  })();
 
   $scope.isDefined = angular.isDefined;
 
@@ -83,7 +94,13 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   };
 
   $scope.toggleSubmitModal = function() {
-    $('#submit-modal').modal();
+    if (assignment.submissions.length >= assignment.numOfTries) {
+      $rootScope.showGenericErrorModal('Submission Error',
+          ['You have exceeded the number of tries for this assignment.']);
+      return;
+    } else {  
+      $('#submit-modal').modal();
+    }
   };
   
   $scope.sendEmail = function() {
@@ -101,10 +118,16 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
 
   	sendgrid.send(params, function(err, json) {
 		});
-*/
+    */
   };
 
   $scope.submitAssignment = function() {
+    if (assignment.submissions.length >= assignment.numOfTries) {
+      $rootScope.showGenericErrorModal('Submission Error',
+          ['You have exceeded the number of tries for this assignment.']);
+      return;
+    }
+
     $http.post('/api/submissions', {
         User: currentUser._id, Assignment: assignment._id}
     ).success(function() {
