@@ -3,10 +3,21 @@
  */
 
 pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
-    'assignment', '$http', 'formDataObject', function($scope, currentUser,
-        assignment, $http, formDataObject) {
+    'assignment', '$http', 'formDataObject', 'Assignment', '$rootScope',
+        function($scope, currentUser, assignment, $http, formDataObject,
+            Assignment, $rootScope) {
   $scope.assignment = assignment;
   $scope.isDefined = angular.isDefined;
+
+  var refreshUser = function() {
+    // Actually, refresh assignment
+    $scope.assignment = Assignment.get({id: assignment._id, submissions: true},
+        function() {
+      // success
+      }, function() {
+      // error
+    });
+  };
 
   assignment.submissions.forEach(function(submission) {
     // Failed submissions have no tests.
@@ -18,8 +29,6 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }
     submission.cpuTime = submissionCpuTime + ' seconds';
   });
-  
-  $scope.testCaseType = 'I/O';
 
   $scope.toggleTestCaseModal = function() {
     $('#addTestCaseModal').modal();
@@ -86,7 +95,8 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     testerFile: null,
     timeLimit: 5,
     memLimit: 1024,
-    score: 0
+    score: 0,
+    type: 'I/O'
   };
 
   $scope.onTestOutputFileSelect = function($files) {
@@ -113,16 +123,90 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }
   };
 
-  $scope.createTestCase = function() {
-    var newTestCase = $scope.newTestCase;
+  $scope.createTestCase = function(newTestCase) {
+    var errors = {
+      score: false,
+      timeLimit: false,
+      memoryLimit: false,
+      testInput: false,
+      testOutput: false,
+      testerFile: false
+    };
+
+    // All validation checks.
+    if (!parseInt(newTestCase.score) || parseInt(newTestCase.score) < 1) {
+      errors.score = true;
+    }
+
+    if (!parseInt(newTestCase.timeLimit) ||
+        parseInt(newTestCase.timeLimit) < 1) {
+      errors.timeLimit = true;
+    }
+
+    if (!parseInt(newTestCase.memLimit) || parseInt(newTestCase.memLimit) < 1) {
+      errors.memoryLimit = true;
+    }
+
+    if (newTestCase.type === 'I/O' && (
+        newTestCase.testInputFile === null && !newTestCase.testInputText)) {
+      errors.testInput = true;
+    }
+
+    if (newTestCase.testOutputFile === null && !newTestCase.testOutputText) {
+      errors.testOutput = true;
+    }
+
+    if (newTestCase.type === 'Exec' && newTestCase.testerFile === null) {
+      errors.testerFile = true;
+    }
+
+    // End validation checks...
+    // Now throw errors in case.
+    var errorMessages = [];
+    for (var errorType in errors) {
+      if (errors[errorType]) {
+        switch (errorType) {
+          case 'score':
+            errorMessages.push('Enter a valid score.');
+            break;
+          case 'timeLimit':
+            errorMessages.push('Enter a valid time limit.');
+            break;
+          case 'memoryLimit':
+            errorMessages.push('Enter a valid memory limit.');
+            break;
+          case 'testInput':
+            errorMessages.push('Enter either a valid input file or valid ' +
+                'input text.');
+            break;
+          case 'testOutput':
+            errorMessages.push('Enter either a valid output file or valid ' +
+                'ouput text.');
+            break;
+          case 'testerFile':
+            errorMessages.push('Enter a valid tester file.');
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      // We had errors. Display them and abort.
+      $rootScope.showGenericErrorModal('Invalid test case information',
+          errorMessages);
+      return;
+    }
+
     var postTestCase = {};
-    if ($scope.newTestCase.testInputFile === null) {
+    if (newTestCase.testInputFile === null) {
       postTestCase.testInput = newTestCase.testInputText;
     } else {
       postTestCase.testInput = newTestCase.testInputFile;
     }
 
-    if ($scope.newTestCase.testOutputFile === null) {
+    if (newTestCase.testOutputFile === null) {
       postTestCase.testOutput = newTestCase.testOutputText;
     } else {
       postTestCase.testOutput = newTestCase.testOutputFile;
@@ -143,8 +227,15 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
       transformRequest: formDataObject
     }).success(function() {
       $('#addTestCaseModal').modal('hide');
+
+      // refresh this here.
+      refreshUser();
     }).error(function() {
       // Oh noes
+      $rootScope.showGenericErrorModal('Invalid test case information',
+        ['Please verify your uploaded files are of the supported file types.',
+        'Input and output files can be uploaded in plaintext files.',
+        'Tester file can be uploaded in .java.']);
     });
   };
 

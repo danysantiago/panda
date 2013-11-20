@@ -418,7 +418,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       errors.description = true;
     }
 
-    if (!parseInt(assignmentInfo.numOfTries) || assignmentInfo.numOfTries < 1) {
+    if (!parseInt(assignmentInfo.numOfTries) ||
+        parseInt(assignmentInfo.numOfTries) < 1) {
       errors.tries = true;
     }
 
