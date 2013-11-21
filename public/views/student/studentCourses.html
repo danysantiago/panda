@@ -81,11 +81,11 @@
               Year
             </th>
           </tr>
-          <tr ng-repeat="course in courses | filterByAttributes:q:['code', 'name', 'semester', 'year'] | removeEnrolledCourses:user.courses">
+          <tr ng-repeat="course in courses | filterByAttributes:q:['code', 'name', 'semester', 'year', 'graderName'] | removeEnrolledCourses:user.courses">
             <td><input type="radio" name="foo" ng-model="studentEnroll.enrollCourseId" value="{{course._id}}"></td>
             <td>{{course.code}}</td>
             <td>{{course.name}}</td>
-            <td><!-- aqui va el nombre del profe --></td>
+            <td>{{course.graderName}}</td>
             <td>{{course.semester}}</td>
             <td>{{course.year}}</td>
           </tr>
