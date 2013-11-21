@@ -10,10 +10,12 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
 
   // Filter the submissions of this assignment. We only need this particular
   // student's submissions.
-  ($scope.refreshAssignment = function() {
-    assignment = Assignment.get({id: assignment._id, submissions: true},
+  var refreshAssignment;
+  (refreshAssignment = function() {
+    $scope.assignment = Assignment.get({id: assignment._id, submissions: true},
         function() {
       // Getting the assignment succeeded
+      var assignment = $scope.assignment;
       assignment.submissions = assignment.submissions.filter(function(submission) {
         return submission.user._id === currentUser._id;
       });
@@ -62,7 +64,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
         totalScore: assignment.totalScore,
         studentScore: studentScore
       };
-      
+
     }, function() {
       // error getting the assignment... We should blow up now.
     });
@@ -90,7 +92,13 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   };
 
   $scope.formatName = function(name) {
-    return name.replace(/\s/g, '').toLowerCase();
+    // Since the interpolator calls format name when the name of the assignment
+    // still hasn't been populated, these checks are necessary.
+    if (angular.isDefined(name) && angular.isDefined(name.replace)) {
+      return name.replace(/\s/g, '').toLowerCase();
+    } else {
+      return '';
+    }
   };
 
   $scope.toggleSubmitModal = function() {
@@ -132,6 +140,9 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
         User: currentUser._id, Assignment: assignment._id}
     ).success(function() {
       $('#submit-modal').modal('hide');
+      // This is not refreshing the submissions because the submissions are not
+      // immediately populated. Some magic with sockets.io will be needed.
+      refreshAssignment();
     }).error(function() {
       // Oh noes.
     });
