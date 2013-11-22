@@ -28,7 +28,7 @@
     "passport-local": "~0.1.6",
     "revalidator": "~0.1.5",
     "request": "~2.27.0",
-    "sendgrid": "~0.4.2",
+    "sendgrid": "~0.4.4",
     "gridfs-stream": "~0.4.0",
     "socket.io": "~0.9.16"
   },
