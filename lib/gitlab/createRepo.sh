@@ -33,7 +33,7 @@ git commit -m 'Initial commit' #make initial commit
 git remote add origin http://$2:$3@pandagitlab.sytes.net/$4/$1.git #add origin to repository
 
 #SUPER SKETCHY VALUE
-sleep 5 #Wait 5 seconds for propagation
+sleep 10 #Wait 10 seconds for propagation
 
 git push origin master #push to master
  
