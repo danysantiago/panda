@@ -83,11 +83,11 @@
           </tr>
           <tr ng-repeat="course in courses | filterByAttributes:q:['code', 'name', 'semester', 'year', 'graderName'] | removeEnrolledCourses:user.courses">
             <td><input type="radio" name="foo" ng-model="studentEnroll.enrollCourseId" value="{{course._id}}"></td>
-            <td>{{course.code}}</td>
-            <td>{{course.name}}</td>
-            <td>{{course.graderName}}</td>
-            <td>{{course.semester}}</td>
-            <td>{{course.year}}</td>
+            <td ng-click="studentEnroll.enrollCourseId = course._id">{{course.code}}</td>
+            <td ng-click="studentEnroll.enrollCourseId = course._id">{{course.name}}</td>
+            <td ng-click="studentEnroll.enrollCourseId = course._id">{{course.graderName}}</td>
+            <td ng-click="studentEnroll.enrollCourseId = course._id">{{course.semester}}</td>
+            <td ng-click="studentEnroll.enrollCourseId = course._id">{{course.year}}</td>
           </tr>
           </tbody>
         </table>
