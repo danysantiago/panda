@@ -138,7 +138,7 @@
                   </h3>
                 </div>
                 <div class="col-md-2">
-                  <button class="btn btn-default">
+                  <button class="btn btn-default" ng-click="toggleRemoveTestCaseModal(testCase._id)">
                     Remove <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </div>
@@ -217,7 +217,7 @@
 
       <br>
       <h4>Submissions</h4>
-      <h5>???</h5>
+      <h5>{{assignment.submissions.length}}</h5>
 
       <br>
       <h4>Available Tries</h4>
@@ -253,13 +253,13 @@
           <label class="control-label" for="testType">Type</label>
           <div class="radio">
             <label>
-              <input type="radio" name="optionsRadios" id="option1" value="I/O" ng-model="testCaseType">
+              <input type="radio" name="optionsRadios" id="option1" value="I/O" ng-model="newTestCase.type">
               Input / Output (I/O)
             </label>
           </div>
           <div class="radio">
             <label>
-              <input type="radio" name="optionsRadios" id="option2" value="Exec" ng-model="testCaseType">
+              <input type="radio" name="optionsRadios" id="option2" value="Exec" ng-model="newTestCase.type">
               Executable (Exec)
             </label>
           </div>      
@@ -284,7 +284,7 @@
         </div>
 
         <!-- I/O Type -->
-        <div ng-show="testCaseType === 'I/O'">
+        <div ng-show="newTestCase.type === 'I/O'">
           <div class="form-group">
             <label class="control-label" for="testInput">Test Input</label>
             <div class="controls">
@@ -295,7 +295,7 @@
         </div>
 
         <!-- Exec Type -->
-        <div ng-hide="testCaseType === 'I/O'">
+        <div ng-hide="newTestCase.type === 'I/O'">
           <div class="form-group">
             <label class="control-label" for="testInput">Tester File</label>
             <div class="controls">
@@ -316,7 +316,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="createTestCase()">Create</button>
+        <button type="button" class="btn btn-primary" ng-click="createTestCase(newTestCase)">Create</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -387,3 +387,25 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="removeTestCaseModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Remove Test Case</h4>
+      </div>
+      <div class="modal-body">
+        <span>
+          Are you sure you want to remove this test case?<br>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="cancelRemoveTestCase()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="removeTestCase()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-include src="'genericErrorModalTemplate'"></ng-include>

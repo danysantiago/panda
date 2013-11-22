@@ -25,4 +25,24 @@ pandaApp.controller('CourseController', ['$scope', 'currentUser', 'course',
 
   $scope.scores = {totalScore: totalScore, studentScore: studentScore};
 
+  // For ordering the assignments in the course page.
+  var fieldNames = {'name': false, 'creationDate': false, 'deadline': false,
+      'numOfTestCases': false, 'totalScore': false, 'numOfSubmissions': false
+  };
+
+  $scope.predicate = 'name';
+  $scope.reverseOrder = fieldNames[$scope.predicate];
+
+  $scope.toggleOrder = function(field) {
+    Object.keys(fieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.predicate = field;
+        fieldNames[field] = !fieldNames[field];
+        $scope.reverseOrder = fieldNames[field];
+      } else {
+        fieldNames[fieldName] = false;
+      }
+    });
+  };
+
 }]);

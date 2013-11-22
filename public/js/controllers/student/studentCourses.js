@@ -10,6 +10,16 @@ pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
   $scope.user = {};
   $scope.courses = courses;
 
+  // add a value course.graderName
+  courses.forEach(function(course) {
+    course.graderName = '';
+    var grader = User.get({id: course.Graders[0].id}, function() {
+      course.graderName = grader.firstName + ' ' + grader.lastName;
+    }, function() {
+      course.graderName = 'Ghost Professor';
+    });
+  });
+
   ($scope.refreshUser = function() {
     var user = User.get({id: currentUser._id, submissions: true,
         assignments: true, courses: true}, function() {
@@ -35,6 +45,9 @@ pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
 
           // Concat == flatten.
           assignments = assignments.concat(course.assignments);
+
+          // Note: courses that are already enrolled don't really need a
+          // grader name.
 
           // Add the course (that includes the assignments) in the courses array
           courses.push(course);

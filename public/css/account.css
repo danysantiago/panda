@@ -18,3 +18,14 @@ body {
 .p-ssh {
   word-wrap: break-word;
 }
+
+.media
+{
+  /*box-shadow:0px 0px 4px -2px #000;*/
+  margin: 20px 0;
+  padding:30px;
+}
+.dp
+{
+  border:10px solid #eee;
+}

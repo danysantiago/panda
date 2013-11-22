@@ -41,26 +41,43 @@
       <table class="table table-bordered table-hover text-center">
         <tbody>
         <tr>
-          <th class="text-center"> Name
-            <span class="glyphicon glyphicon-chevron-down"></span>
+          <th class="text-center" ng-click="toggleOrder('name')"> Name
+            <span ng-show="predicate === 'name'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
           </th>
-          <th class="text-center"> Creation Date
-             <span class="glyphicon glyphicon-chevron-up"></span>
+          <th class="text-center" ng-click="toggleOrder('creationDate')"> Creation Date
+             <span ng-show="predicate === 'creationDate'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
           </th>
-          <th class="text-center"> Due Date
-             <span class="glyphicon glyphicon-chevron-up"></span>
+          <th class="text-center" ng-click="toggleOrder('deadline')"> Due Date
+             <span ng-show="predicate === 'deadline'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
           </th>
-          <th class="text-center"> Test Cases
-             <span class="glyphicon glyphicon-chevron-up"></span>
+          <th class="text-center" ng-click="toggleOrder('numOfTestCases')"> Test Cases
+             <span ng-show="predicate === 'numOfTestCases'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
           </th>
-          <th class="text-center"> Total Score
-             <span class="glyphicon glyphicon-chevron-up"></span>
+          <th class="text-center" ng-click="toggleOrder('totalScore')"> Total Score
+             <span ng-show="predicate === 'totalScore'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
           </th>
-          <th class="text-center"> Submissions
-             <span class="glyphicon glyphicon-chevron-up"></span>
+          <th class="text-center" ng-click="toggleOrder('numOfSubmissions')"> Submissions
+             <span ng-show="predicate === 'numOfSubmissions'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
           </th>
         </tr>
-        <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline']">
+        <tr ng-repeat="assignment in course.assignments | filterByAttributes:qa:['name', 'creationDate', 'deadline'] | orderBy:predicate:reverseOrder">
           <td><a href="/#/s/assignment/{{assignment._id}}">{{assignment.name}}</a></td>
           <td>{{assignment.creationDate | filterDateTime}}</td>
           <td>{{assignment.deadline}}</td>
