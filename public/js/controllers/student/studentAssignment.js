@@ -37,7 +37,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       // submission's totalTime.
       var studentScore = 0;
       assignment.submissions.forEach(function(submission) {
-        studentScore += submission.score;
+        //studentScore += submission.score;
 
         var submissionElapsedTime = 0.0;
         // Failed submissions have no tests.
@@ -75,7 +75,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
 
       $scope.scores = {
         totalScore: assignment.totalScore,
-        studentScore: studentScore
+        studentScore: assignment.submissions[0].score || 0
       };
 
     }, function() {
@@ -205,7 +205,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
 
   $scope.codeQuality = '';
   $scope.showQuality = function(submission) {
-    $scope.codeQualiuty = submission.quality;
+    $scope.codeQuality = submission.quality;
     $('#qualityModal').modal();
 
   };
