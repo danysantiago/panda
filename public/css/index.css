@@ -55,10 +55,13 @@ color: #428bca;
 }
 
 .padded {
-	padding-top: 20%;
-	padding-bottom: 20%;
+	 margin: auto;
+  position: relative;
+  top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .padded2 {
-	padding-bottom: 20%;
+  margin: auto;
+  position: relative;
+  top: 0; left: 0; bottom: 0; right: 0;padding-bottom: 20%;
 }
