@@ -5,6 +5,7 @@
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     'assignment', '$rootScope', 'Assignment', 'Course', function($scope,
         currentUser, $http,assignment, $rootScope, Assignment, Course) {
+  var injectedAssignment = assignment;
   $scope.assignment = assignment;
   $scope.user = currentUser;
 
@@ -12,10 +13,10 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   // student's submissions.
   var refreshAssignment;
   (refreshAssignment = function() {
-    $scope.assignment = Assignment.get({id: assignment._id, submissions: true},
+    var assignment = Assignment.get({id: injectedAssignment._id, submissions: true},
         function() {
       // Getting the assignment succeeded
-      var assignment = $scope.assignment;
+      $scope.assignment = assignment;
       
       $scope.user.repoId = '';
       if (currentUser.Repositories) {
@@ -82,6 +83,10 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     });
 
   })();
+
+  $scope.refreshSubmissions = function() {
+    refreshAssignment();
+  };
 
   $scope.isDefined = angular.isDefined;
 
