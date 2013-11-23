@@ -1,10 +1,10 @@
 [
   {
     "_id": 0,
-    "email": "samuel.rodriguez8@upr.edu",
+    "email": "pedro.rivera@upr.edu",
     "password": "12345",
-    "firstName": "Samuel",
-    "lastName": "Rodriguez",
+    "firstName": "Pedro",
+    "lastName": "Rivera",
     "role": "Student",
     "deleted": false,
     "Repositories": [
@@ -109,10 +109,10 @@
 
   {
     "_id": 5,
-    "email": "pedro.rivera@upr.edu",
+    "email": "samuel.rodriguez8@upr.edu",
     "password": "12345",
-    "firstName": "Pedro",
-    "lastName": "Rivera",
+    "firstName": "Samuel",
+    "lastName": "Rodriguez",
     "role": "Professor",
     "deleted": false,
     "Repositories": []
