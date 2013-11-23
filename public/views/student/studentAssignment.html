@@ -99,17 +99,31 @@
             </h3>
             <input class="form-control" id="disabledInput" type="text" value="{{getRepositoryLink()}}" disabled>
           </div>
-          <hr>
+          <div class="col-md-3"></div>
         </div>
         <hr>
         <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Instructions
-            </h3>
-            <p>
-              Check <a href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository" target="_blank">this website</a> to learn how to work with your repository.
-            </p>
+          <div class="col-md-12">
+            <!-- code for the repository thingy. -->
+            <button type="button" class="btn btn-primary" ng-click="back()">Back</button><br><br>
+
+            <ol class="breadcrumb">
+              <li ng-repeat="item in dirStack" ng-class="{'active': $last}">{{item}}</li>
+            </ol>
+
+            <div ng-hide="isShowingFile">
+              <ul>
+                <li ng-repeat="item in currentTree">
+                  <span ng-click="navigate(item)">{{item.name}}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div ng-show="isShowingFile">
+              <pre id="codeBlock"></pre>
+            </div>
+
+
           </div>
         </div>
       </div>
