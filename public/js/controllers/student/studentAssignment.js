@@ -8,6 +8,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   var injectedAssignment = assignment;
   $scope.assignment = assignment;
   $scope.user = currentUser;
+  $scope.studentCanSubmit = true;
 
   // Filter the submissions of this assignment. We only need this particular
   // student's submissions.
@@ -78,10 +79,16 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
         studentScore: assignment.submissions[0].score || 0
       };
 
+      var todaysDate = new Date();
+      $scope.studentCanSubmit =
+          assignment.submissions.length < assignment.numOfTries
+              && new Date(assignment.deadline) > todaysDate
+
     }, function() {
       // error getting the assignment... We should blow up now.
     });
 
+    
   })();
 
   $scope.refreshSubmissions = function() {
@@ -191,6 +198,13 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       return;
     }
 
+    var todaysDate = new Date();
+    if (new Date(assignment.deadline) < todaysDate) {
+      $rootScope.showGenericErrorModal('Submission Error',
+          ['The assignment is overdue.']);
+      return;
+    }
+
     $http.post('/api/submissions', {
         User: currentUser._id, Assignment: assignment._id}
     ).success(function() {
@@ -213,5 +227,4 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   $scope.closeQualityModal = function() {
     $('#qualityModal').modal('hide');
   };
-
 }]);
