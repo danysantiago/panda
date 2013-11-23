@@ -203,4 +203,15 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     });
   };
 
+  $scope.codeQuality = '';
+  $scope.showQuality = function(submission) {
+    $scope.codeQualiuty = submission.quality;
+    $('#qualityModal').modal();
+
+  };
+
+  $scope.closeQualityModal = function() {
+    $('#qualityModal').modal('hide');
+  };
+
 }]);
