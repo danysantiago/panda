@@ -92,7 +92,7 @@
                   <td>{{submission.submitDate | filterDateTime}}</td>
                   <td ng-class="{success:submission.finalVerdict === 'Accepted', danger:submission.finalVerdict === 'Wrong Answer' || submission.finalVerdict === 'Compile Error'}">{{submission.finalVerdict}}</td>
                   <td>{{submission.elapsedTime}}</td>
-                  <td>{{submission.score}}</td>
+                  <td ng-class="{warning:submission.scoreOverridden === true}">{{submission.score}}</td>
                 </tr>
             </table>
           </div>
