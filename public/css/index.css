@@ -55,6 +55,7 @@ color: #428bca;
 }
 
 .padded {
+  padding-top: 100px;
 	 margin: auto;
   position: relative;
   top: 0; left: 0; bottom: 0; right: 0;
