@@ -6,12 +6,14 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link id="mainCss" href="css/index.css" rel="stylesheet">
     <link href="css/datepicker.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
     <script src="./js/datepicker.js"></script>
     <script src="./js/lib/angular-file-upload.js"></script>
     <script src="./js/lib/angular-md5.js"></script>
@@ -356,6 +358,29 @@
         </div>
       </div>
     </script>
+
+    <script type='text/ng-template' id="sourceCodeViewerTemplate">
+      <button type="button" class="btn btn-primary" ng-click="back()">Back</button><br><br>
+      <ol class="breadcrumb">
+        <li ng-show="dirStack.length === 0" class="active">/</li>
+        <li ng-repeat="item in dirStack" ng-class="{'active': $last}">{{item}}</li>
+      </ol>
+
+      <div ng-hide="isShowingFile">
+        <ul>
+          <li ng-repeat="item in currentTree">
+            <span class="glyphicon glyphicon-folder-close" ng-show="item.type === 'tree'"></span>
+            <span class="glyphicon glyphicon-file" ng-hide="item.type === 'tree'"></span>
+            <button type="button" class="btn btn-link" ng-click="navigate(item)">{{item.name}}</button>
+          </li>
+        </ul>
+      </div>
+
+      <div ng-show="isShowingFile">
+        <pre id="codeBlock"></pre>
+      </div>
+    </script>
+
     <div ng-view></div>
   </body>
 </html>

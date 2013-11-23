@@ -5,6 +5,7 @@
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     'assignment', '$rootScope', 'Assignment', 'Course', function($scope,
         currentUser, $http,assignment, $rootScope, Assignment, Course) {
+  var injectedAssignment = assignment;
   $scope.assignment = assignment;
   $scope.user = currentUser;
 
@@ -12,10 +13,22 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   // student's submissions.
   var refreshAssignment;
   (refreshAssignment = function() {
-    $scope.assignment = Assignment.get({id: assignment._id, submissions: true},
+    var assignment = Assignment.get({id: injectedAssignment._id, submissions: true},
         function() {
       // Getting the assignment succeeded
-      var assignment = $scope.assignment;
+      $scope.assignment = assignment;
+      
+      $scope.user.repoId = '';
+      if (currentUser.Repositories) {
+        currentUser.Repositories.forEach(function(repository) {
+          if (repository.assigId === assignment._id) {
+            $scope.user.repoId = repository.id;
+          }
+        });
+      }
+
+      $rootScope.initFileSystem($scope.user.repoId);
+
       assignment.submissions = assignment.submissions.filter(function(submission) {
         return submission.user._id === currentUser._id;
       });
@@ -26,18 +39,18 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       assignment.submissions.forEach(function(submission) {
         studentScore += submission.score;
 
-        var submissionCpuTime = 0.0;
+        var submissionElapsedTime = 0.0;
         // Failed submissions have no tests.
         if (submission.tests) {
           submission.tests.forEach(function(test) {
             // The submission might have tests, but the tests might not have
             // results -___-
             if (test.result) {
-              submissionCpuTime += parseFloat(test.result['cpu usage']);
+              submissionElapsedTime += parseFloat(test.result['elapsed time']);
             }
           });
         }
-        submission.cpuTime = submissionCpuTime + ' seconds';
+        submission.elapsedTime = submissionElapsedTime + ' seconds';
       });
 
       // Sort submissions by date.
@@ -70,6 +83,10 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     });
 
   })();
+
+  $scope.refreshSubmissions = function() {
+    refreshAssignment();
+  };
 
   $scope.isDefined = angular.isDefined;
 
@@ -112,7 +129,10 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
             formatAssignmentName(assignment.name) + '.git';
   };
 
-
+  var getProjectName = function() {
+    return removeEmailDomain(currentUser.email) + '/' +
+            formatAssignmentName(assignment.name);
+  };
 
   $scope.toggleSubmitModal = function() {
     if (assignment.submissions.length >= assignment.numOfTries) {
@@ -181,5 +201,6 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     }).error(function() {
       // Oh noes.
     });
-  }
+  };
+
 }]);

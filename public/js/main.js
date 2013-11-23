@@ -254,8 +254,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
   });
 }])
 .run(['authService', '$rootScope', '$location', 'LoginService', 'AssignmentPoster',
-    'Course', function(authService, $rootScope, $location, LoginService,
-      AssignmentPoster, Course) {
+    'Course', '$http', function(authService, $rootScope, $location, LoginService,
+      AssignmentPoster, Course, $http) {
   // This code runs once at the start of the app.
 
   /**
@@ -628,6 +628,96 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     $rootScope.genericErrorModalInfo.title = title;
     $rootScope.genericErrorModalInfo.messages = messages;
     $rootScope.toggleGenericErrorModal();
+  };
+
+  // Source code viewer stuff
+  // !!!!!
+  $rootScope.dirStack = [];
+  var FileSystem = function(repoId) {
+    this._cwd = [];
+    this._repoId = repoId;
+
+    this.pushPath = function(dir) {
+      this._cwd.push(dir);
+      $rootScope.dirStack = this._cwd;
+    };
+
+    this.popPath = function() {
+      this._cwd.pop();
+      $rootScope.dirStack = this._cwd;
+    };
+
+    this.getPath = function() {
+      return this._cwd.join('%2F');
+    };
+
+
+  };
+
+  var fileSystem = null;
+  $rootScope.initFileSystem = function(repoId) {
+    fileSystem = new FileSystem(repoId);
+    navigateRequest();
+  };
+
+  $rootScope.currentTree = [];
+  $rootScope.currentBlob = null;
+  $rootScope.isShowingFile = false;
+
+  $rootScope.back = function() {
+    fileSystem.popPath();
+    $rootScope.isShowingFile = false;
+    navigateRequest();
+  };
+
+  $rootScope.navigate = function(item) {
+    if (item.type === 'blob') {
+      fileSystem.pushPath(item.name);
+      getBlob();
+    } else {
+      $rootScope.isShowingFile = false;
+      fileSystem.pushPath(item.name);
+      navigateRequest();
+    }
+  };
+
+  var entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+
+  var escapeHtml = function(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+      return entityMap[s];
+    });
+  }
+
+  var getBlob = function() {
+    var url = 'api/repos/' + fileSystem._repoId + '/blob?path=' +
+        fileSystem.getPath();
+    $http.get(url).success(function(data) {
+      $('#codeBlock').html(prettyPrintOne(escapeHtml(data), '', true));
+      $rootScope.isShowingFile = true;
+
+    }).error(function() {
+      //$rootScope.showGenericErrorModal('getBlob', ['error']);
+    });
+  };
+
+  var navigateRequest = function() {
+    var url = 'api/repos/' + fileSystem._repoId + '?path=' +
+        fileSystem.getPath();
+    
+    $http.get(url).success(function(data) {
+      $rootScope.currentTree = data;
+    }).error(function() {
+      // oh noes
+      //$rootScope.showGenericErrorModal('navigateRequest', ['bust']);
+    });
   };
 
 }]);

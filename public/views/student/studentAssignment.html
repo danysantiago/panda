@@ -68,24 +68,25 @@
           <div class="col-md-12">
             <h3>
               Submissions
-            </h3>
+              <button type="button" class="btn btn-primary pull-right" ng-click="refreshSubmissions()"><span class="glyphicon glyphicon-refresh"></span></button>
+            </h3><br>
             <table class="table table-striped">
-              <tbody>
                 <tr>
 <!--                   <th>#</th>
                   <th>Hash ID</th> Will we have hash ids???-->
-                  <th>Date</th>
-                  <th>Result </th>
-                  <th>Elapsed Time </th>
+                  <th>Submission Date</th>
+                  <th>Result</th>
+                  <th>Elapsed Time</th>
+                  <th>Score</th>
                 </tr>
                 <tr ng-repeat="submission in assignment.submissions">
 <!--                   <td>1</td>
                   <td>de12873940ffg</td> -->
                   <td>{{submission.submitDate | filterDateTime}}</td>
-                  <td>{{submission.finalVerdict}}</td>
-                  <td>{{submission.cpuTime}}</td>
+                  <td ng-class="{success:submission.finalVerdict === 'Accepted', danger:submission.finalVerdict === 'Wrong Answer' || submission.finalVerdict === 'Compile Error'}">{{submission.finalVerdict}}</td>
+                  <td>{{submission.elapsedTime}}</td>
+                  <td>{{submission.score}}</td>
                 </tr>
-              </tbody>
             </table>
           </div>
         </div>
@@ -99,17 +100,14 @@
             </h3>
             <input class="form-control" id="disabledInput" type="text" value="{{getRepositoryLink()}}" disabled>
           </div>
-          <hr>
+          <div class="col-md-3"></div>
         </div>
         <hr>
         <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Instructions
-            </h3>
-            <p>
-              Check <a href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository" target="_blank">this website</a> to learn how to work with your repository.
-            </p>
+          <div class="col-md-12">
+            <!-- code for the repository thingy. -->
+            <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
+            
           </div>
         </div>
       </div>
