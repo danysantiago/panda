@@ -268,4 +268,14 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     $('#removeTestCaseModal').modal('hide');
   };
 
+  $scope.showRepository = function(repoId) {
+    // wiii
+    $rootScope.initFileSystem(repoId);
+    $('#repositoryModal').modal();
+  };
+
+  $scope.hideRepositoryModal = function() {
+    $('#repositoryModal').modal('hide');
+  };
+
 }]);
