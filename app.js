@@ -98,6 +98,7 @@ api.use(require('./lib/routes/users.js'));
 api.use(require('./lib/routes/courses.js'));
 api.use(require('./lib/routes/assignments.js'));
 api.use(require('./lib/routes/submissions.js'));
+api.use(require('./lib/routes/repos.js'));
 app.use('/api', api);
 
 // Test routes
