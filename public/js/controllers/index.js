@@ -19,6 +19,8 @@ pandaApp.controller('NavbarController', ['$rootScope', '$scope',
         return '/#/s/home';
       } else if (currentRole.toLowerCase() == 'professor') {
         return '/#/p/home';
+      } else if (currentRole.toLowerCase() == 'admin') {
+      	return '/#/a/home'
       } else {
         return '/#/login'; // for anonymous, or someting.
       }

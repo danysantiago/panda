@@ -225,6 +225,51 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }). //** Other routes (these might be admin in the future **//
+  when('/a/submissions/', {
+    controller: 'ProfessorSubmissionsController',
+    templateUrl: '/views/administrator/administratorSubmissions.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('submissions'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/courses/', {
+    controller: 'ProfessorCoursesController',
+    templateUrl: '/views/administrator/administratorCourses.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('courses'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/users/', {
+    controller: 'ProfessorSubmissionsController',
+    templateUrl: '/views/administrator/administratorUsers.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('submissions'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/home/', {
+    controller: 'HomeController',
+    templateUrl: '/views/administrator/administratorHome.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('home'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/home/', {
+    controller: 'ProfessorAssignmentsController',
+    templateUrl: '/views/administrator/administratorAssignments.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('assignments'),
+      currentUser: currentUserMapper
+    }
+  }).
   when('/user/:id', { // TODO(samuel): user and users route are not being used.
     controller: 'UserController',
     access: accessLevels.admin,
