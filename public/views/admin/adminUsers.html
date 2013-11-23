@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+  	<div class="col-md-6"></div>
+  	<div class="col-md-6">
+  		<input type="text" class="form-control" placeholder="Filter" ng-model="qs">
+  	</div>
+  </div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-md-12">
+      <table class="table table-bordered table-hover text-center">
+      	<tbody>
+      		<tr>
+	      		<th class="text-center" ng-click="toggleStudentOrder()"> Student
+	      			<span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+	      			<span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+	      		</th>
+	      		<th class="text-center" ng-repeat="assignment in assignments">
+	      			A{{$index+1}} - {{assignment.name}}
+	      		</th>
+	      	</tr>
+	      	<tr ng-repeat="user in course.users | filterByAttributes:qs:['firstName', 'lastName'] | orderBy:['firstName', 'lastName']:studentReverseOrder">
+	      		<td>{{user.firstName}} {{user.lastName}}</td>
+	      		<td ng-repeat="assignment in course.assignments">{{assignment.grades[user._id]}}</td>
+      		</tr>
+    		</tbody>
+  		</table>
+		</div>
+	</div>
+</div>

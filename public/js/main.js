@@ -45,7 +45,7 @@ var accessLevels = {
   authenticated: userRoles.student | userRoles.professor | userRoles.admin,
 
   // 0001 (anonymous users and admins can access anonymous content.)
-  anonymous: userRoles.anonymous | userRoles.admin,
+  anonymous: userRoles.anonymous,
 
   // 1010 (student and admin have access to student content.)
   student: userRoles.student | userRoles.admin,
@@ -226,8 +226,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     }
   }). //** Other routes (these might be admin in the future **//
   when('/a/submissions/', {
-    controller: 'ProfessorSubmissionsController',
-    templateUrl: '/views/administrator/administratorSubmissions.html',
+    controller: 'AdminSubmissionsController',
+    templateUrl: '/views/admin/adminSubmissions.html',
     access: accessLevels.admin,
     resolve: {
       style: cssSetter('submissions'),
@@ -235,8 +235,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     }
   }).
   when('/a/courses/', {
-    controller: 'ProfessorCoursesController',
-    templateUrl: '/views/administrator/administratorCourses.html',
+    controller: 'AdminCoursesController',
+    templateUrl: '/views/admin/adminCourses.html',
     access: accessLevels.admin,
     resolve: {
       style: cssSetter('courses'),
@@ -244,8 +244,8 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     }
   }).
   when('/a/users/', {
-    controller: 'ProfessorSubmissionsController',
-    templateUrl: '/views/administrator/administratorUsers.html',
+    controller: 'AdminCoursesController',
+    templateUrl: '/views/admin/adminUsers.html',
     access: accessLevels.admin,
     resolve: {
       style: cssSetter('submissions'),
@@ -253,17 +253,17 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     }
   }).
   when('/a/home/', {
-    controller: 'HomeController',
-    templateUrl: '/views/administrator/administratorHome.html',
+    controller: 'AdminHomeController',
+    templateUrl: '/views/admin/adminHome.html',
     access: accessLevels.admin,
     resolve: {
       style: cssSetter('home'),
       currentUser: currentUserMapper
     }
   }).
-  when('/a/home/', {
-    controller: 'ProfessorAssignmentsController',
-    templateUrl: '/views/administrator/administratorAssignments.html',
+  when('/a/assignments/', {
+    controller: 'AdminAssignmentsController',
+    templateUrl: '/views/admin/adminAssignments.html',
     access: accessLevels.admin,
     resolve: {
       style: cssSetter('assignments'),
