@@ -74,16 +74,18 @@
                 <tr>
 <!--                   <th>#</th>
                   <th>Hash ID</th> Will we have hash ids???-->
-                  <th>Date</th>
+                  <th>Submission Date</th>
                   <th>Result </th>
                   <th>Elapsed Time </th>
+                  <th>Score<th>
                 </tr>
                 <tr ng-repeat="submission in assignment.submissions">
 <!--                   <td>1</td>
                   <td>de12873940ffg</td> -->
                   <td>{{submission.submitDate | filterDateTime}}</td>
-                  <td>{{submission.finalVerdict}}</td>
-                  <td>{{submission.cpuTime}}</td>
+                  <td ng-class="{success:submission.finalVerdict === 'Accepted', danger:submission.finalVerdict === 'Wrong Answer' || submission.finalVerdict === 'Compile Error'}">{{submission.finalVerdict}}</td>
+                  <td>{{submission.elapsedTime}}</td>
+                  <td>{{submission.score}}</td>
                 </tr>
               </tbody>
             </table>

@@ -38,18 +38,18 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       assignment.submissions.forEach(function(submission) {
         studentScore += submission.score;
 
-        var submissionCpuTime = 0.0;
+        var submissionElapsedTime = 0.0;
         // Failed submissions have no tests.
         if (submission.tests) {
           submission.tests.forEach(function(test) {
             // The submission might have tests, but the tests might not have
             // results -___-
             if (test.result) {
-              submissionCpuTime += parseFloat(test.result['cpu usage']);
+              submissionElapsedTime += parseFloat(test.result['elapsed time']);
             }
           });
         }
-        submission.cpuTime = submissionCpuTime + ' seconds';
+        submission.elapsedTime = submissionElapsedTime + ' seconds';
       });
 
       // Sort submissions by date.
