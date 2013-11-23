@@ -656,6 +656,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
 
   var fileSystem = null;
   $rootScope.initFileSystem = function(repoId) {
+    $rootScope.dirStack = [];
+    $rootScope.currentTree = [];
+    $rootScope.currentBlob = null;
+    $rootScope.isShowingFile = false;
     fileSystem = new FileSystem(repoId);
     navigateRequest();
   };
