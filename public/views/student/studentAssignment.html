@@ -94,7 +94,7 @@
             <h3>
               Project Repository
             </h3>
-            <input class="form-control" id="disabledInput" type="text" value="http://pandagitlab.sytes.net/{{user.lastName}}{{user.firstName}}/{{formatName(assignment.name)}}.git" disabled>
+            <input class="form-control" id="disabledInput" type="text" value="{{getRepositoryLink()}}" disabled>
           </div>
           <hr>
         </div>
@@ -118,9 +118,9 @@
             <h3>
               Contact Professor
             </h3>
-            <textarea class="form-control" id="focusedInput" rows="3" type="text"></textarea>
+            <textarea class="form-control" id="focusedInput" rows="6" type="text" ng-model="emailMessage"></textarea>
             <br>
-            <button type="button" class="btn btn-primary pull-right" ng-click="sendEmail()">Send</button>
+            <button type="button" class="btn btn-primary pull-right" ng-click="toggleConfirmSendEmailModal(emailMessage)">Send</button>
           </div>
         </div>
       </div>
@@ -163,6 +163,24 @@
         <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
         <button type="button" class="btn btn-default">Download Source Code</button>
         <button type="button" class="btn btn-primary" ng-click="submitAssignment()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="confirmSendEmailModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Send Email</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to send the email?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onClick="$('#confirmSendEmailModal').modal('hide');">No</button>
+        <button type="button" class="btn btn-primary" ng-click="sendEmail()">Yes</button>
       </div>
     </div>
   </div>

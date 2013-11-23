@@ -93,8 +93,8 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     testInputFile: null,
     testOutputFile: null,
     testerFile: null,
-    timeLimit: 5,
-    memLimit: 1024,
+    timeLimit: 10,
+    memLimit: 32768,
     score: 0,
     type: 'I/O'
   };
@@ -213,8 +213,8 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }
 
     postTestCase.testerFile = newTestCase.testerFile;
-    postTestCase.timeLimit = newTestCase.timeLimit;
-    postTestCase.memLimit = newTestCase.memLimit;
+    postTestCase.timeLimit = parseInt(newTestCase.timeLimit);
+    postTestCase.memLimit = parseInt(newTestCase.memLimit);
     postTestCase.score = newTestCase.score;
 
     $http({

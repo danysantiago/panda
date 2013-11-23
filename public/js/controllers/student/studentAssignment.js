@@ -3,8 +3,8 @@
  */
 
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
-    'assignment', '$rootScope', 'Assignment', function($scope, currentUser, $http,
-        assignment, $rootScope, Assignment) {
+    'assignment', '$rootScope', 'Assignment', 'Course', function($scope,
+        currentUser, $http,assignment, $rootScope, Assignment, Course) {
   $scope.assignment = assignment;
   $scope.user = currentUser;
 
@@ -91,7 +91,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     });
   };
 
-  $scope.formatName = function(name) {
+  var formatAssignmentName = function(name) {
     // Since the interpolator calls format name when the name of the assignment
     // still hasn't been populated, these checks are necessary.
     if (angular.isDefined(name) && angular.isDefined(name.replace)) {
@@ -100,6 +100,19 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       return '';
     }
   };
+
+  var removeEmailDomain = function(email) {
+    return email.substring(0, email.indexOf('@'));
+  };
+
+  $scope.getRepositoryLink = function() {
+    // the form of the link wii
+    return "http://pandagitlab.sytes.net/" +
+        removeEmailDomain(currentUser.email) + '/' +
+            formatAssignmentName(assignment.name) + '.git';
+  };
+
+
 
   $scope.toggleSubmitModal = function() {
     if (assignment.submissions.length >= assignment.numOfTries) {
@@ -111,22 +124,44 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     }
   };
   
+  var emailMessage = '';
+  $scope.toggleConfirmSendEmailModal = function(message) {
+    emailMessage = message;
+    $('#confirmSendEmailModal').modal();
+  };
+
   $scope.sendEmail = function() {
-  	//send email
-  	/*
-  	var sendgrid = require('sendgrid')('elbuo', '050505');
+    $('#confirmSendEmailModal').modal('hide');
+    var message = emailMessage;
 
-  	var params = {
-  		to: 'profesor email',
-  		from: currentUser._email,
-  		fromname: currentUser._firstName + ' ' + currentUser._lastName,
-  		subject: 'Question about ' + assignment._name,
-  		text: 'text from textarea'
-  	} 
+    // The route is
+    // /api/users/userId/to/receiverId (professor)
+    // Send message and assignment name.
+    // attributes: message, assignmentName
 
-  	sendgrid.send(params, function(err, json) {
-		});
-    */
+    var course = Course.get({id: assignment.Course}, function() {
+      // success
+      var graderId = course.Graders[0].id;
+
+      var url = '/api/users/' + currentUser._id + '/to/' + graderId;
+      
+      $http.post(url, {message: message,
+          assignmentName: $scope.assignment.name})
+      .success(function() {
+        // Success
+        $rootScope.showGenericErrorModal('Email sent', ['The email was ' +
+            'sent successfully.']);
+      }).error(function() {
+        // error sending email
+        $rootScope.showGenericErrorModal('Problem sending email', ['The email' +
+            ' could not be sent. Please try again later.']);
+      });
+
+    }, function() {
+      // error getting course
+      $rootScope.showGenericErrorModal('Problem sending email', ['The email' +
+            ' could not be sent. Please try again later.']);
+    });
   };
 
   $scope.submitAssignment = function() {
