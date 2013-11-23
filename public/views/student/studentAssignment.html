@@ -50,6 +50,9 @@
             <p align="justify" ng-hide="isDefined(assignment.Instructions.file)">
               {{assignment.Instructions.text}}
             </p>
+            <p ng-show="assignment.singleFileName">
+              This is a single file assignment and it is expected that the submission contains a file named <span style="font-weight:bold">{{assignment.singleFileName}}</span> in the root of the repository.
+            </p>
             <div ng-show="isDefined(assignment.Instructions.file)">
               <form action="/api/assignments/{{assignment._id}}/instructions">
                 <button type="submit" class="btn btn-primary">
