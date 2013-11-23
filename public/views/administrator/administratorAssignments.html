@@ -81,12 +81,10 @@
           </tr>
           <tr ng-repeat="assignment in assignments | filterByAttributes:q:['name', 'deadline', 'courseCode'] | orderBy:predicate:reverseOrder">
             <td>
-              <a href="/#/a/assignment/{{assignment._id}}">{{assignment.name}}</a>
+              {{assignment.name}}
             </td>
             <td>
-              <a href="/#/a/course/{{assignment.course._id}}">
-                {{assignment.courseCode}}
-              </a>
+            	{{assignment.courseCode}}
             </td>
             <td>
               {{assignment.course.graderName}}
