@@ -45,7 +45,7 @@ var accessLevels = {
   authenticated: userRoles.student | userRoles.professor | userRoles.admin,
 
   // 0001 (anonymous users and admins can access anonymous content.)
-  anonymous: userRoles.anonymous | userRoles.admin,
+  anonymous: userRoles.anonymous,
 
   // 1010 (student and admin have access to student content.)
   student: userRoles.student | userRoles.admin,
@@ -225,6 +225,51 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }). //** Other routes (these might be admin in the future **//
+  when('/a/submissions/', {
+    controller: 'AdminSubmissionsController',
+    templateUrl: '/views/admin/adminSubmissions.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('submissions'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/courses/', {
+    controller: 'AdminCoursesController',
+    templateUrl: '/views/admin/adminCourses.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('courses'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/users/', {
+    controller: 'AdminCoursesController',
+    templateUrl: '/views/admin/adminUsers.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('submissions'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/home/', {
+    controller: 'AdminHomeController',
+    templateUrl: '/views/admin/adminHome.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('home'),
+      currentUser: currentUserMapper
+    }
+  }).
+  when('/a/assignments/', {
+    controller: 'AdminAssignmentsController',
+    templateUrl: '/views/admin/adminAssignments.html',
+    access: accessLevels.admin,
+    resolve: {
+      style: cssSetter('assignments'),
+      currentUser: currentUserMapper
+    }
+  }).
   when('/user/:id', { // TODO(samuel): user and users route are not being used.
     controller: 'UserController',
     access: accessLevels.admin,
