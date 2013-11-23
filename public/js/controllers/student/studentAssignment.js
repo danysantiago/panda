@@ -3,8 +3,8 @@
  */
 
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
-    'assignment', '$rootScope', 'Assignment', 'Course', '$timeout', function($scope,
-        currentUser, $http,assignment, $rootScope, Assignment, Course, $timeout) {
+    'assignment', '$rootScope', 'Assignment', 'Course', function($scope,
+        currentUser, $http,assignment, $rootScope, Assignment, Course) {
   $scope.assignment = assignment;
   $scope.user = currentUser;
 
@@ -26,7 +26,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
         });
       }
 
-      navigateRequest();
+      $rootScope.initFileSystem($scope.user.repoId);
 
       assignment.submissions = assignment.submissions.filter(function(submission) {
         return submission.user._id === currentUser._id;
@@ -195,93 +195,6 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       refreshAssignment();
     }).error(function() {
       // Oh noes.
-    });
-  };
-
-  $scope.dirStack = [];
-  var FileSystem = function(projectId) {
-    this._cwd = [];
-    this._projectId = projectId;
-
-    this.pushPath = function(dir) {
-      this._cwd.push(dir);
-      $scope.dirStack = this._cwd;
-    };
-
-    this.popPath = function() {
-      this._cwd.pop();
-      $scope.dirStack = this._cwd;
-    };
-
-    this.getPath = function() {
-      return this._cwd.join('%2F');
-    };
-
-
-  };
-
-  var fileSystem = new FileSystem(getProjectName());
-
-  $scope.currentTree = [];
-  $scope.currentBlob = null;
-
-  $scope.back = function() {
-    fileSystem.popPath();
-    $scope.isShowingFile = false;
-    navigateRequest();
-  };
-
-  $scope.isShowingFile = false;
-
-  $scope.navigate = function(item) {
-    if (item.type === 'blob') {
-      fileSystem.pushPath(item.name);
-      getBlob();
-
-    } else {
-      $scope.isShowingFile = false;
-      fileSystem.pushPath(item.name);
-      navigateRequest();
-    }
-  };
-
-  var entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    "'": '&#39;',
-    "/": '&#x2F;'
-  };
-
-  var escapeHtml = function(string) {
-    return String(string).replace(/[&<>"'\/]/g, function (s) {
-      return entityMap[s];
-    });
-  }
-
-  var getBlob = function() {
-    var url = 'api/repos/' + $scope.user.repoId + '/blob?path=' +
-        fileSystem.getPath();
-    $http.get(url).success(function(data) {
-      $('#codeBlock').html(prettyPrintOne(escapeHtml(data), '', true));
-      $scope.isShowingFile = true;
-
-    }).error(function() {
-      //$rootScope.showGenericErrorModal('getBlob', ['error']);
-    });
-  };
-
-  var navigateRequest = function() {
-    var url = 'api/repos/' + $scope.user.repoId + '?path=' +
-        fileSystem.getPath();
-    
-    $http.get(url).success(function(data) {
-      url += '';
-      $scope.currentTree = data;
-    }).error(function() {
-      // oh noes
-      //$rootScope.showGenericErrorModal('navigateRequest', ['bust']);
     });
   };
 

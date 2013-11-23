@@ -358,6 +358,29 @@
         </div>
       </div>
     </script>
+
+    <script type='text/ng-template' id="sourceCodeViewerTemplate">
+      <button type="button" class="btn btn-primary" ng-click="back()">Back</button><br><br>
+      <ol class="breadcrumb">
+        <li ng-show="dirStack.length === 0" class="active">/</li>
+        <li ng-repeat="item in dirStack" ng-class="{'active': $last}">{{item}}</li>
+      </ol>
+
+      <div ng-hide="isShowingFile">
+        <ul>
+          <li ng-repeat="item in currentTree">
+            <span class="glyphicon glyphicon-folder-close" ng-show="item.type === 'tree'"></span>
+            <span class="glyphicon glyphicon-file" ng-hide="item.type === 'tree'"></span>
+            <button type="button" class="btn btn-link" ng-click="navigate(item)">{{item.name}}</button>
+          </li>
+        </ul>
+      </div>
+
+      <div ng-show="isShowingFile">
+        <pre id="codeBlock"></pre>
+      </div>
+    </script>
+
     <div ng-view></div>
   </body>
 </html>
