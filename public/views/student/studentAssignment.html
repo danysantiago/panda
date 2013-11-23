@@ -149,7 +149,10 @@
         You have no submissions.
       </h5>
       <hr>
-      <button type="button" class="btn btn-primary btn-lg" ng-click="toggleSubmitModal()">
+      <button type="button" class="btn btn-primary btn-lg" ng-click="toggleSubmitModal()" ng-show="studentCanSubmit">
+        Submit
+      </button>
+      <button type="button" class="btn btn-primary btn-lg" ng-hide="studentCanSubmit" disabled>
         Submit
       </button>
     </div>
@@ -164,12 +167,10 @@
         <h4 class="modal-title">Submit Assignment</h4>
       </div>
       <div class="modal-body">
-        <p>Submitting commit:</p>
-        <p>6deadbeef666 | 09/25/13 14:30
+        Are you sure you want to submit the assignment?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
-        <button type="button" class="btn btn-default">Download Source Code</button>
         <button type="button" class="btn btn-primary" ng-click="submitAssignment()">Submit</button>
       </div>
     </div>
