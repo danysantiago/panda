@@ -1,221 +1,265 @@
 <div class="container">
 
-  <h2>
-    {{assignment.name}}
-  </h2>
+  <h2>Admin Panel</h2>
 
   <ul class="nav nav-tabs" style="cursor: pointer">
-    <li id="info-tab" ng-class="{active: infoTab}">
-      <a id="info-link" ng-click="showTab('infoTab')">Info</a>
+    <li id="users-tab" ng-class="{active: usersTab}">
+      <a id="users-link" ng-click="showTab('usersTab')">Users</a>
     </li>
     <li id="submissions-tab" ng-class="{active: submissionsTab}">
       <a id="submissions-link" ng-click="showTab('submissionsTab')">Submissions</a>
     </li>
-    <li id="repo-tab" ng-class="{active: repositoryTab}">
-      <a id="repo-link" ng-click="showTab('repositoryTab')">Repository</a>
-    </li>
-    <li id="cont-tab" ng-class="{active: contactTab}">
-      <a id="cont-link" ng-click="showTab('contactTab')">Contact</a>
-    </li>
   </ul>
 
   <div class="row">
-    <div class="col-md-9">
-      <div id="info" ng-show="infoTab">
+    <div class="col-md-12">
+
+      <div id="users" ng-show="usersTab">
+        <!-- Users tab content -->
+        <br>
+
         <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Brief Description
-            </h3>
-            <p>
-              {{assignment.shortDescription}}
-            </p>
-          </div>
-          <div class="col-md-3">
-            <h3>
-              Tries
-            </h3>
-            <p>
-              {{assignment.submissions.length}} / {{assignment.numOfTries}}
-            </p>
-          </div>
-          <hr>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Instructions
-            </h3>
-            <p align="justify" ng-hide="isDefined(assignment.Instructions.file)">
-              {{assignment.Instructions.text}}
-            </p>
-            <p ng-show="assignment.singleFileName">
-              This is a single file assignment and it is expected that the submission contains a file named <span style="font-weight:bold">{{assignment.singleFileName}}</span> in the root of the repository.
-            </p>
-            <div ng-show="isDefined(assignment.Instructions.file)">
-              <form action="/api/assignments/{{assignment._id}}/instructions">
-                <button type="submit" class="btn btn-primary">
-                  {{assignment.Instructions.file.name}}
-                </button>
-              </form>
-            </div>
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Filter" ng-model="qu">
           </div>
         </div>
-      </div>
-      <div id="submissions" ng-show="submissionsTab">
+
+        <br>
+
         <div class="row">
           <div class="col-md-12">
-            <h3>
-              Submissions
-              <button type="button" class="btn btn-primary pull-right" ng-click="refreshSubmissions()"><span class="glyphicon glyphicon-refresh"></span></button>
-            </h3><br>
-            <table class="table table-striped text-center">
-                <tr>
-<!--                   <th>#</th>
-                  <th>Hash ID</th> Will we have hash ids???-->
-                  <th class="text-center">Quality</th>
-                  <th class="text-center">Submission Date</th>
-                  <th class="text-center">Result</th>
-                  <th class="text-center">Elapsed Time</th>
-                  <th class="text-center">Score</th>
-                </tr>
-                <tr ng-repeat="submission in assignment.submissions">
-<!--                   <td>1</td>
-                  <td>de12873940ffg</td> -->
-                  <td>
-                    <button class="btn btn-link" ng-click="(submission.quality.length > 0) ? showQuality(submission) : ''">
-                      <span class="glyphicon glyphicon-eye-open" ng-show="submission.quality.length > 0"></span>
-                      <span class="glyphicon glyphicon-ok" ng-hide="submission.quality.length > 0"></span>
-                    </button>
-                  </td>
-                  <td>{{submission.submitDate | filterDateTime}}</td>
-                  <td ng-class="{success:submission.finalVerdict === 'Accepted', danger:submission.finalVerdict === 'Wrong Answer' || submission.finalVerdict === 'Compile Error'}">
-                    <div ng-show="submission.finalVerdict === 'Judging'" class="progress progress-striped active">
-                      <div class="progress-bar"  role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" style="width: 100%">
-                      </div>
+      
+            <table class="table table-bordered table-hover text-center">
+              <tbody>
+              <tr>
+                <th class="text-center" ng-click="toggleStudentOrder()"> Name
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                </th>
+                <th class="text-center" ng-click="toggleStudentOrder()"> Email
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                </th>
+                <th class="text-center" ng-click="toggleStudentOrder()"> Role
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                </th>
+                <th class="text-center" ng-click="toggleStudentOrder()"> GitLab ID
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                </th>
+                <th class="text-center" ng-click="toggleStudentOrder()"> Amount of Repos
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                </th>
+                <th></th>
+              </tr>
+              <tr ng-repeat="user in users">
+                <td>{{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <td>{{user.gitId}}</td>
+                <td>{{user.Repositories.length}}</td>
+                <td>
+                  <button class="btn btn-link" ng-click="toogleUserDeleteModal(user)" ng-hide="currentUser.email === user.email">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div id="submissions" ng-show="submissionsTab">
+
+                <br>
+
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Filter" ng-model="qu">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <table class="table table-bordered table-hover text-center">
+              <tr>
+                <th class="text-center">
+                  Details
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
+                  Student
+                  <span ng-show="submissionPredicate === 'student'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
+                  Course
+                  <span ng-show="submissionPredicate === 'student'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
+                  Assignment
+                  <span ng-show="submissionPredicate === 'student'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('submitDate')">
+                  Date Submitted
+                  <span ng-show="submissionPredicate === 'submitDate'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('verdict')">
+                  Verdict
+                  <span ng-show="submissionPredicate === 'verdict'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('elapsedTime')">
+                  Elapsed Time
+                  <span ng-show="submissionPredicate === 'elapsedTime'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('score')">
+                  Score
+                  <span ng-show="submissionPredicate === 'score'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+                <th class="text-center" ng-click="toggleSubmissionOrder('tests')">
+                  Test Passed/Tests
+                  <span ng-show="submissionPredicate === 'tests'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
+                </th>
+              </tr>
+              <tr ng-repeat="submission in submissions | orderBy:submissionPredicate:submissionReverseOrder | filter:qsub">
+                <td><button class="btn btn-link" ng-click="showDetails(submission)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
+                <td>{{submission.course.code}}</td>
+                <td>{{submission.assignment.name}}</td>
+                <td>{{submission.submitDate | filterDateTime}}</td>
+                <td ng-class="{success:submission.finalVerdict === 'Accepted', danger:submission.finalVerdict === 'Wrong Answer' || submission.finalVerdict === 'Compile Error' || submission.finalVerdict === 'Submission Error'}">
+                  <div ng-show="submission.finalVerdict === 'Judging'" class="progress progress-striped active">
+                    <div class="progress-bar"  role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" style="width: 100%">
                     </div>
-                    <p ng-hide="submission.finalVerdict === 'Judging'">{{submission.finalVerdict}}</p>
-                  </td>
-                  <td>{{submission.elapsedTime}}</td>
-                  <td ng-class="{warning:submission.scoreOverridden === true}">{{submission.score}}</td>
-                </tr>
+                  </div>
+                  <p ng-hide="submission.finalVerdict === 'Judging'">{{submission.finalVerdict}}</p>
+                </td>
+                <td>{{submission.elapsedTime}}</td>
+                <td>{{submission.score}}/{{submission.totalScore}}</td>
+                <td>{{submission.acceptedTestCases}}/{{submission.totalTestCases}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Delete User</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you wish to delete user:<p><br>
+        <p><b>"{{userToDelete.firstName}} {{userToDelete.lastName}}" ({{userToDelete.email}})</b> ?</p><br>
+        <p>All data related to the user will be deleted and the process cannot be undone.<p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="hideUserDeleteModal()">Cancel</button>
+        <button type="button" class="btn btn-danger" ng-click="deleteUser(userToDelete)">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p style="font-weight:bold">Compile Info</p>
+            <p>Status: {{detailSubmission.compile.status}}</p>
+            <p>Time: {{detailSubmission.compile.time}}</p>
+            <textarea ng-show="detailSubmission.compile.error" class="form-control" rows="6" type="text" disabled>{{detailSubmission.compile.error}}</textarea>
+            <hr>
+            <p style="font-weight:bold">Test Cases Results</p>
+            <table class="table table-bordered table-hover text-center">
+              <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Run Class</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Elapsed Time</th>
+                <th class="text-center">Memory Usage</th>
+                <th class="text-center">CPU Usage</th>
+              </tr>
+              <tr ng-repeat="test in detailSubmission.tests">
+                <td>{{$index+1}}</td>
+                <td>{{test.mainClassName}}</td>
+                <td>{{test.result.status}}</td>
+                <td>{{test.result['elapsed time']}}</td>
+                <td>{{test.result['memory usage']}}</td>
+                <td>{{test.result['cpu usage']}}</td>
+              </tr>
             </table>
           </div>
         </div>
       </div>
-      <!--repository-->
-      <div id="repo" ng-show="repositoryTab">
-        <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Project Repository
-            </h3>
-            <input class="form-control" id="disabledInput" type="text" value="{{getRepositoryLink()}}" disabled>
-          </div>
-          <div class="col-md-3"></div>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-md-12">
-            <!-- code for the repository thingy. -->
-            <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
-            
-          </div>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideDetailModal()">Done</button>
       </div>
-      <!--end of repository-->
-      <!--contact-->
-      <div id="cont" ng-show="contactTab">
-        <div class="row">
-          <div class="col-md-9">
-            <h3>
-              Contact Professor
-            </h3>
-            <textarea class="form-control" id="focusedInput" rows="6" type="text" ng-model="emailMessage"></textarea>
-            <br>
-            <button type="button" class="btn btn-primary pull-right" ng-click="toggleConfirmSendEmailModal(emailMessage)">Send</button>
-          </div>
-        </div>
-      </div>
-      <!--end of contact-->
-    </div>
-    <div class="col-md-3 centered-div">
-      <h4> Due Date </h4>
-      <h5>{{assignment.deadline}}</h5>
-      <hr>
-      <h4> Score </h4>
-      <h5>{{scores.studentScore}} / {{scores.totalScore}}</h5>
-      <hr>
-      <h4> Last Submission </h4>
-      <h5 ng-hide="noSubmissions">
-        {{assignment.lastSubmissionDate | filterDateTime}}
-      </h5>
-      <h5 ng-show="noSubmissions">
-        You have no submissions.
-      </h5>
-      <hr>
-      <button type="button" class="btn btn-primary btn-lg" ng-click="toggleSubmitModal()" ng-show="studentCanSubmit">
-        Submit
-      </button>
-      <button type="button" class="btn btn-primary btn-lg" ng-hide="studentCanSubmit" disabled>
-        Submit
-      </button>
-    </div>
-  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div>
 
-<div id="submit-modal" class="modal fade">
-  <div class="modal-dialog">
+<div class="modal fade" id="sourceViewerModal" tabindex="-1" role="dialog" aria-labelledby="sourceViewerModal" aria-hidden="true">
+  <div class="modal-dialog" style="width: 75%">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Submit Assignment</h4>
+        <h4 class="modal-title" id="modalTitle">Source Code Viewer</h4>
       </div>
       <div class="modal-body">
-        Are you sure you want to submit the assignment?
+        <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" onClick="$('#submit-modal').modal('hide');">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="submitAssignment()">Submit</button>
+        <button type="button" class="btn btn-primary" ng-click="hideSourceViewerModal()">Done</button>
       </div>
-    </div>
-  </div>
-</div>
-
-<div id="confirmSendEmailModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Send Email</h4>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to send the email?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" onClick="$('#confirmSendEmailModal').modal('hide');">No</button>
-        <button type="button" class="btn btn-primary" ng-click="sendEmail()">Yes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="qualityModal" class="modal fade">
-  <div class="modal-dialog" style="width: 60%">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Code Quality</h4>
-      </div>
-      <div class="modal-body">
-        <textarea class="form-control" type="text" rows="20" disabled>{{codeQuality}}</textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="closeQualityModal()">Done</button>
-      </div>
-    </div>
-  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div>
 
 <ng-include src="'genericErrorModalTemplate'"></ng-include>
+

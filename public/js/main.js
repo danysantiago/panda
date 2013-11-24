@@ -231,7 +231,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     access: accessLevels.admin,
     resolve: {
       style: cssSetter('assignment'),
-      currentUser: currentUserMapper
+      currentUser: currentUserMapper,
+      users: ['MultiUserLoader', function(MultiUserLoader) {
+        return MultiUserLoader();
+      }]
     }
   }).
   when('/user/:id', { // TODO(samuel): user and users route are not being used.
@@ -732,6 +735,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       //$rootScope.showGenericErrorModal('navigateRequest', ['bust']);
     });
   };
+
+  $rootScope.getPrettyPrint = function (data, lang) {
+    return prettyPrintOne(escapeHtml(data), lang, true)
+  }
 
 }]);
 

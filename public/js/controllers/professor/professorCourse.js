@@ -99,7 +99,7 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
   $scope.toggleStudentOrder = function() {
     $scope.studentReverseOrder = !$scope.studentReverseOrder;
   };
-
+  
   // This is the logic for sorting the submissions table...
   var submissionFieldNames = {'hash': false, 'student': false, 'assignment': false,
       'submitDate': false, 'verdict': false, 'elapsedTime': false, 'score': false,

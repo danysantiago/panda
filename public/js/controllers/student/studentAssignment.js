@@ -222,9 +222,8 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     });
   };
 
-  $scope.codeQuality = '';
   $scope.showQuality = function(submission) {
-    $scope.codeQuality = submission.quality;
+    $('#qualityBlock').html($rootScope.getPrettyPrint(submission.quality, 'html'));
     $('#qualityModal').modal();
 
   };
@@ -233,8 +232,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
     $('#qualityModal').modal('hide');
   };
 
-  socket.on('submission', function (data) {
+  socket.on('submissionDone', function (data) {
     refreshAssignment();
-    //console.log(data);
   });
 }]);

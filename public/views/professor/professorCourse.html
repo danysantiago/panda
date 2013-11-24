@@ -151,12 +151,17 @@
                   <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
                   <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
                 </th>
+                <th class="text-center" ng-click="toggleEmailOrder()"> Email
+                  <span class="glyphicon glyphicon-chevron-down" ng-hide="emailReverseOrder"></span>
+                  <span class="glyphicon glyphicon-chevron-up" ng-show="emailReverseOrder"></span>
+                </th>
                 <th class="text-center" ng-repeat="assignment in course.assignments">
                   A{{$index+1}} - {{assignment.name}}
                 </th>
               </tr>
               <tr ng-repeat="user in course.users | filterByAttributes:qs:['firstName', 'lastName'] | orderBy:['firstName', 'lastName']:studentReverseOrder">
                 <td>{{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.email}}</td>
                 <td ng-repeat="assignment in course.assignments">{{assignment.grades[user._id]}}</td>
               </tr>
               </tbody>

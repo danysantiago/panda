@@ -2,26 +2,19 @@
   <div class="row">
     <div class="col-md-12">
       <div id="assignment1" class="container well">
-      <h3>
+        <h3>
           My Grades
         </h3>
         <hr>
         <table class="table table-bordered table-hover text-center">
-          <tbody>
           <tr>
-          <th class="text-center">
-          Course
-          </th>
-          <th class="text-center">
-          Cummulative Points
-          </th>
-          <th class="text-center">
-          Number of Assignments
-          </th>
+            <th class="text-center">Course</th>
+            <th class="text-center">Cummulative Points</th>
+            <th class="text-center">Number of Assignments</th>
           </tr>
           <tr ng-repeat="course in courses">
             <td>
-              <a href="/#/s/course/{{course._id}}">{{course.name}}</a>
+              <a href="/#/s/course/{{course._id}}">{{course.code}} - {{course.name}}</a>
             </td>
             <td>
               {{course.userAccumulatedScore}} / {{course.courseTotalScore}}
@@ -30,25 +23,7 @@
               {{course.assignments.length}}
             </td>
           </tr>
-          </tbody>
         </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="add-course-modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add Course</h4>
-      </div>
-      <div class="modal-body">
-        <input type="text" class="form-control" placeholder="Course Name">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>

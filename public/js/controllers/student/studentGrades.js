@@ -27,7 +27,7 @@ pandaApp.controller('GradesController', ['$scope', 'currentUser', 'User',
           user.grades.forEach(function(grade) {
             accumulatedScore += grade.score;
           });
-          c.userAccumulatedScore = accumulatedScore;
+          c.userAccumulatedScore = accumulatedScore || 0;
         });
 
         // Count total course score.
