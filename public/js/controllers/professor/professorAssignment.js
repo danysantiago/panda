@@ -301,6 +301,7 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }
 
     var postTestCase = {};
+    /*
     if (newTestCase.testInputFile === null) {
       postTestCase.testInput = newTestCase.testInputText;
     } else {
@@ -308,6 +309,22 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }
 
     if (newTestCase.testOutputFile === null) {
+      postTestCase.testOutput = newTestCase.testOutputText;
+    } else {
+      postTestCase.testOutput = newTestCase.testOutputFile;
+    }
+    */
+    // Quick fix for bug. If a user selects an invalid file and then changes
+    // his/her mind and tries to input text, the modal will keep giving an
+    // an error.
+    // Prefer text input over text file upload
+    if (newTestCase.testInputText) {
+      postTestCase.testInput = newTestCase.testInputText;
+    } else {
+      postTestCase.testInput = newTestCase.testInputFile;
+    }
+
+    if (newTestCase.testOutputText) {
       postTestCase.testOutput = newTestCase.testOutputText;
     } else {
       postTestCase.testOutput = newTestCase.testOutputFile;
