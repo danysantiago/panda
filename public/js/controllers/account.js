@@ -1,8 +1,8 @@
 /**
  * This is the controller for the account view.
  */
-pandaApp.controller('AccountController', ['$scope', 'currentUser', 'md5',
-    '$rootScope', '$http', function($scope, currentUser, md5, $rootScope,
+pandaApp.controller('AccountController', ['$scope', 'currentUser',
+    '$rootScope', '$http', function($scope, currentUser, $rootScope,
         $http) {
   $scope.user = currentUser;
   $scope.user.oldPassword = '';

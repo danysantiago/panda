@@ -234,7 +234,7 @@
               </tr>
               <!-- TODO(samuel): filterByAttributes when we get the submissions
               right -->
-              <tr ng-repeat="submission in course.submissions | orderBy:submissionPredicate:submissionReverseOrder">
+              <tr ng-repeat="submission in course.submissions | orderBy:submissionPredicate:submissionReverseOrder | filter:qsub">
                 <td><button class="btn btn-link" ng-click="showRepository(submission.repo.id)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>
