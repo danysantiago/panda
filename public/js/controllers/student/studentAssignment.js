@@ -3,8 +3,8 @@
  */
 
 pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
-    'assignment', '$rootScope', 'Assignment', 'Course', function($scope,
-        currentUser, $http,assignment, $rootScope, Assignment, Course) {
+    'assignment', '$rootScope', 'Assignment', 'Course', 'socket', function($scope,
+        currentUser, $http,assignment, $rootScope, Assignment, Course, socket) {
   var injectedAssignment = assignment;
   $scope.assignment = assignment;
   $scope.user = currentUser;
@@ -227,4 +227,9 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   $scope.closeQualityModal = function() {
     $('#qualityModal').modal('hide');
   };
+
+  socket.on('submission', function (data) {
+    refreshAssignment();
+    //console.log(data);
+  });
 }]);
