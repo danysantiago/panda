@@ -122,14 +122,12 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     if (!instructionsFile) {
       // This is not actually an error... just don't include the assignment.
     } else {
-      putData.Instructions = instructionsFile;
+      putData.instructions = instructionsFile;
     }
 
     // Error check for these happens later.
-    var putData = {
-      shortDescription: assignment.shortDescription,
-      numOfTries: assignment.numOfTries,
-    };
+    putData.shortDescription: assignment.shortDescription;
+    putData.numOfTries: assignment.numOfTries;
 
     // If there is any errors, then show the error messages and return.
     var errorMessages = [];
