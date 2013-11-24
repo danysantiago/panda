@@ -11,9 +11,10 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
 
   var refreshUser = function() {
     // Actually, refresh assignment
-    $scope.assignment = Assignment.get({id: assignment._id, submissions: true},
-        function() {
+      Assignment.get({id: assignment._id, submissions: true},
+        function(data) {
       // success
+      $scope.assignment = data;
       }, function() {
       // error
     });
@@ -276,6 +277,45 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
 
   $scope.hideRepositoryModal = function() {
     $('#repositoryModal').modal('hide');
+  };
+
+  var submissionToEdit = null;
+  $scope.toggleEditScoreModal = function(submission) {
+    submissionToEdit = submission;
+    $('#editScoreModal').modal();
+  };
+
+  $scope.hideEditScoreModal = function() {
+    $('#editScoreModal').modal('hide');
+  };
+
+  // submissions/:id/score/ PUT:
+  // payload: score
+  $scope.editSubmissionScore = 0;
+  $scope.editScore = function(score) {
+    if ((!parseInt(score) && score != 0) || score < 0) {
+      $rootScope.showGenericErrorModal('Error Changing Score', ['The score ' +
+          'must be a positive integer.']);
+      return;
+    }
+
+    if (score > submissionToEdit.totalScore) {
+      $rootScope.showGenericErrorModal('Error Changing Score', ['The score ' +
+          'must not exceed the maximum score of the assignment.']);
+      return;
+    }
+
+    $http.put('/api/submissions/' + submissionToEdit._id + '/score',
+        {score: score}).success(function() {
+      // success
+      refreshUser();
+      $scope.editSubmissionScore = 0;
+      $scope.hideEditScoreModal();
+      $rootScope.showGenericErrorModal('Score changed successfully.',
+          ['The score has been changed successfully.']);
+    }).error(function() {
+      $rootScope.showGenericErrorModal('Error Changing Score.', ['Error']);
+    });
   };
 
 }]);
