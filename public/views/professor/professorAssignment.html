@@ -80,37 +80,55 @@
                 <th class="text-center">
                   Source
                 </th>
-                <th class="text-center">
+                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
                   Student
-                   <span class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-show="submissionPredicate === 'student'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center">
+                <th class="text-center" ng-click="toggleSubmissionOrder('submitDate')">
                   Date Submitted
-                   <span class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="submissionPredicate === 'submitDate'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center">
+                <th class="text-center" ng-click="toggleSubmissionOrder('verdict')">
                   Verdict
-                   <span class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-show="submissionPredicate === 'verdict'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center">
+                <th class="text-center" ng-click="toggleSubmissionOrder('elapsedTime')">
                   Time
-                   <span class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="submissionPredicate === 'elapsedTime'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center">
+                <th class="text-center" ng-click="toggleSubmissionOrder('score')">
                   Score
-                   <span class="glyphicon glyphicon-chevron-down"></span>
+                  <span ng-show="submissionPredicate === 'score'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center">
+                <th class="text-center" ng-click="toggleSubmissionOrder('tests')">
                   Test Passed/Tests
-                   <span class="glyphicon glyphicon-chevron-up"></span>
+                  <span ng-show="submissionPredicate === 'tests'">
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+                  </span>
                 </th>
               </tr>
-              <tr ng-repeat="submission in assignment.submissions">
+              <tr ng-repeat="submission in assignment.submissions | orderBy:submissionPredicate:submissionReverseOrder">
                 <td><button class="btn btn-link" ng-click="showRepository(submission.repo.id)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>{{submission.submitDate | filterDateTime}}</td>
                 <td>{{submission.finalVerdict}}</td>
-                <td>{{submission.cpuTime}}</td>
+                <td>{{submission.elapsedTime}}</td>
                 <td>{{submission.score}}/{{submission.totalScore}}
                   <button class="btn btn-link" ng-click="toggleEditScoreModal(submission)">
                   <span class="glyphicon glyphicon-pencil"></span>

@@ -102,7 +102,7 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
 
   // This is the logic for sorting the submissions table...
   var submissionFieldNames = {'hash': false, 'student': false, 'assignment': false,
-      'submissionDate': false, 'verdict': false, 'time': false, 'score': false,
+      'submitDate': false, 'verdict': false, 'elapsedTime': false, 'score': false,
       'tests': false
   };
 

@@ -20,15 +20,31 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     });
   };
 
+
+  // assignment.submissions.forEach(function(submission) {
+  //   // Failed submissions have no tests.
+  //   var submissionCpuTime = 0.0;
+  //   if (submission.tests) {
+  //     submission.tests.forEach(function(test) {
+  //       submissionCpuTime += parseFloat(test.result['cpu usage']);
+  //     });
+  //   }
+  //   submission.cpuTime = submissionCpuTime + ' seconds';
+  // });
   assignment.submissions.forEach(function(submission) {
+    //studentScore += submission.score;
+    var submissionElapsedTime = 0.0;
     // Failed submissions have no tests.
-    var submissionCpuTime = 0.0;
     if (submission.tests) {
       submission.tests.forEach(function(test) {
-        submissionCpuTime += parseFloat(test.result['cpu usage']);
+        // The submission might have tests, but the tests might not have
+        // results -___-
+        if (test.result) {
+          submissionElapsedTime += parseFloat(test.result['elapsed time']);
+        }
       });
     }
-    submission.cpuTime = submissionCpuTime + ' seconds';
+    submission.elapsedTime = submissionElapsedTime + ' seconds';
   });
 
   $scope.toggleTestCaseModal = function() {
@@ -318,4 +334,26 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     });
   };
 
+  // sorting the submissions table
+  // This is the logic for sorting the submissions table...
+  var submissionFieldNames = {'student': false, 'assignment': false,
+      'submitDate': false, 'verdict': false, 'elapsedTime': false, 'score': false,
+      'tests': false
+  };
+
+  $scope.submissionPredicate = 'student';
+  $scope.submissionReverseOrder =
+      submissionFieldNames[$scope.submissionPredicate];
+
+  $scope.toggleSubmissionOrder = function(field) {
+    Object.keys(submissionFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.submissionPredicate = field;
+        submissionFieldNames[field] = !submissionFieldNames[field];
+        $scope.submissionReverseOrder = submissionFieldNames[field];
+      } else {
+        submissionFieldNames[fieldName] = false;
+      }
+    });
+  };
 }]);
