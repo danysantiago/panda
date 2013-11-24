@@ -75,9 +75,14 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       }
 
       $scope.scores = {
-        totalScore: assignment.totalScore,
-        studentScore: assignment.submissions[0].score || 0
+        totalScore: assignment.totalScore
       };
+
+      if (assignment.submissions.length === 0) {
+        $scope.scores.studentScore = 0;
+      } else {
+        $scope.scores.studentScore = assignment.submissions[0].score || 0;
+      }
 
       var todaysDate = new Date();
       $scope.studentCanSubmit =
