@@ -225,48 +225,12 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       currentUser: currentUserMapper
     }
   }). //** Other routes (these might be admin in the future **//
-  when('/a/submissions/', {
-    controller: 'AdminSubmissionsController',
-    templateUrl: '/views/admin/adminSubmissions.html',
-    access: accessLevels.admin,
-    resolve: {
-      style: cssSetter('submissions'),
-      currentUser: currentUserMapper
-    }
-  }).
-  when('/a/courses/', {
-    controller: 'AdminCoursesController',
-    templateUrl: '/views/admin/adminCourses.html',
-    access: accessLevels.admin,
-    resolve: {
-      style: cssSetter('courses'),
-      currentUser: currentUserMapper
-    }
-  }).
-  when('/a/users/', {
-    controller: 'AdminCoursesController',
-    templateUrl: '/views/admin/adminUsers.html',
-    access: accessLevels.admin,
-    resolve: {
-      style: cssSetter('submissions'),
-      currentUser: currentUserMapper
-    }
-  }).
   when('/a/home/', {
     controller: 'AdminHomeController',
     templateUrl: '/views/admin/adminHome.html',
     access: accessLevels.admin,
     resolve: {
-      style: cssSetter('home'),
-      currentUser: currentUserMapper
-    }
-  }).
-  when('/a/assignments/', {
-    controller: 'AdminAssignmentsController',
-    templateUrl: '/views/admin/adminAssignments.html',
-    access: accessLevels.admin,
-    resolve: {
-      style: cssSetter('assignments'),
+      style: cssSetter('assignment'),
       currentUser: currentUserMapper
     }
   }).
