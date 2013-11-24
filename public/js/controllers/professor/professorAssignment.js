@@ -126,8 +126,8 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }
 
     // Error check for these happens later.
-    putData.shortDescription: assignment.shortDescription;
-    putData.numOfTries: assignment.numOfTries;
+    putData.shortDescription = assignment.shortDescription;
+    putData.numOfTries = assignment.numOfTries;
 
     // If there is any errors, then show the error messages and return.
     var errorMessages = [];
