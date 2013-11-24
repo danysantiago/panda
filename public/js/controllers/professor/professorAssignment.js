@@ -333,6 +333,14 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     postTestCase.memLimit = parseInt(newTestCase.memLimit);
     postTestCase.score = newTestCase.score;
 
+    // if newTestCase.type is I/O, don't send tester file
+    // else if newTestCase.type is Exec, don't send testInput
+    if (newTestCase.type === 'I/O') {
+      postTestCase.testerFile = undefined;
+    } else {
+      postTestCase.testInput = undefined;
+    }
+
     $http({
       method: 'POST',
       url: 'api/assignments/' + assignment._id + '/test',
