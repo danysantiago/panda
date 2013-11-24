@@ -15,36 +15,64 @@
         <br>
         <table class="table table-bordered table-hover text-center">
           <tr>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('courseName')">
             Course
-            <span class="glyphicon glyphicon-chevron-down"></span>
+            <span>
+              <span ng-show="submissionPredicate === 'courseName'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+            </span>
           </th>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('assignmentName')">
             Assignment
-             <span class="glyphicon glyphicon-chevron-up"></span>
+             <span>
+               <span ng-show="submissionPredicate === 'assignmentName'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+             </span>
           </th>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('submitDate')">
             Date Submitted
-             <span class="glyphicon glyphicon-chevron-down"></span>
+             <span>
+               <span ng-show="submissionPredicate === 'submitDate'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+             </span>
           </th>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('finalVerdict')">
             Verdict
-             <span class="glyphicon glyphicon-chevron-up"></span>
+             <span>
+               <span ng-show="submissionPredicate === 'finalVerdict'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+             </span>
           </th>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('elapsedTime')">
             Time
-             <span class="glyphicon glyphicon-chevron-down"></span>
+             <span>
+               <span ng-show="submissionPredicate === 'elapsedTime'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+             </span>
           </th>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('score')">
             Score
-             <span class="glyphicon glyphicon-chevron-down"></span>
+             <span>
+               <span ng-show="submissionPredicate === 'score'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+             </span>
           </th>
-          <th class="text-center">
+          <th class="text-center" ng-click="toggleSubmissionOrder('testsPassed')">
             Test Passed/Tests
-             <span class="glyphicon glyphicon-chevron-up"></span>
+             <span>
+               <span ng-show="submissionPredicate === 'testsPassed'">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
+             </span>
           </th>
           </tr>
-          <tr ng-repeat="submission in user.submissions | filterByAttributes:q:['courseName', 'assignmentName', 'submitDate', 'finalVerdict']">
+          <tr ng-repeat="submission in user.submissions | filterByAttributes:q:['courseName', 'courseCode', 'assignmentName', 'submitDate', 'finalVerdict'] |orderBy:submissionPredicate:submissionReverseOrder">
             <td><a href="/#/s/course/{{submission.course._id}}">
               {{submission.courseName}}
             </a></td>

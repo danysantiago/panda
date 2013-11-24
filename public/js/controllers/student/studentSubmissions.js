@@ -14,6 +14,7 @@ pandaApp.controller('SubmissionsController', ['$scope', 'currentUser', 'User',
         // we put the course into the submission
         submission.course = course;
         submission.courseName = course.name;
+        submission.courseCode = course.code;
 
         // We should also put the assignment name
         submission.assignmentName = submission.assignment.name;
@@ -67,5 +68,29 @@ pandaApp.controller('SubmissionsController', ['$scope', 'currentUser', 'User',
     });
   }, function() {
     // could not get the user
-  })
+  });
+
+  // sorting the submissions table
+  // This is the logic for sorting the submissions table...
+  var submissionFieldNames = {'courseName': false, 'assignmentName': false,
+      'submitDate': false, 'finalVerdict': false, 'elapsedTime': false,
+      'score': false, 'testsPassed': false
+  };
+
+  $scope.submissionPredicate = 'courseName';
+  $scope.submissionReverseOrder =
+      submissionFieldNames[$scope.submissionPredicate];
+
+  $scope.toggleSubmissionOrder = function(field) {
+    Object.keys(submissionFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.submissionPredicate = field;
+        submissionFieldNames[field] = !submissionFieldNames[field];
+        $scope.submissionReverseOrder = submissionFieldNames[field];
+      } else {
+        submissionFieldNames[fieldName] = false;
+      }
+    });
+  };
+
 }]);
