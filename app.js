@@ -8,7 +8,7 @@ var config = require('./lib/config/config.js'),
     mongodb = require('mongodb'),
     bunyan = require('bunyan'),
     server = require('http').createServer(app);
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server, { log: false });
     path = require('path');
 
 var Database = require('./lib/models/database.js');
