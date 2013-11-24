@@ -148,6 +148,13 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     });
   };
 
+  $scope.cancelEditCourse = function() {
+    // We are extremely lazy, so just dismiss the modal and refresh the course
+    // info.
+    $('#editCourseModal').modal('hide');
+    $scope.refreshUser();
+  };
+
   // This is needed so that the new assignment actually binds to this course.
   ($rootScope.setInitialCourse = function() {
     $rootScope.newAssignment.course = course;
