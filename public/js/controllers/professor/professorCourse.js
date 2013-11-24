@@ -20,18 +20,35 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
       $scope.course = course;
 
       course.assignments.forEach(function(assignment, index) {
-      assignment.grades = {};
-      course.users.forEach(function(user, index) {
-        user.grades.forEach(function(grade, index) {
-          if(grade.Assignment === assignment._id) {
-            assignment.grades[user._id] = grade.score + ' / ' + grade.totalScore;
+        assignment.grades = {};
+        course.users.forEach(function(user, index) {
+          user.grades.forEach(function(grade, index) {
+            if(grade.Assignment === assignment._id) {
+              assignment.grades[user._id] = grade.score + ' / ' + grade.totalScore;
+            }
+          });
+          if(!angular.isDefined(assignment.grades[user._id])) {
+            assignment.grades[user._id] = '---';
           }
         });
-        if(!angular.isDefined(assignment.grades[user._id])) {
-          assignment.grades[user._id] = '---';
-        }
       });
-    });
+
+      course.submissions.forEach(function(submission) {
+        //studentScore += submission.score;
+
+        var submissionElapsedTime = 0.0;
+        // Failed submissions have no tests.
+        if (submission.tests) {
+          submission.tests.forEach(function(test) {
+            // The submission might have tests, but the tests might not have
+            // results -___-
+            if (test.result) {
+              submissionElapsedTime += parseFloat(test.result['elapsed time']);
+            }
+          });
+        }
+        submission.elapsedTime = submissionElapsedTime + ' seconds';
+      });
     }, function() {
       // error getting the course. No idea why
       // TODO(samuel): handle this
@@ -89,7 +106,7 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
       'tests': false
   };
 
-  $scope.submissionPredicate = 'hash';
+  $scope.submissionPredicate = 'student';
   $scope.submissionReverseOrder =
       submissionFieldNames[$scope.submissionPredicate];
 
@@ -135,5 +152,15 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
   ($rootScope.setInitialCourse = function() {
     $rootScope.newAssignment.course = course;
   })();
+
+  $scope.showRepository = function(repoId) {
+    // wiii
+    $rootScope.initFileSystem(repoId);
+    $('#repositoryModal').modal();
+  };
+
+  $scope.hideRepositoryModal = function() {
+    $('#repositoryModal').modal('hide');
+  };
 
 }]);

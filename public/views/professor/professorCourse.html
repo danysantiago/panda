@@ -186,11 +186,8 @@
             <table class="table table-bordered table-hover text-center">
               <tbody>
               <tr>
-                <th class="text-center" ng-click="toggleSubmissionOrder('hash')"> Hash ID
-                    <span ng-show="submissionPredicate === 'hash'">
-                      <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                      <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                    </span>
+                <th class="text-center">
+                  Source
                 </th>
                 <th class="text-center" ng-click="toggleSubmissionOrder('student')"> Student
                      <span ng-show="submissionPredicate === 'student'">
@@ -238,7 +235,7 @@
               <!-- TODO(samuel): filterByAttributes when we get the submissions
               right -->
               <tr ng-repeat="submission in course.submissions | orderBy:submissionPredicate:submissionReverseOrder">
-                <td>---</td>
+                <td><button class="btn btn-link" ng-click="showRepository(submission.repo.id)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>
                   <a href="/#/p/assignment/{{submission.assignment._id}}">
@@ -247,7 +244,7 @@
                 </td>
                 <td>{{submission.submitDate | filterDateTime}}</td>
                 <td>{{submission.finalVerdict}}</td>
-                <td>250ms</td>
+                <td>{{submission.elapsedTime}}</td>
                 <td>{{submission.score}}/{{submission.totalScore}}</td>
                 <td>{{submission.acceptedTestCases}}/{{submission.totalTestCases}}</td>
               </tr>
@@ -314,5 +311,22 @@
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
+  </div>
+</div>
+
+<div id="repositoryModal" class="modal fade">
+  <div class="modal-dialog" style="width: 60%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Source Code Viewer</h4>
+      </div>
+      <div class="modal-body">
+        <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideRepositoryModal()">Done</button>
+      </div>
+    </div>
   </div>
 </div>
