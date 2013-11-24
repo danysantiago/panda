@@ -169,8 +169,8 @@
               <table class="table table-bordered">
                 <tr>
                   <td>Type: {{testCase.type}}</td>
-                  <td>Time Limit: {{testCase.timeLimit}} seconds</td>
-                  <td>Memory Limit: {{testCase.memLimit}} KB</td>
+                  <td>Time Limit: {{testCase.timeLimit || 10}} seconds</td>
+                  <td>Memory Limit: {{testCase.memLimit || 32768}} KB</td>
                 </tr>
               </table>
               
