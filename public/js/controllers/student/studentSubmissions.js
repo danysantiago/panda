@@ -3,43 +3,94 @@
  */
 
 pandaApp.controller('SubmissionsController', ['$scope', 'currentUser', 'User',
-    'Assignment', function($scope, currentUser, User, Assignment) {
+    'Course', function($scope, currentUser, User, Course) {
   $scope.user = {};
 
   // Iterate through assignments and then through the submissions
-  var user = User.get({id: currentUser._id, assignments: true, courses: true,
-      submissions: true}, function() {
-    $scope.user = user;
+  User.get({id: currentUser._id, submissions: true}, function(user) {
+    async.forEach(user.submissions, function(submission, done) {
+      // We need to put the course into submission.
+      Course.get({id: submission.Course}, function(course) {
+        // we put the course into the submission
+        submission.course = course;
+        submission.courseName = course.name;
+        submission.courseCode = course.code;
 
-    user.submissions.forEach(function(submission) {
-      // Insert courses into submissions.
-      user.courses.forEach(function(course) {
-        if (course._id === submission.Course) {
-          submission.course = course;
+        // We should also put the assignment name
+        submission.assignmentName = submission.assignment.name;
+
+        // We need to calculate this submissions elapsedTime.
+        var submissionElapsedTime = 0.0;
+        // Failed submissions have no tests.
+        if (submission.tests) {
+          submission.tests.forEach(function(test) {
+            // The submission might have tests, but the tests might not have
+            // results -___-
+            if (test.result) {
+              submissionElapsedTime += parseFloat(test.result['elapsed time']);
+            }
+          });
         }
+        submission.elapsedTime = submissionElapsedTime + ' seconds';
+
+        if (!angular.isDefined(submission.score) || !submission.score) {
+          submission.score = 0;
+        }
+
+        if (angular.isDefined(submission.assignment.TestCases) &&
+            submission.assignment.TestCases) {
+          submission.totalTestCases = submission.assignment.TestCases.length;
+        } else {
+          submission.totalTestCases = 0;
+        }
+
+        if (angular.isDefined(submission.acceptedTestCases) &&
+            submission.acceptedTestCases) {
+          submission.testsPassed = submission.acceptedTestCases;
+        } else {
+          submission.testsPassed = 0;
+        }
+        
+        // We also need the number of tests passed and the total number of
+        // of thest cases.
+        // the number of test cases is in submission.assignment.TestCases.length
+        // the number of passed test cases is in acceptedTestCases, if it exists
+
+        done();
+      }, function() {
+        // error getting the course.
       });
 
-      // Insert assignments into submissions
-      user.assignments.forEach(function(assignment) {
-        if (assignment._id === submission.Assignment) {
-          submission.assignment = assignment;
-        }
-      });
-
-      // Each submission needs its testsPassed and cpuTime calculated.
-      submission.testsPassed = 0;
-      submission.cpuTime = 0.0;
-      submission.tests.forEach(function(test) {
-        if (test.result.verdict.toLowerCase() === 'correct') {
-          submission.testsPassed++;
-        }
-
-        submission.cpuTime += parseFloat(test.result['cpu usage']);
-      });
-
-      // Also, for facilitating filtering, each submission needs shortcuts for:
-      submission.courseName = submission.course.name;
-      submission.assignmentName = submission.assignment.name;
+    }, function() {
+      // all done
+      // We can now store the user safely
+      $scope.user = user;
     });
+  }, function() {
+    // could not get the user
   });
+
+  // sorting the submissions table
+  // This is the logic for sorting the submissions table...
+  var submissionFieldNames = {'courseName': false, 'assignmentName': false,
+      'submitDate': false, 'finalVerdict': false, 'elapsedTime': false,
+      'score': false, 'testsPassed': false
+  };
+
+  $scope.submissionPredicate = 'courseName';
+  $scope.submissionReverseOrder =
+      submissionFieldNames[$scope.submissionPredicate];
+
+  $scope.toggleSubmissionOrder = function(field) {
+    Object.keys(submissionFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.submissionPredicate = field;
+        submissionFieldNames[field] = !submissionFieldNames[field];
+        $scope.submissionReverseOrder = submissionFieldNames[field];
+      } else {
+        submissionFieldNames[fieldName] = false;
+      }
+    });
+  };
+
 }]);
