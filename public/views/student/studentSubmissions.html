@@ -16,10 +16,6 @@
         <table class="table table-bordered table-hover text-center">
           <tr>
           <th class="text-center">
-            Hash ID
-            <span class="glyphicon glyphicon-chevron-down"></span>
-          </th>
-          <th class="text-center">
             Course
             <span class="glyphicon glyphicon-chevron-down"></span>
           </th>
@@ -49,7 +45,6 @@
           </th>
           </tr>
           <tr ng-repeat="submission in user.submissions | filterByAttributes:q:['courseName', 'assignmentName', 'submitDate', 'finalVerdict']">
-            <td>{{submission.hashId}}</td>
             <td><a href="/#/s/course/{{submission.course._id}}">
               {{submission.courseName}}
             </a></td>
@@ -58,8 +53,8 @@
             </a></td>
             <td>{{submission.submitDate | filterDateTime}} </td>
             <td>{{submission.finalVerdict}} </td>
-            <td>{{submission.cpuTime}}</td>
-            <td>{{submission.score}}</td>
+            <td>{{submission.elapsedTime}}</td>
+            <td>{{submission.score || 0}}</td>
             <td>{{submission.testsPassed}} / {{submission.totalTestCases}}</td>
           </tr>
         </table>
