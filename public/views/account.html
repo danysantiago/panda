@@ -3,7 +3,7 @@
 
   <br>
 
-  <div id="profile" ng-show="isProfileVisible">
+  <div id="profile">
     <div class="row">
       <div class="col-md-4">
         <img class="media-object dp img-circle profileImage" src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?d=mm&s=500">
@@ -15,21 +15,21 @@
             <label for="oldPassword">
               Old Password
             </label>
-            <input type="password" class="form-control" id="passwordInput0" placeholder="Password">
+            <input type="password" class="form-control" id="passwordInput0" placeholder="Password" ng-model="user.oldPassword">
           </div>
           <div class="form-group">
             <label for="newPassword1">
               New Password
             </label>
-            <input type="password" class="form-control" id="passwordInput1" placeholder="Password">
+            <input type="password" class="form-control" id="passwordInput1" placeholder="Password" ng-model="user.newPassword">
           </div>
           <div class="form-group">
             <label for="newPassword2">
               Retype Password
             </label>
-            <input type="password" class="form-control" id="passwordInput2" placeholder="Retype Password">
+            <input type="password" class="form-control" id="passwordInput2" placeholder="Retype Password" ng-model="user.retypePassword">
           </div>
-          <button type="submit" class="btn btn-primary">Change</button>
+          <button type="submit" class="btn btn-primary" ng-click="changePassword()">Change</button>
         </form>
       </div>
     </div>
@@ -37,3 +37,5 @@
   <!-- end profile -->
 </div>
   <!-- end container -->
+
+<ng-include src="'genericErrorModalTemplate'"></ng-include>

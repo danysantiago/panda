@@ -3,11 +3,17 @@
 body {
   background-color: white;
   height: 100%;
+  
+  background: url("http://panda.bootpages.com/images/patterns/shattered.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .jumbotron {
   text-align: center;
-  background-color: transparent;
+  background-color: white;
 }
 
 .profileImage {
@@ -55,15 +61,15 @@ color: #428bca;
 }
 
 .padded {
-  padding-top: 20%;
-  padding-bottom: 20%;
 	margin: auto;
   position: relative;
   top: 0; left: 0; bottom: 0; right: 0;
+  padding: 20%;
 }
 
 .padded2 {
   margin: auto;
   position: relative;
   top: 0; left: 0; bottom: 0; right: 0;
+  background-color: white;
 }
