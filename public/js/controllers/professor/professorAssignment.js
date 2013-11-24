@@ -102,6 +102,12 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     });
   };
 
+  $scope.cancelEditAssignment = function() {
+    // We are extremely lazy, so just dismiss the modal and refresh the info.
+    $('#editAssignmentModal').modal('hide');
+    refreshUser();
+  };
+
   // Adding test case stuff
 
   $scope.newTestCase = {
