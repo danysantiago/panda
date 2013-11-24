@@ -111,7 +111,11 @@
                 <td>{{submission.submitDate | filterDateTime}}</td>
                 <td>{{submission.finalVerdict}}</td>
                 <td>{{submission.cpuTime}}</td>
-                <td>{{submission.score}}/{{submission.totalScore}}</td>
+                <td>{{submission.score}}/{{submission.totalScore}}
+                  <button class="btn btn-link" ng-click="toggleEditScoreModal(submission)">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  </button>
+                </td>
                 <td>{{submission.acceptedTestCases}}/{{submission.totalTestCases}}</td>
               </tr>
             </table>
@@ -422,6 +426,31 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="editScoreModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Edit Submission Score</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+
+        <div class="form-group">
+          <label class="control-label" for="score">Score</label>
+          <input id="score" name="score" class="form-control" type="number" ng-model="editSubmissionScore">
+        </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="hideEditScoreModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="editScore(editSubmissionScore)">Edit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div>
 
 <ng-include src="'genericErrorModalTemplate'"></ng-include>
