@@ -185,17 +185,38 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
   };
 
   // Adding test case stuff
-
   $scope.newTestCase = {
     testInputText: '',
     testOutputText: '',
     testInputFile: null,
+    testInputFileSelection: '',
     testOutputFile: null,
+    testOutputFileSelection: '',
     testerFile: null,
+    testerFileSelection: '',
     timeLimit: 10,
     memLimit: 32768,
     score: 0,
     type: 'I/O'
+  };
+
+  $scope.cancelCreateTestCase = function() {
+    $scope.newTestCase = {
+      testInputText: '',
+      testOutputText: '',
+      testInputFile: null,
+      testInputFileSelection: '',
+      testOutputFile: null,
+      testOutputFileSelection: '',
+      testerFile: null,
+      testerFileSelection: '',
+      timeLimit: 10,
+      memLimit: 32768,
+      score: 0,
+      type: 'I/O'
+    };
+    
+    $('#addTestCaseModal').modal('hide');
   };
 
   $scope.onTestOutputFileSelect = function($files) {

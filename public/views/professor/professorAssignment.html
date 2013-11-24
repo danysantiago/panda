@@ -306,7 +306,7 @@
           <div class="form-group">
             <label class="control-label" for="testInput">Test Input</label>
             <div class="controls">
-               <input id="testInputFile" name="testInputFile" class="input-file" type="file" ng-file-select="onTestInputFileSelect($files)">                 
+               <input id="testInputFile" name="testInputFile" class="input-file" type="file" ng-file-select="onTestInputFileSelect($files)" ng-model="newTestCase.testInputFileSelection">                 
               <textarea class="form-control" id="testInput" name="testInput" ng-model="newTestCase.testInputText"></textarea>
             </div>
           </div>
@@ -317,7 +317,7 @@
           <div class="form-group">
             <label class="control-label" for="testInput">Tester File</label>
             <div class="controls">
-               <input id="testerFile" name="testerFile" class="input-file" type="file" ng-file-select="onTesterFileSelect($files)">                 
+               <input id="testerFile" name="testerFile" class="input-file" type="file" ng-file-select="onTesterFileSelect($files)" ng-model="newTestCase.testerFileSelection">                 
             </div>
           </div>
         </div>
@@ -325,7 +325,7 @@
         <div class="form-group">
           <label class="control-label" for="testOutput">Expected Output</label>
           <div class="controls">
-             <input id="testOutputFile" name="testOutputFile" class="input-file" type="file" ng-file-select="onTestOutputFileSelect($files)">                 
+             <input id="testOutputFile" name="testOutputFile" class="input-file" type="file" ng-file-select="onTestOutputFileSelect($files)" ng-model="newTestCase.testOutputFileSelection">                 
             <textarea class="form-control" id="testOutput" name="testOutput" ng-model="newTestCase.testOutputText"></textarea>
           </div>
         </div>
@@ -333,7 +333,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="cancelCreateTestCase()">Cancel</button>
         <button type="button" class="btn btn-primary" ng-click="createTestCase(newTestCase)">Create</button>
       </div>
     </div><!-- /.modal-content -->
