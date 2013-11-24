@@ -123,7 +123,7 @@
                   </span>
                 </th>
               </tr>
-              <tr ng-repeat="submission in assignment.submissions | orderBy:submissionPredicate:submissionReverseOrder">
+              <tr ng-repeat="submission in assignment.submissions | orderBy:submissionPredicate:submissionReverseOrder | filter:qsub">
                 <td><button class="btn btn-link" ng-click="showRepository(submission.repo.id)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>{{submission.submitDate | filterDateTime}}</td>
