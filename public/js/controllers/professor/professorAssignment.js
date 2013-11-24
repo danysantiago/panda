@@ -78,14 +78,90 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
   };
 
   $scope.editAssignment = function() {
-    var putData = {
-      name: assignment.name,
-      shortDescription: assignment.shortDescription,
-      deadline: assignment.deadline,
-      numOfTries: assignment.numOfTries,
-      Instructions: instructionsFile
+    var putData = {};
+
+    var errors = {
+      description: false,
+      deadline: false,
+      tries: false,
+      instructionFile: false
     };
 
+    // Description
+    if (!assignment.shortDescription) {
+      errors.description = true;
+    }
+
+    // Deadline
+    if (!$rootScope.datePickerElement) {
+      // No date was selected, ever.
+      // This is not actually an error, just don't update put data info.
+    } else {
+      assignment.deadline =
+      $rootScope.datePickerElement.datepicker('getFormattedDate');
+
+      var today = new Date((new Date()).toLocaleDateString());
+      if (!assignment.deadline ||
+          (new Date(assignment.deadline)) < today) {
+        errors.deadline = true;
+      }
+
+      // Everything went well for the deadline here.
+      if(!errors.deadline) {
+        putData.deadline = assignment.deadline;
+      }
+    }
+
+    // Tries
+    if (!parseInt(assignment.numOfTries) ||
+        parseInt(assignment.numOfTries) < 1) {
+      errors.tries = true;
+    }
+
+    // Instructions
+    if (!instructionsFile) {
+      // This is not actually an error... just don't include the assignment.
+    } else {
+      putData.Instructions = instructionsFile;
+    }
+
+    // Error check for these happens later.
+    var putData = {
+      shortDescription: assignment.shortDescription,
+      numOfTries: assignment.numOfTries,
+    };
+
+    // If there is any errors, then show the error messages and return.
+    var errorMessages = [];
+    for (var errorType in errors) {
+      if (errors[errorType]) {
+        switch(errorType) {
+          case 'description':
+            errorMessages.push('Enter a description.');
+            break;
+          case 'deadline':
+            errorMessages.push('Enter a valid deadline date.');
+            break;
+          case 'tries':
+            errorMessages.push('Enter a valid number of tries.');
+            break;
+          case 'instructionFile':
+            errorMessages.push('Select a valid instruction file.');
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      // There were errros. Display them and abort.
+      $rootScope.showGenericErrorModal('Invalid assignment information',
+          errorMessages);
+      return;
+    }
+
+    // Everything went well.
     $http({
       method: 'PUT',
       url: '/api/assignments/' + assignment._id,
@@ -98,7 +174,9 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     }).success(function() {
       $('#editAssignmentModal').modal('hide');
     }).error(function() {
-
+      $rootScope.showGenericErrorModal('Invalid assignment information',
+        ['Please verify your uploaded files are of the supported file types.',
+        'Instructions can be uploaded in PDF files.']);
     });
   };
 
