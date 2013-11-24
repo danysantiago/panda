@@ -18,11 +18,26 @@
         <table class="table table-bordered table-hover text-center">
           <tbody>
             <tr>
-            <th class="text-center">Assignment Title</th>
-            <th class="text-center">Course</th>
-            <th class="text-center">Due Date</th>
+            <th class="text-center" ng-click="toggleOrder('name')">Assignment Title
+              <span ng-show="predicate === 'name'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
+            </th>
+            <th class="text-center" ng-click="toggleOrder('courseName')">Course
+              <span ng-show="predicate === 'courseName'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
+            </th>
+            <th class="text-center" ng-click="toggleOrder('deadline')">Due Date
+              <span ng-show="predicate === 'deadline'">
+                <span class="glyphicon glyphicon-chevron-down" ng-hide='reverseOrder'></span>
+                <span class="glyphicon glyphicon-chevron-up" ng-show='reverseOrder'></span>
+              </span>
+            </th>
             </tr>
-            <tr ng-repeat="assignment in assignmentsToShow | filterByAttributes:q:['name', 'courseName', 'courseCode']">
+            <tr ng-repeat="assignment in assignmentsToShow | filterByAttributes:q:['name', 'courseName', 'courseCode'] | orderBy:predicate:reverseOrder">
               <td>
                 <a href="/#/s/assignment/{{assignment._id}}">
                   {{assignment.name}}
