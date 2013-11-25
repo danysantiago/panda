@@ -368,7 +368,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     Course: null, // This is first an object, but the post will post the id str
     description: '',
     deadline: '',
-    numOfTries: 0,
+    numOfTries: 5,
     instructions: null,
     repoFile: null,
     singleFile: false,

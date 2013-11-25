@@ -204,7 +204,7 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     testerFileSelection: '',
     timeLimit: 10,
     memLimit: 32768,
-    score: 0,
+    score: 5,
     type: 'I/O'
   };
 
