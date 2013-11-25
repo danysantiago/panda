@@ -556,7 +556,7 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
       name: false,
       code: false,
       year: false,
-      semester: false,
+      semester: false
     };
 
     if (!courseInfo.name) {

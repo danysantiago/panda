@@ -147,19 +147,23 @@
             <table class="table table-bordered table-hover text-center">
               <tbody>
               <tr>
-                <th class="text-center" ng-click="toggleStudentOrder()"> Student
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                <th class="text-center" ng-click="toggleStudentOrder('name')"> Student
+                  <span ng-show="studentPredicate === 'name'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleEmailOrder()"> Email
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="emailReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="emailReverseOrder"></span>
+                <th class="text-center" ng-click="toggleStudentOrder('email')"> Email
+                  <span ng-show="studentPredicate === 'email'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                  </span>
                 </th>
                 <th class="text-center" ng-repeat="assignment in course.assignments">
                   A{{$index+1}} - {{assignment.name}}
                 </th>
               </tr>
-              <tr ng-repeat="user in course.users | filterByAttributes:qs:['firstName', 'lastName'] | orderBy:['firstName', 'lastName']:studentReverseOrder">
+              <tr ng-repeat="user in course.users | filterByAttributes:qs:['firstName', 'lastName'] | orderBy:studentPredicate:studentReverseOrder">
                 <td>{{user.firstName}} {{user.lastName}}</td>
                 <td>{{user.email}}</td>
                 <td ng-repeat="assignment in course.assignments">{{assignment.grades[user._id]}}</td>
