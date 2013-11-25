@@ -63,6 +63,7 @@ pandaApp.controller('CoursesController', ['$scope', '$http', 'currentUser',
   })(); // Init the user as well :) wii
 
   $scope.toggleEnrollCourseModal = function() {
+    $scope.refreshUser();
     $('#addCourseModal').modal();
   };
 
