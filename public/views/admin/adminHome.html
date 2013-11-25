@@ -19,7 +19,9 @@
         <br>
 
         <div class="row">
-          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <button class="btn btn-primary" ng-click="toggleSignUpModal()">Create User</button>
+          </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Filter" ng-model="qUser">
           </div>
@@ -265,6 +267,93 @@
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
+</div>
+
+<div id="signup-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Sign Up</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- Multiple Checkboxes (inline) -->
+          <div class="form-group">
+            <div class="controls">
+              <label class="checkbox inline">
+                <input type="checkbox" ng-model="newUser.isProfessor">
+                Professor
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" class="form-control" placeholder="Email" ng-model="newUser.email"></div>
+          <div class="form-group">
+            <input type="text" name="firstName" class="form-control" placeholder="First Name" ng-model="newUser.firstName"></div>
+          <div class="form-group">
+            <input type="text" name="lastName" class="form-control" placeholder="Last Name" ng-model="newUser.lastName"></div>
+          <div class="form-group">
+            <input type="text" name="role" class="form-control" disabled value="{{newUser.isProfessor ? 'Professor' : 'Student'}}"></div>
+          <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Password" ng-model="newUser.password"></div>
+          <div class="form-group">
+            <input type="password" name="password_confirm" class="form-control" placeholder="Retype Password" ng-model="newUser.confirmPassword"></div>
+            <span ng-show="newUser.password !== newUser.confirmPassword" style="color:red">
+              Passwords do not match.<br>
+            </span>
+            <span ng-show="newUser.password && newUser.password.length < 6" style="color:red">
+              Password must be at least 6 characters long.<br>
+            </span>
+            <span ng-show="newUser.firstName && newUser.firstName.length < 2" style="color:red">
+              First name must be at least 2 characters long.<br>
+            </span>
+            <span ng-show="newUser.lastName && newUser.lastName.length < 2" style="color:red">
+              Last name must be at least 2 characters long.<br>
+            </span>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="createUser()">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="signup-modal-success" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Create User Successfull</h4>
+      </div>
+      <div class="modal-body">
+        User created successfully.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideSignUpSuccessModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="signup-modal-error" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Create User Error</h4>
+      </div>
+      <div class="modal-body">
+        <span ng-repeat="message in newUser.errorMessage">
+          {{message}}<br>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideSignUpErrorModal()">OK</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-include src="'genericErrorModalTemplate'"></ng-include>
