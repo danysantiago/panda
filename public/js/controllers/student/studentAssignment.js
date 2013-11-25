@@ -184,6 +184,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
           assignmentName: $scope.assignment.name})
       .success(function() {
         // Success
+        $('#emailBody').val('');
         $rootScope.showGenericErrorModal('Email sent', ['The email was ' +
             'sent successfully.']);
       }).error(function() {
