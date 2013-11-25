@@ -254,4 +254,41 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
     });
   };
 
+  // Code for emailing all students in the course.
+  $scope.emailToAllStudents = {};
+  $scope.toggleEmailStudentsModal = function() {
+    $('#emailAllStudentsModal').modal();
+  };
+
+  $scope.hideEmailStudentsModal = function() {
+    $('#emailAllStudentsModal').modal('hide');
+  };
+
+  /**
+   * Send message to all students.
+   */
+  $scope.emailAllStudents = function(email) {
+    // Too lazy to error check.
+    if (!email.subject) {
+      email.subject = '[No subject]';
+    }
+
+    if (!email.message) {
+      email.message = '[No message]';
+    }
+
+    $http.post('/api/courses/' + course._id + '/broadcast', {
+      subject: email.subject,
+      message: email.message
+    }).success(function() {
+      $scope.hideEmailStudentsModal;
+      $scope.emailToAllStudents = {};
+      $rootScope.showGenericErrorModal('Email sent', ['The email was sent ' +
+          'successfully']);
+    }).error(function() {
+      $rootScope.showGenericErrorModal('Error sending email', ['There was an ' +
+          'error sending the email. Please try again later.']);
+    });
+  };
+
 }]);

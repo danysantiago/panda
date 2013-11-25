@@ -133,7 +133,11 @@
         <br>
 
         <div class="row">
-          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <button class="btn btn-primary" ng-click="toggleEmailStudentsModal()" ng-show="course.users.length">
+              Email All Students
+            </button>
+          </div>
           <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Filter" ng-model="qs">
           </div>
@@ -335,6 +339,37 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="hideRepositoryModal()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="emailAllStudentsModal" class="modal fade">
+  <div class="modal-dialog" style="width: 60%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Emailing {{course.users.length}} students</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="courseName">Subject</label>
+            <input name="subject" placeholder="Subject" class="form-control" type="text" ng-model="emailToAllStudents.subject">         
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="courseCode">Message</label>
+            <textArea id="message" name="message" placeholder="Compose" class="form-control" type="text" ng-model="emailToAllStudents.message" rows="15"></textArea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="hideEmailStudentsModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="emailAllStudents(emailToAllStudents)">Send</button>
       </div>
     </div>
   </div>
