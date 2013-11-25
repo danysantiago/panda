@@ -281,11 +281,12 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
       subject: email.subject,
       message: email.message
     }).success(function() {
-      $scope.hideEmailStudentsModal;
+      $scope.hideEmailStudentsModal();
       $scope.emailToAllStudents = {};
       $rootScope.showGenericErrorModal('Email sent', ['The email was sent ' +
           'successfully']);
     }).error(function() {
+      $scope.hideEmailStudentsModal();
       $rootScope.showGenericErrorModal('Error sending email', ['There was an ' +
           'error sending the email. Please try again later.']);
     });
