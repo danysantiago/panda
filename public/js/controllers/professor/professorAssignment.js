@@ -519,5 +519,9 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
   $scope.hideSourceCodeModal = function() {
     $('#sourceCodeModal').modal('hide');
   }
+
+  socket.on('submissionDone', function (data) {
+    refreshUser();
+  });
   
 }]);
