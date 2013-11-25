@@ -130,7 +130,7 @@
                 <td>{{submission.finalVerdict}}</td>
                 <td>{{submission.elapsedTime}}</td>
                 <td>{{submission.score}}/{{submission.totalScore}}
-                  <button class="btn btn-link" ng-click="toggleEditScoreModal(submission)">
+                  <button class="btn btn-link" ng-click="toggleEditScoreModal(submission)" ng-show="submission.canEditScore">
                   <span class="glyphicon glyphicon-pencil"></span>
                   </button>
                 </td>

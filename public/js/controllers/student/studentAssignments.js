@@ -6,14 +6,30 @@ pandaApp.controller('AssignmentsController', ['$scope', 'currentUser', 'User',
     'Course', function($scope, currentUser, User, Course) {
   $scope.user = {};
 
-  User.get({id: currentUser._id, assignments: true}, function(user) {
+  User.get({id: currentUser._id, assignments: true, submissions: true}, function(user) {
     async.forEach(user.assignments, function(assignment, done) {
+      // First cross reference with the submissions
+      assignment.hasBeenCompleted = false;
+      user.submissions.forEach(function(submission) {
+        if (submission.Assignment == assignment._id) {
+          // If a submission is perfect, mark assignment.hasBeenCompleted
+          if (angular.isDefined(submission.totalScore)
+              && angular.isDefined(submission.score)
+              && submission.totalScore <= submission.score) {
+            assignment.hasBeenCompleted = true;
+          }
+        }
+      });
+
       Course.get({id: assignment.Course}, function(course) {
         // put each course in the assignment
         assignment.course = course;
         // For sorting the table:
         assignment.courseName = course.name;
         assignment.courseCode = course.code;
+
+        // After getting the course, also get the submissions.
+
         done();
       }, function() {
         // could not get course...
@@ -22,9 +38,11 @@ pandaApp.controller('AssignmentsController', ['$scope', 'currentUser', 'User',
     }, function() {
       // all done
       var pendingAssignments = user.assignments.filter(function(assignment) {
+        // The date is a condition, but we must also make sure that the
+        // assignment doesn't have a perfect score.
         var date = new Date();
         var deadline = new Date(assignment.deadline);
-        return date <= deadline;
+        return date <= deadline && !assignment.hasBeenCompleted;
       });
 
       $scope.user = user;

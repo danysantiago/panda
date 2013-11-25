@@ -45,6 +45,14 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
       });
     }
     submission.elapsedTime = submissionElapsedTime + ' seconds';
+
+    // Also, for each submission, we need to verify that the professor can
+    // actually change the score in submission.canEditScore.
+    submission.canEditScore =
+        angular.isDefined(submission.finalVerdict)
+        && submission.finalVerdict
+        && submission.finalVerdict.toLowerCase() == 'accepted'
+        || submission.finalVerdict.toLowerCase() == 'wrong answer';
   });
 
   $scope.toggleTestCaseModal = function() {
