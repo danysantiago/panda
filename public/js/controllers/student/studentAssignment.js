@@ -87,7 +87,10 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
       var todaysDate = new Date();
       $scope.studentCanSubmit =
           assignment.submissions.length < assignment.numOfTries
-              && new Date(assignment.deadline) > todaysDate
+          && new Date(assignment.deadline) > todaysDate
+          && angular.isDefined(assignment.TestCases)
+          && assignment.TestCases
+          && assignment.TestCases.length > 0;
 
     }, function() {
       // error getting the assignment... We should blow up now.
