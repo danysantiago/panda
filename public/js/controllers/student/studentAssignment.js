@@ -223,7 +223,7 @@ pandaApp.controller('AssignmentController', ['$scope', 'currentUser', '$http',
   };
 
   $scope.showQuality = function(submission) {
-    $('#qualityBlock').html($rootScope.getPrettyPrint(submission.quality, 'html'));
+    $('#qualityBlock').html($rootScope.getPrettyPrintNL(submission.quality, 'html'));
     $('#qualityModal').modal();
 
   };

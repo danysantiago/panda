@@ -26,7 +26,9 @@ pandaApp.controller('AdminHomeController', ['$scope', 'currentUser', 'users',
     $http.get('/api/submissions')
     .success(function(data) {
 
-      data.forEach(function (submission){ 
+      data.forEach(function (submission){
+        // also add submitDateComparable so that we can sort table by date.
+        submission.submitDateComparable = new Date(submission.submitDate);
         var submissionElapsedTime = 0.0;
         // Failed submissions have no tests.
         if (submission.tests) {
@@ -101,6 +103,24 @@ pandaApp.controller('AdminHomeController', ['$scope', 'currentUser', 'users',
 
   $scope.hideDetailModal = function (submission) {
     $('#detailModal').modal('hide');
+  }
+
+  $scope.showStackTrace = function (trace, rowId) {
+    $scope.currStackTrace = trace.join('\n');
+    $('#stackTraceModal').modal();
+  }
+
+  $scope.hidestackTraceModal = function () {
+    $('#stackTraceModal').modal('hide');
+  }
+
+  $scope.showSourceModal = function (repoId) {
+    $rootScope.initFileSystem(repoId);
+    $('#sourceCodeModal').modal();
+  }
+
+  $scope.hideSourceCodeModal = function () {
+    $('#sourceCodeModal').modal('hide');
   }
 
 }]);

@@ -96,64 +96,32 @@
                 <th class="text-center">
                   Details
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
+                <th class="text-center">
                   Student
-                  <span ng-show="submissionPredicate === 'student'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
+                <th class="text-center">
                   Course
-                  <span ng-show="submissionPredicate === 'student'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('student')">
+                <th class="text-center">
                   Assignment
-                  <span ng-show="submissionPredicate === 'student'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('submitDate')">
+                <th class="text-center">
                   Date Submitted
-                  <span ng-show="submissionPredicate === 'submitDate'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('verdict')">
+                <th class="text-center">
                   Verdict
-                  <span ng-show="submissionPredicate === 'verdict'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('elapsedTime')">
+                <th class="text-center">
                   Elapsed Time
-                  <span ng-show="submissionPredicate === 'elapsedTime'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('score')">
+                <th class="text-center">
                   Score
-                  <span ng-show="submissionPredicate === 'score'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleSubmissionOrder('tests')">
+                <th class="text-center">
                   Test Passed/Tests
-                  <span ng-show="submissionPredicate === 'tests'">
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
-                    <span class="glyphicon glyphicon-chevron-down" ng-hide="submissionReverseOrder"></span>
-                  </span>
                 </th>
               </tr>
-              <tr ng-repeat="submission in submissions | orderBy:submissionPredicate:submissionReverseOrder | filter:qsub">
+              <tr ng-repeat="submission in submissions | filter:qu | orderBy:'submitDateComparable':true">
                 <td><button class="btn btn-link" ng-click="showDetails(submission)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>{{submission.course.code}}</td>
@@ -216,24 +184,30 @@
             <textarea ng-show="detailSubmission.compile.error" class="form-control" rows="6" type="text" disabled>{{detailSubmission.compile.error}}</textarea>
             <hr>
             <p style="font-weight:bold">Test Cases Results</p>
-            <table class="table table-bordered table-hover text-center">
+            <table id="testsTable" class="table table-bordered table-hover text-center">
               <tr>
                 <th class="text-center">#</th>
                 <th class="text-center">Run Class</th>
                 <th class="text-center">Status</th>
                 <th class="text-center">Elapsed Time</th>
                 <th class="text-center">Memory Usage</th>
-                <th class="text-center">CPU Usage</th>
+                <th class="text-center">CPU Usage</th> 
               </tr>
               <tr ng-repeat="test in detailSubmission.tests">
                 <td>{{$index+1}}</td>
                 <td>{{test.mainClassName}}</td>
-                <td>{{test.result.status}}</td>
+                <td>
+                  <div ng-show="test.result.status === 'Runtime Exception'"><button class="btn btn-link" ng-click="showStackTrace(test.result.stackTrace, $index)">{{test.result.status}}</button></div>
+                  <div ng-hide="test.result.status === 'Runtime Exception'">{{test.result.status}}</div>
+                </td>
                 <td>{{test.result['elapsed time']}}</td>
                 <td>{{test.result['memory usage']}}</td>
                 <td>{{test.result['cpu usage']}}</td>
               </tr>
             </table>
+            <hr>
+            <p style="font-weight:bold">Source Code</p>
+            <button class="btn btn-primary" ng-click="showSourceModal(detailSubmission.repo.id)">View Source Code</button>
           </div>
         </div>
       </div>
@@ -244,7 +218,24 @@
   </div><!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="sourceViewerModal" tabindex="-1" role="dialog" aria-labelledby="sourceViewerModal" aria-hidden="true">
+<div class="modal fade" id="stackTraceModal" tabindex="-1" role="dialog" aria-labelledby="stackTraceModal" aria-hidden="true">
+  <div class="modal-dialog" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Stack Trace</h4>
+      </div>
+      <div class="modal-body">
+        <textarea id="stackTraceBlock" class="form-control" rows="20" type="text" disabled>{{currStackTrace}}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hidestackTraceModal()">Done</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="sourceCodeModal" tabindex="-1" role="dialog" aria-labelledby="sourceCodeModal" aria-hidden="true">
   <div class="modal-dialog" style="width: 75%">
     <div class="modal-content">
       <div class="modal-header">
@@ -255,7 +246,7 @@
         <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="hideSourceViewerModal()">Done</button>
+        <button type="button" class="btn btn-primary" ng-click="hideSourceCodeModal()">Done</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

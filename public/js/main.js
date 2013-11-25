@@ -740,6 +740,10 @@ pandaApp.config(['$routeProvider', function($routeProvider) {
     return prettyPrintOne(escapeHtml(data), lang, true)
   }
 
+  $rootScope.getPrettyPrintNL = function (data, lang) {
+    return prettyPrintOne(escapeHtml(data), lang, false)
+  }
+
 }]);
 
 pandaApp.controller('UserController', ['$scope', 'user', 'currentUser',
