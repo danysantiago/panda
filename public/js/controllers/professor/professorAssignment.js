@@ -421,15 +421,15 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     $('#removeTestCaseModal').modal('hide');
   };
 
-  $scope.showRepository = function(repoId) {
-    // wiii
-    $rootScope.initFileSystem(repoId);
-    $('#repositoryModal').modal();
-  };
+  // $scope.showRepository = function(repoId) {
+  //   // wiii
+  //   $rootScope.initFileSystem(repoId);
+  //   $('#repositoryModal').modal();
+  // };
 
-  $scope.hideRepositoryModal = function() {
-    $('#repositoryModal').modal('hide');
-  };
+  // $scope.hideRepositoryModal = function() {
+  //   $('#repositoryModal').modal('hide');
+  // };
 
   var submissionToEdit = null;
   $scope.toggleEditScoreModal = function(submission) {
@@ -492,4 +492,32 @@ pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
       }
     });
   };
+
+  $scope.showDetails = function(submission) {
+    $scope.detailSubmission = submission;
+    $('#detailModal').modal();
+  }
+
+  $scope.hideDetailModal = function(submission) {
+    $('#detailModal').modal('hide');
+  }
+
+  $scope.showStackTrace = function(trace, rowId) {
+    $scope.currStackTrace = trace.join('\n');
+    $('#stackTraceModal').modal();
+  }
+
+  $scope.hidestackTraceModal = function() {
+    $('#stackTraceModal').modal('hide');
+  }
+
+  $scope.showSourceModal = function(repoId) {
+    $rootScope.initFileSystem(repoId);
+    $('#sourceCodeModal').modal();
+  }
+
+  $scope.hideSourceCodeModal = function() {
+    $('#sourceCodeModal').modal('hide');
+  }
+  
 }]);

@@ -78,7 +78,7 @@
             <table class="table table-bordered table-hover text-center">
               <tr>
                 <th class="text-center">
-                  Source
+                  Details
                 </th>
                 <th class="text-center" ng-click="toggleSubmissionOrder('student')">
                   Student
@@ -124,14 +124,16 @@
                 </th>
               </tr>
               <tr ng-repeat="submission in assignment.submissions | orderBy:submissionPredicate:submissionReverseOrder | filter:qsub">
-                <td><button class="btn btn-link" ng-click="showRepository(submission.repo.id)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                <td><button class="btn btn-link" ng-click="showDetails(submission)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>{{submission.submitDate | filterDateTime}}</td>
                 <td>{{submission.finalVerdict}}</td>
                 <td>{{submission.elapsedTime}}</td>
-                <td>{{submission.score}}/{{submission.totalScore}}
-                  <button class="btn btn-link" ng-click="toggleEditScoreModal(submission)" ng-show="submission.canEditScore">
-                  <span class="glyphicon glyphicon-pencil"></span>
+                <td>
+                  <button class="btn btn-link" ng-click="(submission.canEditScore) ? toggleEditScoreModal(submission) : ''">
+                    {{submission.score}}/{{submission.totalScore}}
+                  <span class="glyphicon glyphicon-pencil" ng-show="submission.canEditScore"></span>
+
                   </button>
                 </td>
                 <td>{{submission.acceptedTestCases}}/{{submission.totalTestCases}}</td>
@@ -418,23 +420,6 @@
   </div>
 </div>
 
-<div id="repositoryModal" class="modal fade">
-  <div class="modal-dialog" style="width: 60%">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Source Code Viewer</h4>
-      </div>
-      <div class="modal-body">
-        <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="hideRepositoryModal()">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="modal fade" id="editScoreModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -455,6 +440,90 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="hideEditScoreModal()">Cancel</button>
         <button type="button" class="btn btn-primary" ng-click="editScore(editSubmissionScore)">Edit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p style="font-weight:bold">Compile Info</p>
+            <p>Status: {{detailSubmission.compile.status}}</p>
+            <p>Time: {{detailSubmission.compile.time}}</p>
+            <textarea ng-show="detailSubmission.compile.error" class="form-control" rows="6" type="text" disabled>{{detailSubmission.compile.error}}</textarea>
+            <hr>
+            <p style="font-weight:bold">Test Cases Results</p>
+            <table id="testsTable" class="table table-bordered table-hover text-center">
+              <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Run Class</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Elapsed Time</th>
+                <th class="text-center">Memory Usage</th>
+                <th class="text-center">CPU Usage</th> 
+              </tr>
+              <tr ng-repeat="test in detailSubmission.tests">
+                <td>{{$index+1}}</td>
+                <td>{{test.mainClassName}}</td>
+                <td>
+                  <div ng-show="test.result.status === 'Runtime Exception'"><button class="btn btn-link" ng-click="showStackTrace(test.result.stackTrace, $index)">{{test.result.status}}</button></div>
+                  <div ng-hide="test.result.status === 'Runtime Exception'">{{test.result.status}}</div>
+                </td>
+                <td>{{test.result['elapsed time']}}</td>
+                <td>{{test.result['memory usage']}}</td>
+                <td>{{test.result['cpu usage']}}</td>
+              </tr>
+            </table>
+            <hr>
+            <p style="font-weight:bold">Source Code</p>
+            <button class="btn btn-primary" ng-click="showSourceModal(detailSubmission.repo.id)">View Source Code</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideDetailModal()">Done</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="stackTraceModal" tabindex="-1" role="dialog" aria-labelledby="stackTraceModal" aria-hidden="true">
+  <div class="modal-dialog" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Stack Trace</h4>
+      </div>
+      <div class="modal-body">
+        <textarea id="stackTraceBlock" class="form-control" rows="20" type="text" disabled>{{currStackTrace}}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hidestackTraceModal()">Done</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="sourceCodeModal" tabindex="-1" role="dialog" aria-labelledby="sourceCodeModal" aria-hidden="true">
+  <div class="modal-dialog" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="modalTitle">Source Code Viewer</h4>
+      </div>
+      <div class="modal-body">
+        <ng-include src="'sourceCodeViewerTemplate'"></ng-include>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="hideSourceCodeModal()">Done</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

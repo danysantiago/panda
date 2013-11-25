@@ -199,9 +199,6 @@
             <table class="table table-bordered table-hover text-center">
               <tbody>
               <tr>
-                <th class="text-center">
-                  Source
-                </th>
                 <th class="text-center" ng-click="toggleSubmissionOrder('student')"> Student
                      <span ng-show="submissionPredicate === 'student'">
                       <span class="glyphicon glyphicon-chevron-up" ng-show="submissionReverseOrder"></span>
@@ -248,7 +245,6 @@
               <!-- TODO(samuel): filterByAttributes when we get the submissions
               right -->
               <tr ng-repeat="submission in course.submissions | orderBy:submissionPredicate:submissionReverseOrder | filter:qsub">
-                <td><button class="btn btn-link" ng-click="showRepository(submission.repo.id)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>
                   <a href="/#/p/assignment/{{submission.assignment._id}}">
