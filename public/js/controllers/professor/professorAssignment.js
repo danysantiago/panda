@@ -5,7 +5,7 @@
 pandaApp.controller('ProfessorAssignmentController', ['$scope', 'currentUser',
     'assignment', '$http', 'formDataObject', 'Assignment', '$rootScope',
       'socket', function($scope, currentUser, assignment, $http, formDataObject,
-            Assignment, $rootScope, $socket) {
+            Assignment, $rootScope, socket) {
   $scope.assignment = assignment;
   $scope.isDefined = angular.isDefined;
 
