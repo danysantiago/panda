@@ -58,16 +58,16 @@ pandaApp.controller('LoginController', ['$scope', '$http', 'authService',
       // Try again
       $('#signup-modal').modal('hide');
       $('#signup-modal-error').modal();
-      $scope.newUser.errorMessage =
-          "Please verify the information you have entered.";
+      $scope.newUser.errorMessage.push(
+        "Please verify the information you have entered. ");
       return;
     }
 
     if ($scope.newUser.password.length < 6) {
       $('#signup-modal').modal('hide');
       $('#signup-modal-error').modal();
-      $scope.newUser.errorMessage =
-          "Please verify the information you have entered.";
+      $scope.newUser.errorMessage.push(
+          "Please verify the information you have entered.");
       return;
     }
 
