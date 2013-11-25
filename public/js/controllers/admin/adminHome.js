@@ -11,22 +11,32 @@ pandaApp.controller('AdminHomeController', ['$scope', 'currentUser', 'users',
   $scope.submissions = [];
 
   //Get users (refresh function)
-  var refreshUsers = function (){
+  var refreshUsers;
+  (refreshUsers = function(){
     $http.get('/api/users')
     .success(function(data) {
+      // For each user we need to add the name and numOfRepos for making them
+      // sortable in the user table.
+      data.forEach(function(user) {
+        user.name = user.firstName + ' ' + user.lastName;
+        user.numOfRepos = 0;
+        if (angular.isDefined(user.Repositories) && user.Repositories) {
+          user.numOfRepos = user.Repositories.length;
+        }
+      });
       $scope.users = data;
     }).error(function() {
       //Oh snap!
     });
-  };
+  })();
 
   //Get submissions (refresh function)
   var refreshSubmissions;
-  (refreshSubmissions = function (){
+  (refreshSubmissions = function(){
     $http.get('/api/submissions')
     .success(function(data) {
 
-      data.forEach(function (submission){
+      data.forEach(function(submission){
         // also add submitDateComparable so that we can sort table by date.
         submission.submitDateComparable = new Date(submission.submitDate);
         var submissionElapsedTime = 0.0;
@@ -55,8 +65,8 @@ pandaApp.controller('AdminHomeController', ['$scope', 'currentUser', 'users',
 
   var tabNames = ['usersTab', 'submissionsTab'];
 
-  $scope.showTab = function (view) {
-    tabNames.forEach(function (tabName) {
+  $scope.showTab = function(view) {
+    tabNames.forEach(function(tabName) {
       if(tabName === view) {
         $scope[tabName] = true;
       } else {
@@ -89,38 +99,57 @@ pandaApp.controller('AdminHomeController', ['$scope', 'currentUser', 'users',
     });
   };
 
-  socket.on('submissionStart', function (data) {
+  socket.on('submissionStart', function(data) {
     refreshSubmissions();
   });
-  socket.on('submissionDone', function (data) {
+  socket.on('submissionDone', function(data) {
     refreshSubmissions();
   });
 
-  $scope.showDetails = function (submission) {
+  $scope.showDetails = function(submission) {
     $scope.detailSubmission = submission;
     $('#detailModal').modal();
   }
 
-  $scope.hideDetailModal = function (submission) {
+  $scope.hideDetailModal = function(submission) {
     $('#detailModal').modal('hide');
   }
 
-  $scope.showStackTrace = function (trace, rowId) {
+  $scope.showStackTrace = function(trace, rowId) {
     $scope.currStackTrace = trace.join('\n');
     $('#stackTraceModal').modal();
   }
 
-  $scope.hidestackTraceModal = function () {
+  $scope.hidestackTraceModal = function() {
     $('#stackTraceModal').modal('hide');
   }
 
-  $scope.showSourceModal = function (repoId) {
+  $scope.showSourceModal = function(repoId) {
     $rootScope.initFileSystem(repoId);
     $('#sourceCodeModal').modal();
   }
 
-  $scope.hideSourceCodeModal = function () {
+  $scope.hideSourceCodeModal = function() {
     $('#sourceCodeModal').modal('hide');
   }
 
+  // Code for sorting the user table.
+  var userFieldNames = {'name': false, 'email': false, 'role': false,
+    'gitId': false, 'numOfRepos': false};
+
+  $scope.userPredicate = 'name';
+  $scope.userReverseOrder =
+      userFieldNames[$scope.userPredicate];
+
+  $scope.toggleUserOrder = function(field) {
+    Object.keys(userFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.userPredicate = field;
+        userFieldNames[field] = !userFieldNames[field];
+        $scope.userReverseOrder = userFieldNames[field];
+      } else {
+        userFieldNames[fieldName] = false;
+      }
+    });
+  };
 }]);

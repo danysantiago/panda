@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-md-6"></div>
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Filter" ng-model="qu">
+            <input type="text" class="form-control" placeholder="Filter" ng-model="qUser">
           </div>
         </div>
 
@@ -33,34 +33,49 @@
             <table class="table table-bordered table-hover text-center">
               <tbody>
               <tr>
-                <th class="text-center" ng-click="toggleStudentOrder()"> Name
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                <th class="text-center" ng-click="toggleUserOrder('name')">
+                  Name
+                  <span ng-show="userPredicate === 'name'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="userReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="userReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleStudentOrder()"> Email
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                <th class="text-center" ng-click="toggleUserOrder('email')">
+                  Email
+                  <span ng-show="userPredicate === 'email'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="userReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="userReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleStudentOrder()"> Role
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                <th class="text-center" ng-click="toggleUserOrder('role')">
+                  Role
+                  <span ng-show="userPredicate === 'role'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="userReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="userReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleStudentOrder()"> GitLab ID
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                <th class="text-center" ng-click="toggleUserOrder('gitId')">
+                  GitLab ID
+                  <span ng-show="userPredicate === 'gitId'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="userReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="userReverseOrder"></span>
+                  </span>
                 </th>
-                <th class="text-center" ng-click="toggleStudentOrder()"> Amount of Repos
-                  <span class="glyphicon glyphicon-chevron-down" ng-hide="studentReverseOrder"></span>
-                  <span class="glyphicon glyphicon-chevron-up" ng-show="studentReverseOrder"></span>
+                <th class="text-center" ng-click="toggleUserOrder('numOfRepos')">
+                  Amount of Repos
+                  <span ng-show="userPredicate === 'numOfRepos'">
+                    <span class="glyphicon glyphicon-chevron-down" ng-hide="userReverseOrder"></span>
+                    <span class="glyphicon glyphicon-chevron-up" ng-show="userReverseOrder"></span>
+                  </span>
                 </th>
                 <th></th>
               </tr>
-              <tr ng-repeat="user in users">
+              <tr ng-repeat="user in users | orderBy:userPredicate:userReverseOrder | filter:qUser">
                 <td>{{user.firstName}} {{user.lastName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.role}}</td>
                 <td>{{user.gitId}}</td>
-                <td>{{user.Repositories.length}}</td>
+                <td>{{user.numOfRepos}}</td>
                 <td>
                   <button class="btn btn-link" ng-click="toogleUserDeleteModal(user)" ng-hide="currentUser.email === user.email">
                     <span class="glyphicon glyphicon-trash"></span>
@@ -82,7 +97,7 @@
         <div class="row">
           <div class="col-md-6"></div>
           <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Filter" ng-model="qu">
+            <input type="text" class="form-control" placeholder="Filter" ng-model="quqSub">
           </div>
         </div>
 
@@ -121,7 +136,7 @@
                   Test Passed/Tests
                 </th>
               </tr>
-              <tr ng-repeat="submission in submissions | filter:qu | orderBy:'submitDateComparable':true">
+              <tr ng-repeat="submission in submissions | filter:qSub | orderBy:'submitDateComparable':true">
                 <td><button class="btn btn-link" ng-click="showDetails(submission)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 <td>{{submission.user.firstName}} {{submission.user.lastName}}</td>
                 <td>{{submission.course.code}}</td>
