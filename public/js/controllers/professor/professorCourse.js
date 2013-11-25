@@ -49,6 +49,13 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
         }
         submission.elapsedTime = submissionElapsedTime + ' seconds';
       });
+
+      course.users.forEach(function(user) {
+        // For each user, we need a field called name for sorting them in the
+        // students table.
+        user.name = user.firstName + ' ' + user.lastName;
+      });
+
     }, function() {
       // error getting the course. No idea why
       // TODO(samuel): handle this
@@ -135,6 +142,64 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
 
   
   $scope.editCourse = function () {
+    // Everything here is editable, except the course grader.
+    var errors = {
+      name: false,
+      code: false,
+      year: false,
+      semester: false
+    };
+
+    if (!course.name) {
+      errors.name = true;
+    }
+
+    var coursePattern = /[A-Za-z]{4}[0-9]{4}/;
+    if (!course.code || !course.code.match(coursePattern)) {
+      errors.code = true;
+    }
+
+    if (!course.year || !parseInt(course.year)) {
+      errors.year = true;
+    }
+
+    var semesterPattern = /^fall$|^spring$|^summer$/i;
+    if (!course.semester || !course.semester.match(semesterPattern)) {
+      errors.semester = true;
+    }
+
+    var errorMessages = [];
+    for (var errorType in errors) {
+      if (errors[errorType]) {
+        switch (errorType) {
+          case 'name':
+            errorMessages.push('Enter a valid course name.');
+            break;
+          case 'code':
+            errorMessages.push('Enter a 4 letter and 4 digit course code.');
+            break;
+          case 'year':
+            errorMessages.push('Select a valid year.');
+            break;
+          case 'semester':
+            errorMessages.push('Select a valid session.');
+            break;
+          default:
+            break
+        }
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      // We had errors. Display them and abort.
+      // We are also pretty lazy, so to revert the course information, we just
+      // redownload the course information.
+      $scope.cancelEditCourse();
+      $rootScope.showGenericErrorModal('Invalid course information',
+          errorMessages);
+      return;
+    }
+
     $http.put('/api/courses/' + course._id, {
       name: course.name,
       code: course.code,
@@ -168,6 +233,25 @@ pandaApp.controller('ProfessorCourseController', ['$scope', 'currentUser',
 
   $scope.hideRepositoryModal = function() {
     $('#repositoryModal').modal('hide');
+  };
+
+  // This is the logic for sorting the students table
+  var studentFieldNames = {'name': false, 'email': false};
+
+  $scope.studentPredicate = 'name';
+  $scope.studentReverseOrder =
+      studentFieldNames[$scope.studentPredicate];
+
+  $scope.toggleStudentOrder = function(field) {
+    Object.keys(studentFieldNames).forEach(function(fieldName) {
+      if (fieldName === field) {
+        $scope.studentPredicate = field;
+        studentFieldNames[field] = !studentFieldNames[field];
+        $scope.studentReverseOrder = studentFieldNames[field];
+      } else {
+        studentFieldNames[fieldName] = false;
+      }
+    });
   };
 
 }]);
