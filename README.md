@@ -11,4 +11,11 @@ By:
 
 [Samuel Rodriguez](http://github.com/samus250 "samus250")
 
+License
+=======
+
+No License:
+
+"Because I did not explicitly indicate a license, I declared an implicit copyright without explaining how others could use my code."
+
 
