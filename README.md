@@ -20,6 +20,7 @@ Panda is a code grading system developed during the Fall of 2013 for the Capston
 
 [Project Details Document](https://dl.dropboxusercontent.com/u/17223237/PandaCodeReview%20FinalReport.pdf "Panoda Code Review Final Report")
 -------
+Also has screenshots!
 
 
 
